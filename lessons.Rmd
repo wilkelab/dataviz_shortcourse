@@ -11,14 +11,29 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## Lessons
-
-### 1. Introduction
+## Introduction to Visualizing Data and Storytelling
 
 <p class="nospace">Materials:</p>
 
 - [Slides](slides/introduction.html)  
 
+## From Data to Visualisation
+
+<p class="nospace">Materials:</p>
+
+- in preparation
+
+## Principles of Figure Design
+
+<p class="nospace">Materials:</p>
+
+- in preparation
+
+## Miscellaneous topics 
+
+<p class="nospace">Materials:</p>
+
+- in preparation
 
 ## Reuse {.appendix}
 

@@ -6,15 +6,15 @@
       "description": "A bootcamp-style course on data visualization in R",
       "author": [],
       "contents": "\nThis is the home page for a dataviz shortcourse by Claus O. Wilke.\nThe course is an abbreviated version of a semester-long course taught at\nThe University of Texas at Austin.\nTo run any of the R code examples locally on your own machine, you\nwill need the following:\nA recent version of R, download from here.\nA recent version of RStudio, download\nfrom here.\nThe following R packages:\nbroom, cluster, colorspace, cowplot, distill, gapminder, GGally,\ngganimate, ggiraph, ggdendro, ggdist, ggforce, ggplot2movies, ggrepel,\nggridges, ggthemes, gifski, glue, knitr, learnr, naniar, margins, MASS,\nMatrix, nycflights13, palmerpenguins, patchwork, rgdal, rmarkdown, sf,\ntidyverse, transformr, umap, xaringan\nYou can install all required R packages at once by running the\nfollowing code in the R command line:\n\n\ninstall.packages(\n  c(\n    \"broom\", \"cluster\", \"colorspace\", \"cowplot\", \"distill\", \"gapminder\", \n    \"GGally\", \"gganimate\", \"ggiraph\", \"ggdendro\", \"ggdist\", \"ggforce\",\n    \"ggplot2movies\", \"ggrepel\", \"ggridges\", \"ggthemes\", \"gifski\", \"glue\",\n    \"knitr\", \"learnr\", \"naniar\", \"margins\", \"MASS\", \"Matrix\",\n    \"nycflights13\", \"palmerpenguins\", \"patchwork\", \"rgdal\", \"rmarkdown\",\n    \"sf\", \"tidyverse\", \"transformr\", \"umap\", \"xaringan\"\n  )\n)\n\n\n\nReuse\nText and figures are licensed under Creative Commons Attribution CC BY 4.0. Any\ncomputer code (R, HTML, CSS, etc.) in slides and worksheets, including\nin slide and worksheet sources, is also licensed under MIT. Note that\nfigures in slides may be pulled in from external sources and may be\nlicensed under different terms. For such images, image credits are\navailable in the slide notes, accessible via pressing the letter\n‘p’.\n\n\n\n",
-      "last_modified": "2022-06-07T18:34:24-05:00"
+      "last_modified": "2022-06-07T18:53:17-05:00"
     },
     {
       "path": "lessons.html",
       "title": "Lessons",
       "description": "",
       "author": [],
-      "contents": "\n\nContents\nLessons\nReuse\n\nLessons\n1. Introduction\n\nMaterials:\n\nSlides\nReuse\nText and figures are licensed under Creative Commons Attribution CC BY 4.0. Any\ncomputer code (R, HTML, CSS, etc.) in slides and worksheets, including\nin slide and worksheet sources, is also licensed under MIT. Note that\nfigures in slides may be pulled in from external sources and may be\nlicensed under different terms. For such images, image credits are\navailable in the slide notes, accessible via pressing the letter\n‘p’.\n\n\n\n",
-      "last_modified": "2022-06-07T18:34:25-05:00"
+      "contents": "\n\nContents\nIntroduction\nto Visualizing Data and Storytelling\nFrom Data to\nVisualisation\nPrinciples of Figure\nDesign\nMiscellaneous topics\nReuse\n\nIntroduction\nto Visualizing Data and Storytelling\n\nMaterials:\n\nSlides\nFrom Data to Visualisation\n\nMaterials:\n\nin preparation\nPrinciples of Figure Design\n\nMaterials:\n\nin preparation\nMiscellaneous topics\n\nMaterials:\n\nin preparation\nReuse\nText and figures are licensed under Creative Commons Attribution CC BY 4.0. Any\ncomputer code (R, HTML, CSS, etc.) in slides and worksheets, including\nin slide and worksheet sources, is also licensed under MIT. Note that\nfigures in slides may be pulled in from external sources and may be\nlicensed under different terms. For such images, image credits are\navailable in the slide notes, accessible via pressing the letter\n‘p’.\n\n\n\n",
+      "last_modified": "2022-06-07T18:53:18-05:00"
     }
   ],
   "collections": []
