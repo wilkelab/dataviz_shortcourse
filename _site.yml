@@ -1,0 +1,15 @@
+name: "Dataviz Shortcourse"
+title: "Dataviz Shortcourse"
+description: |
+  Dataviz Shortcourse
+output_dir: "docs"
+theme: "theme.css"
+repository_url: https://github.com/wilkelab/dataviz_shortcourse
+include: [".nojekyll"]
+navbar:
+  source_url: true
+  left:
+    - text: "Lessons"
+      href: lessons.html
+
+output: distill::distill_article
