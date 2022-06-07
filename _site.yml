@@ -12,4 +12,10 @@ navbar:
     - text: "Lessons"
       href: lessons.html
 
+  right:
+    - text: "Slides"
+      menu:
+        - text: "Data visualization and story telling"
+          href: slides/introduction.html
+
 output: distill::distill_article
