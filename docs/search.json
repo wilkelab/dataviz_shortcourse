@@ -6,15 +6,15 @@
       "description": "A bootcamp-style course on data visualization",
       "author": [],
       "contents": "\nThis is the home page for a dataviz shortcourse by Claus O. Wilke.\nThe course is an abbreviated version of a semester-long course taught at\nThe University of Texas at Austin.\n\nReuse\nText and figures are licensed under Creative Commons Attribution CC BY 4.0. Any\ncomputer code (R, HTML, CSS, etc.) in slides and worksheets, including\nin slide and worksheet sources, is also licensed under MIT. Note that\nfigures in slides may be pulled in from external sources and may be\nlicensed under different terms. For such images, image credits are\navailable in the slide notes, accessible via pressing the letter\n‘p’.\n\n\n\n",
-      "last_modified": "2022-06-20T13:44:32-05:00"
+      "last_modified": "2022-06-20T17:17:47-05:00"
     },
     {
       "path": "lessons.html",
       "title": "Lessons",
       "description": "",
       "author": [],
-      "contents": "\n\nContents\nIntroduction\nto Visualizing Data and Storytelling\nFrom Data to\nVisualisation\nPrinciples of Figure\nDesign\nMiscellaneous topics\nReuse\n\nIntroduction\nto Visualizing Data and Storytelling\n\nMaterials:\n\nSlides\nFrom Data to Visualisation\n\nMaterials:\n\nin preparation\nPrinciples of Figure Design\n\nMaterials:\n\nin preparation\nMiscellaneous topics\n\nMaterials:\n\nin preparation\nReuse\nText and figures are licensed under Creative Commons Attribution CC BY 4.0. Any\ncomputer code (R, HTML, CSS, etc.) in slides and worksheets, including\nin slide and worksheet sources, is also licensed under MIT. Note that\nfigures in slides may be pulled in from external sources and may be\nlicensed under different terms. For such images, image credits are\navailable in the slide notes, accessible via pressing the letter\n‘p’.\n\n\n\n",
-      "last_modified": "2022-06-07T18:57:43-05:00"
+      "contents": "\n\nContents\nEffective Visual\nCommunication\nIntroduction\nto Visualizing Data and Storytelling\nFrom Data to\nVisualisation\nPrinciples of Figure\nDesign\nMiscellaneous topics\nReuse\n\nEffective Visual\nCommunication\n\nMaterials:\n\nSlides\nIntroduction\nto Visualizing Data and Storytelling\n\nMaterials:\n\nSlides\nFrom Data to Visualisation\n\nMaterials:\n\nin preparation\nPrinciples of Figure Design\n\nMaterials:\n\nin preparation\nMiscellaneous topics\n\nMaterials:\n\nin preparation\nReuse\nText and figures are licensed under Creative Commons Attribution CC BY 4.0. Any\ncomputer code (R, HTML, CSS, etc.) in slides and worksheets, including\nin slide and worksheet sources, is also licensed under MIT. Note that\nfigures in slides may be pulled in from external sources and may be\nlicensed under different terms. For such images, image credits are\navailable in the slide notes, accessible via pressing the letter\n‘p’.\n\n\n\n",
+      "last_modified": "2022-06-20T17:17:48-05:00"
     }
   ],
   "collections": []

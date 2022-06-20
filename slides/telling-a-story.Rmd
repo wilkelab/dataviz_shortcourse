@@ -1,5 +1,5 @@
 ---
-title: "Telling a story"
+title: "Effective visual communication"
 author: "Claus O. Wilke"
 date: "last updated: `r Sys.Date()`"
 output:

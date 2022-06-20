@@ -11,6 +11,14 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+
+## Effective Visual Communication
+
+<p class="nospace">Materials:</p>
+
+- [Slides](slides/telling-a-story.html)  
+
+
 ## Introduction to Visualizing Data and Storytelling
 
 <p class="nospace">Materials:</p>
