@@ -88,27 +88,27 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_meta_tags-->
   <title>Dataviz Shortcourse</title>
 
-  <meta property="description" itemprop="description" content="A bootcamp-style course on data visualization in R"/>
+  <meta property="description" itemprop="description" content="A bootcamp-style course on data visualization"/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Dataviz Shortcourse"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="A bootcamp-style course on data visualization in R"/>
+  <meta property="og:description" content="A bootcamp-style course on data visualization"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Dataviz Shortcourse"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="Dataviz Shortcourse"/>
-  <meta property="twitter:description" content="A bootcamp-style course on data visualization in R"/>
+  <meta property="twitter:description" content="A bootcamp-style course on data visualization"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","site"]}},"value":[{"type":"character","attributes":{},"value":["Dataviz Shortcourse"]},{"type":"character","attributes":{},"value":["A bootcamp-style course on data visualization in R"]},{"type":"character","attributes":{},"value":["distill::distill_website"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","site"]}},"value":[{"type":"character","attributes":{},"value":["Dataviz Shortcourse"]},{"type":"character","attributes":{},"value":["A bootcamp-style course on data visualization"]},{"type":"character","attributes":{},"value":["distill::distill_website"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2394,7 +2394,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Dataviz Shortcourse","description":"A bootcamp-style course on data visualization in R","authors":[]}
+{"title":"Dataviz Shortcourse","description":"A bootcamp-style course on data visualization","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2431,7 +2431,7 @@ Slides
 <h1>Dataviz Shortcourse</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p>A bootcamp-style course on data visualization in R</p>
+<p>A bootcamp-style course on data visualization</p>
 </div>
 
 
@@ -2440,26 +2440,18 @@ Slides
 The course is an abbreviated version of a <a
 href="https://wilkelab.org/SDS375">semester-long course</a> taught at
 The University of Texas at Austin.</p>
-<p>To run any of the R code examples locally on your own machine, you
-will need the following:</p>
-<ul>
-<li>A recent version of R, <a
-href="https://cloud.r-project.org/">download from here.</a></li>
-<li>A recent version of RStudio, <a
-href="https://rstudio.com/products/rstudio/download/#download">download
-from here.</a></li>
-<li>The following R packages:<br />
-broom, cluster, colorspace, cowplot, distill, gapminder, GGally,
-gganimate, ggiraph, ggdendro, ggdist, ggforce, ggplot2movies, ggrepel,
-ggridges, ggthemes, gifski, glue, knitr, learnr, naniar, margins, MASS,
-Matrix, nycflights13, palmerpenguins, patchwork, rgdal, rmarkdown, sf,
-tidyverse, transformr, umap, xaringan</li>
-</ul>
-<p>You can install all required R packages at once by running the
-following code in the R command line:</p>
+<!--
+To run any of the R code examples locally on your own machine, you will need the following:
+
+- A recent version of R, [download from here.](https://cloud.r-project.org/)
+- A recent version of RStudio, [download from here.](https://rstudio.com/products/rstudio/download/#download)
+- The following R packages:    
+  broom, cluster, colorspace, cowplot, distill, gapminder, GGally, gganimate,  ggiraph, ggdendro, ggdist, ggforce, ggplot2movies, ggrepel, ggridges, ggthemes, gifski, glue, knitr, learnr, naniar, margins, MASS, Matrix, nycflights13, palmerpenguins, patchwork, rgdal, rmarkdown, sf, tidyverse, transformr, umap, xaringan
+
+You can install all required R packages at once by running the following code in the R command line:
+
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span>
   <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
     <span class='st'>"broom"</span>, <span class='st'>"cluster"</span>, <span class='st'>"colorspace"</span>, <span class='st'>"cowplot"</span>, <span class='st'>"distill"</span>, <span class='st'>"gapminder"</span>, 
     <span class='st'>"GGally"</span>, <span class='st'>"gganimate"</span>, <span class='st'>"ggiraph"</span>, <span class='st'>"ggdendro"</span>, <span class='st'>"ggdist"</span>, <span class='st'>"ggforce"</span>,
@@ -2469,9 +2461,11 @@ following code in the R command line:</p>
     <span class='st'>"sf"</span>, <span class='st'>"tidyverse"</span>, <span class='st'>"transformr"</span>, <span class='st'>"umap"</span>, <span class='st'>"xaringan"</span>
   <span class='op'>)</span>
 <span class='op'>)</span>
-</code></pre>
+</code></pre></div>
+
 </div>
-</div>
+
+-->
 <h2 class="appendix" id="reuse">Reuse</h2>
 <p>Text and figures are licensed under Creative Commons Attribution <a
 href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Any

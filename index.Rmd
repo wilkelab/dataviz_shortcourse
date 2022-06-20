@@ -1,6 +1,6 @@
 ---
 title: "Dataviz Shortcourse"
-description: A bootcamp-style course on data visualization in R
+description: A bootcamp-style course on data visualization
 site: distill::distill_website
 ---
 
@@ -17,6 +17,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 This is the home page for a dataviz shortcourse by Claus O. Wilke. The course is an abbreviated version of a [semester-long course](https://wilkelab.org/SDS375) taught at The University of Texas at Austin.
 
+<!--
 To run any of the R code examples locally on your own machine, you will need the following:
 
 - A recent version of R, [download from here.](https://cloud.r-project.org/)
@@ -38,6 +39,7 @@ install.packages(
   )
 )
 ```
+-->
 
 ## Reuse {.appendix}
 
