@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>From Data to Visualization 1</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Claus O. Wilke" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="Wilke-slides-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, title-slide
+
+.title[
+# From Data to Visualization 1
+]
+.author[
+### Claus O. Wilke
+]
+.date[
+### last updated: 2022-06-20
+]
+
+---
+
+
+
+
+
+## We often encounter datasets containing simple amounts
+
+---
+
+## We often encounter datasets containing simple amounts
+
+Example: Highest grossing movies Dec. 2017
+
+&lt;br&gt;
+
+.center[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; rank &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; title &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; amount &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Star Wars &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 71.57 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Jumanji &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 36.17 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Pitch Perfect 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19.93 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Greatest Showman &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.81 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Ferdinand &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.32 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+.tiny-font.absolute-bottom-right[
+Data source: Box Office Mojo
+]
+
+---
+
+## We can visualize amounts with bar plots
+
+&lt;br&gt;
+
+.center.move-up-1em[
+![](data-to-visualization-1_files/figure-html/boxoffice-vertical-1.svg)&lt;!-- --&gt;
+]
+
+---
+
+## Bars can also run horizontally
+
+&lt;br&gt;
+
+.center.move-up-1em[
+![](data-to-visualization-1_files/figure-html/boxoffice-horizontal-1.svg)&lt;!-- --&gt;
+]
+
+---
+
+## Pay attention to the order of the bars
+
+&lt;br&gt;
+
+.center.move-up-1em[
+![](data-to-visualization-1_files/figure-html/boxoffice-horizontal-unordered-1.svg)&lt;!-- --&gt;
+]
+
+---
+
+## Pay attention to the order of the bars
+
+&lt;br&gt;
+
+.center.move-up-1em[
+![](data-to-visualization-1_files/figure-html/boxoffice-horizontal-1.svg)
+]
+
+---
+
+## We can use dots instead of bars
+
+&lt;br&gt;
+
+.center.move-up-1em[
+![](data-to-visualization-1_files/figure-html/boxoffice-dotplot-1.svg)&lt;!-- --&gt;
+]
+
+---
+
+## Dots are preferable if we want to truncate the axes
+
+.center.move-up-1em[
+![](data-to-visualization-1_files/figure-html/Americas-life-expect-1.svg)&lt;!-- --&gt;
+]
+
+---
+
+## Dots are preferable if we want to truncate the axes
+
+.center.move-up-1em[
+![](data-to-visualization-1_files/figure-html/Americas-life-expect-bad1-1.svg)&lt;!-- --&gt;
+]
+
+.absolute-bottom-right[
+bar lengths do&lt;br&gt;not accurately&lt;br&gt;represent the&lt;br&gt;data values
+]
+
+---
+
+## Dots are preferable if we want to truncate the axes
+
+.center.move-up-1em[
+![](data-to-visualization-1_files/figure-html/Americas-life-expect-bad2-1.svg)&lt;!-- --&gt;
+]
+
+.absolute-bottom-right[
+key features&lt;br&gt;of the data&lt;br&gt;are obscured
+]
+
+
+---
+
+## Dots are preferable if we want to truncate the axes
+
+.center.move-up-1em[
+![](data-to-visualization-1_files/figure-html/Americas-life-expect-1.svg)
+]
+
+---
+
+## We use grouped bars for higher-dimensional datasets
+
+--
+
+&lt;br&gt;
+
+.center.move-up-1em[
+![](data-to-visualization-1_files/figure-html/income-by-age-race-dodged-1.svg)&lt;!-- --&gt;
+]
+
+.absolute-bottom-right[
+Data source: United States Census Bureau, 2016
+]
+
+---
+
+## We are free to choose by which variable to group
+
+&lt;br&gt;
+
+.center[
+![](data-to-visualization-1_files/figure-html/income-by-race-age-dodged-1.svg)&lt;!-- --&gt;
+]
+
+.absolute-bottom-right[
+Data source: United States Census Bureau, 2016
+]
+
+---
+
+## We can also use multiple plot panels (facets)
+
+.center[
+![](data-to-visualization-1_files/figure-html/income-by-age-race-faceted-1.svg)&lt;!-- --&gt;
+]
+
+.absolute-bottom-right[
+Data source: United States Census Bureau, 2016
+]
+
+---
+
+
+class: center middle
+
+## Histograms and density plots
+
+---
+
+## Passengers on the Titanic
+
+.center.small-font[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; age &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; sex &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; class &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; survived &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 0.17 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3rd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 0.33 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3rd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; died &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 0.80 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2nd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 0.83 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2nd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 0.83 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3rd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 0.92 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1st &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2nd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3rd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2nd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2nd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; age &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; sex &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; class &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; survived &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3rd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1.5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3rd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; died &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1.5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3rd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; died &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2.0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1st &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; died &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2.0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2nd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2.0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3rd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; died &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2.0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3rd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; died &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2.0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2nd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2.0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2nd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2.0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2nd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; age &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; sex &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; class &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; survived &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2nd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3rd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2nd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2nd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3rd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3rd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2nd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2nd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3rd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3rd &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; survived &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+
+## Histogram: Define bins and count cases
+
+
+
+.pull-left.small-font[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; age range &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; count &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 0–5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 36 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 6–10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 11–15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 16–20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 99 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 21–25 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 139 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 26–30 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 121 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 31–35 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 76 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 36–40 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 74 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; age range &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; count &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 41–45 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 54 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 46–50 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 50 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 51–55 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 26 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 56–60 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 61–65 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 66–70 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 71–75 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 76–80 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+--
+
+.pull-right[
+![](data-to-visualization-1_files/figure-html/titanic-age-hist-1.svg)&lt;!-- --&gt;
+]
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+# Histograms depend on the chosen bin width
+
+.center[
+![](data-to-visualization-1_files/figure-html/titanic-age-hist-binwidth-1.svg)&lt;!-- --&gt;
+]
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+
+## Alternative to histogram: Kernel density estimate (KDE)
+
+.pull-left[
+![](data-to-visualization-1_files/figure-html/titanic-age-hist2-1.svg)&lt;!-- --&gt;
+]
+
+--
+
+.pull-right[
+![](data-to-visualization-1_files/figure-html/titanic-age-kde-1.svg)&lt;!-- --&gt;
+]
+
+--
+
+Histograms show raw counts, KDEs show proportions. (Total area = 1)
+
+???
+
+Figures redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+
+## KDEs also depend on parameter settings
+
+.center[
+![](data-to-visualization-1_files/figure-html/titanic-age-kde-grid-1.svg)&lt;!-- --&gt;
+]
+
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+
+## Careful: Are bars stacked or overlapping?
+
+.pull-left[
+![](data-to-visualization-1_files/figure-html/titanic-age-hist-stacked-1.svg)&lt;!-- --&gt;
+]
+
+--
+
+.pull-right[
+![](data-to-visualization-1_files/figure-html/titanic-age-hist-overlap-1.svg)&lt;!-- --&gt;
+]
+
+--
+
+Stacked or overlapping histograms are rarely a good choice.
+
+???
+
+Figures redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Alternatively: Age pyramid
+
+.center[
+![](data-to-visualization-1_files/figure-html/titanic-age-pyramid-1.svg)&lt;!-- --&gt;
+]
+
+???
+
+Figures redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## What if we want to show more than two distributions?
+
+.pull-left.small-font[
+Mean temperatures in Lincoln, NE, in January 2016:
+
+.center[
+
+|date       | mean temp|
+|:----------|---------:|
+|2016-01-01 |        24|
+|2016-01-02 |        23|
+|2016-01-03 |        23|
+|2016-01-04 |        17|
+|2016-01-05 |        29|
+|2016-01-06 |        33|
+|2016-01-07 |        30|
+|2016-01-08 |        25|
+|2016-01-09 |         9|
+|2016-01-10 |        11|
+|2016-01-11 |        28|
+|2016-01-12 |        24|
+|2016-01-13 |        33|
+|2016-01-14 |        40|
+|2016-01-15 |        29|
+|2016-01-16 |        19|
+|2016-01-17 |         5|
+|2016-01-18 |        11|
+|2016-01-19 |        22|
+|2016-01-20 |        28|
+|2016-01-21 |        25|
+|2016-01-22 |        22|
+|2016-01-23 |        28|
+|2016-01-24 |        30|
+|2016-01-25 |        26|
+|2016-01-26 |        29|
+|2016-01-27 |        33|
+|2016-01-28 |        41|
+|2016-01-29 |        41|
+|2016-01-30 |        39|
+|2016-01-31 |        35|
+]]
+
+--
+
+.pull-right[
+![](data-to-visualization-1_files/figure-html/temps_densities_january-1.svg)&lt;!-- --&gt;
+]
+
+---
+
+
+## What if we want to show more than two distributions?
+
+.pull-left.small-font[
+Mean temperatures in Lincoln, NE, in January 2016:
+
+.center[
+
+|date       | mean temp|
+|:----------|---------:|
+|2016-01-01 |        24|
+|2016-01-02 |        23|
+|2016-01-03 |        23|
+|2016-01-04 |        17|
+|2016-01-05 |        29|
+|2016-01-06 |        33|
+|2016-01-07 |        30|
+|2016-01-08 |        25|
+|2016-01-09 |         9|
+|2016-01-10 |        11|
+|2016-01-11 |        28|
+|2016-01-12 |        24|
+|2016-01-13 |        33|
+|2016-01-14 |        40|
+|2016-01-15 |        29|
+|2016-01-16 |        19|
+|2016-01-17 |         5|
+|2016-01-18 |        11|
+|2016-01-19 |        22|
+|2016-01-20 |        28|
+|2016-01-21 |        25|
+|2016-01-22 |        22|
+|2016-01-23 |        28|
+|2016-01-24 |        30|
+|2016-01-25 |        26|
+|2016-01-26 |        29|
+|2016-01-27 |        33|
+|2016-01-28 |        41|
+|2016-01-29 |        41|
+|2016-01-30 |        39|
+|2016-01-31 |        35|
+]]
+
+.pull-right[
+![](data-to-visualization-1_files/figure-html/temps_densities_january2-1.svg)&lt;!-- --&gt;
+
+How can we compare distributions across months?
+]
+
+
+---
+
+## A bad idea: Many overlapping density plots
+
+.center[
+![](data-to-visualization-1_files/figure-html/temps_densities_overlapping-1.svg)&lt;!-- --&gt;
+]
+
+---
+
+## Another bad idea: Stacked density plots
+
+.center[
+![](data-to-visualization-1_files/figure-html/temps_densities_stacked-1.svg)&lt;!-- --&gt;
+]
+
+---
+
+## Somewhat better: Small multiples
+
+.center[
+![](data-to-visualization-1_files/figure-html/temps_densities-1.svg)&lt;!-- --&gt;
+]
+
+---
+
+## Instead: Show values along y, conditions along x
+   
+.center[
+![](data-to-visualization-1_files/figure-html/temps_boxplots-1.svg)&lt;!-- --&gt;
+]
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+--
+
+A boxplot is a crude way of visualizing a distribution.
+
+---
+
+## How to read a boxplot
+
+.center[
+![](data-to-visualization-1_files/figure-html/boxplot-schematic-1.svg)&lt;!-- --&gt;
+]
+
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## If you like density plots, consider violins
+   
+.center[
+![](data-to-visualization-1_files/figure-html/temps_violins-1.svg)&lt;!-- --&gt;
+]
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+--
+
+A violin plot is a density plot rotated 90 degrees and then mirrored.
+
+---
+
+## How to read a violin plot
+
+.center[
+![](data-to-visualization-1_files/figure-html/violin-schematic-1.svg)&lt;!-- --&gt;
+]
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## For small datasets, you can also use a strip chart
+
+Advantage: Can see raw data points instead of abstract representation.
+
+.center[
+![](data-to-visualization-1_files/figure-html/temps_stripchart-1.svg)&lt;!-- --&gt;
+]
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+--
+
+Horizontal jittering may be necessary to avoid overlapping points.
+
+---
+
+## For small datasets, you can also use a strip chart
+
+Advantage: Can see raw data points instead of abstract representation.
+
+.center[
+![](data-to-visualization-1_files/figure-html/temps_stripchart2-1.svg)&lt;!-- --&gt;
+]
+
+Horizontal jittering may be necessary to avoid overlapping points.
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## For small datasets, you can also use a strip chart
+
+Advantage: Can see raw data points instead of abstract representation.
+
+.center[
+![](data-to-visualization-1_files/figure-html/temps_stripchart3-1.svg)&lt;!-- --&gt;
+]
+
+Horizontal jittering may be necessary to avoid overlapping points.
+
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## We can also jitter points into violins
+   
+.center[
+![](data-to-visualization-1_files/figure-html/temps_sina-1.svg)&lt;!-- --&gt;
+]
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+--
+
+Such plots are called sina plots, to honor [Sina Hadi Sohi.](https://clauswilke.com/dataviz/boxplots-violins.html#fig:lincoln-temp-sina)
+
+---
+
+## And the final option, a ridgeline plot
+
+.center[
+![](data-to-visualization-1_files/figure-html/lincoln-ridgeline-polished-1.svg)&lt;!-- --&gt;
+]
+
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+--
+
+Notice the single fill color. More colors would be distracting. 
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"slideNumberFormat": ""
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 <p class="nospace">Materials:</p>
 
-- [Slides](slides/telling-a-story.html)  
+- [Slides](slides/effective-communication.html)  
 
 
 ## Introduction to Visualizing Data and Storytelling

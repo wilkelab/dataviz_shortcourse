@@ -42,7 +42,7 @@ tech_stocks <- read_csv(here("datasets", "tech_stocks.csv")) %>%
 
 --
 
-<img src = "telling-a-story_files/cowplot-logo.svg", width = 30%, style = "position:absolute; top: 22%; left: 13%;"></img>
+<img src = "effective-communication_files/cowplot-logo.svg", width = 30%, style = "position:absolute; top: 22%; left: 13%;"></img>
 
 --
 
@@ -70,7 +70,7 @@ Opening
 --
 
 .center[
-<img src = "telling-a-story_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"></img>
+<img src = "effective-communication_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"></img>
 
 Challenge
 ]
@@ -78,7 +78,7 @@ Challenge
 --
 
 .center[
-<img src = "telling-a-story_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"></img>
+<img src = "effective-communication_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"></img>
 
 Action
 ]
@@ -86,7 +86,7 @@ Action
 --
 
 .center[
-<img src = "telling-a-story_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"></img>
+<img src = "effective-communication_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"></img>
 
 Resolution
 ]
@@ -100,19 +100,19 @@ Opening
 ]
 
 .center[
-<img src = "telling-a-story_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"></img>
+<img src = "effective-communication_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"></img>
 
 .highlight[Challenge]
 ]
 
 .center[
-<img src = "telling-a-story_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"></img>
+<img src = "effective-communication_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"></img>
 
 Action
 ]
 
 .center[
-<img src = "telling-a-story_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"></img>
+<img src = "effective-communication_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"></img>
 
 .highlight[Resolution]
 ]
@@ -155,7 +155,7 @@ Action
 --
 
 .center[
-<img src = "telling-a-story_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"></img>
+<img src = "effective-communication_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"></img>
 
 Background
 ]
@@ -163,7 +163,7 @@ Background
 --
 
 .center[
-<img src = "telling-a-story_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"></img>
+<img src = "effective-communication_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"></img>
 
 Development
 ]
@@ -171,7 +171,7 @@ Development
 --
 
 .center[
-<img src = "telling-a-story_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"></img>
+<img src = "effective-communication_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"></img>
 
 Climax
 ]
@@ -179,7 +179,7 @@ Climax
 --
 
 .center[
-<img src = "telling-a-story_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"></img>
+<img src = "effective-communication_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"></img>
 
 Ending
 ]
@@ -230,7 +230,7 @@ Lead
 --
 
 .center[
-<img src = "telling-a-story_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"></img>
+<img src = "effective-communication_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"></img>
 
 Development
 ]
@@ -651,7 +651,7 @@ Iris virginica and Iris versicolor are difficult to tell apart
 
 <div class = "move-up-1em" style = "width: 50%; box-shadow: 3px 5px 3px 1px #00000080; padding: 8px;">
 .small-font[Original]<br>
-<img src = "telling-a-story_files/iris-scatter-one-shape-edited.png", width = 100%></img>
+<img src = "effective-communication_files/iris-scatter-one-shape-edited.png", width = 100%></img>
 </div>
 
 ???
