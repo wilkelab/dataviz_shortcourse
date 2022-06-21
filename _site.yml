@@ -15,7 +15,13 @@ navbar:
   right:
     - text: "Slides"
       menu:
-        - text: "Data visualization and story telling"
-          href: slides/introduction.html
+        - text: "Effective Visual Communication"
+          href: slides/effective-communication.html
+        - text: "From Data to Visualisation 1"
+          href: slides/data-to-visualization-1.html
+        - text: "From Data to Visualisation 2"
+          href: slides/data-to-visualization-2.html
+        - text: "Principles of Figure Design"
+          href: slides/figure-design.html
 
 output: distill::distill_article
