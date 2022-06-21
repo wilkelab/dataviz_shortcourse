@@ -14,34 +14,35 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Effective Visual Communication
 
+How to tell a story; prepare figures that make a point; make your figures accessible 
+
 <p class="nospace">Materials:</p>
 
 - [Slides](slides/effective-communication.html)  
 
+## From Data to Visualisation 1
 
-## Introduction to Visualizing Data and Storytelling
-
-<p class="nospace">Materials:</p>
-
-- [Slides](slides/introduction.html)  
-
-## From Data to Visualisation
+Visualizing amounts; visualizing distributions; visualizing associations and trends
 
 <p class="nospace">Materials:</p>
 
-- in preparation
+- [Slides](slides/data-to-visualization-1.html)
 
-## Principles of Figure Design
+## From Data to Visualisation 2
 
-<p class="nospace">Materials:</p>
-
-- in preparation
-
-## Miscellaneous topics 
+Visualizing uncertainty; visualizing geospatial data
 
 <p class="nospace">Materials:</p>
 
-- in preparation
+- [Slides](slides/data-to-visualization-2.html)
+
+## Principles of Figure Design 
+
+Colors; compound figures; infographics
+
+<p class="nospace">Materials:</p>
+
+- [Slides](slides/figure-design.html)
 
 ## Reuse {.appendix}
 

@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Principles of Figure Design</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Claus O. Wilke" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="Wilke-slides-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, title-slide
+
+.title[
+# Principles of Figure Design
+]
+.author[
+### Claus O. Wilke
+]
+.date[
+### last updated: 2022-06-21
+]
+
+---
+
+
+
+
+
+# Uses of color in data visualization
+
+--
+
+&lt;table style = "border: none; line-height: 2.5;"&gt;
+&lt;tr style = "background: white;"&gt;
+&lt;td style = "text-align: left; width: 50%;"&gt;
+1. Distinguish categories (qualitative)
+&lt;/td&gt;
+&lt;td&gt;
+&lt;img src = "figure-design_files/qualitative.png" width = 100% style = "text-align: right; vertical-align: middle;"&gt;&lt;/img&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+
+--
+
+&lt;tr style = "background: white;"&gt;
+&lt;td style = "text-align: left;"&gt;
+2. Represent numeric values (sequential)
+&lt;/td&gt;
+&lt;td&gt;
+&lt;img src = "figure-design_files/sequential.png" width = 100% style = "text-align: right; vertical-align: middle"&gt;&lt;/img&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+
+--
+
+&lt;tr style = "background: white;"&gt;
+&lt;td style = "text-align: left;"&gt;
+3. Represent numeric values (diverging)
+&lt;/td&gt;
+&lt;td&gt;
+&lt;img src = "figure-design_files/diverging.png" width = 100% style = "text-align: right; vertical-align: middle"&gt;&lt;/img&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+
+--
+
+&lt;tr style = "background: white;"&gt;
+&lt;td style = "text-align: left;"&gt;
+4. Highlight
+&lt;/td&gt;
+&lt;td&gt;
+&lt;img src = "figure-design_files/highlight.png" width = 100% style = "text-align: right; vertical-align: middle"&gt;&lt;/img&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+
+---
+
+# 1. Distinguish categories (qualitative)
+
+&lt;img src = "figure-design_files/qualitative.png" width = 100%&gt;&lt;/img&gt;
+
+---
+
+# Qualitative scale example
+
+.center.nogap[
+![](figure-design_files/figure-html/popgrowth-vs-popsize-colored-1.svg)&lt;!-- --&gt;
+]
+
+Palette name: Okabe-Ito
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+# Qualitative scale example
+
+.center.nogap[
+![](figure-design_files/figure-html/popgrowth-vs-popsize-colored2-1.svg)&lt;!-- --&gt;
+]
+
+Palette name: ColorBrewer Set1
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+# Qualitative scale example
+
+.center.nogap[
+![](figure-design_files/figure-html/popgrowth-vs-popsize-colored3-1.svg)&lt;!-- --&gt;
+]
+
+Palette name: ColorBrewer Set3
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+# 2. Represent numeric values (sequential)
+
+&lt;img src = "figure-design_files/sequential.png" width = 100%&gt;&lt;/img&gt;
+
+
+---
+
+# Sequential scale example
+
+&lt;br&gt;
+
+.center[
+![](figure-design_files/figure-html/four-locations-temps-by-month-1.svg)&lt;!-- --&gt;
+]
+
+Palette name: Viridis
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+# Sequential scale example
+
+&lt;br&gt;
+
+.center[
+![](figure-design_files/figure-html/four-locations-temps-by-month2-1.svg)&lt;!-- --&gt;
+]
+
+Palette name: Inferno
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+# Sequential scale example
+
+&lt;br&gt;
+
+.center[
+![](figure-design_files/figure-html/four-locations-temps-by-month3-1.svg)&lt;!-- --&gt;
+]
+
+Palette name: Cividis
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+# 3. Represent numeric values (diverging)
+
+&lt;img src = "figure-design_files/diverging.png" width = 100%&gt;&lt;/img&gt;
+
+---
+
+# Diverging scale example
+
+.center.nogap[
+![](figure-design_files/figure-html/forensic-correlations1-1.svg)&lt;!-- --&gt;
+]
+
+Palette name: ColorBrewer PiYG
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+# Diverging scale example
+
+.center.nogap[
+![](figure-design_files/figure-html/forensic-correlations2-1.svg)&lt;!-- --&gt;
+]
+
+Palette name: Carto Earth
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+# Diverging scale example
+
+.center.nogap[
+![](figure-design_files/figure-html/forensic-correlations3-1.svg)&lt;!-- --&gt;
+]
+
+Palette name: Blue-Red
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+# 4. Highlight
+
+&lt;img src = "figure-design_files/highlight.png" width = 100%&gt;&lt;/img&gt;
+
+---
+
+# Highlight example
+
+.center[
+![](figure-design_files/figure-html/Aus-athletes-track-1.svg)&lt;!-- --&gt;
+]
+
+Palette name: Grays with accents
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+# Highlight example
+
+.center[
+![](figure-design_files/figure-html/Aus-athletes-track2-1.svg)&lt;!-- --&gt;
+]
+
+Palette name: Okabe-Ito accent
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+# Highlight example
+
+.center[
+![](figure-design_files/figure-html/Aus-athletes-track3-1.svg)&lt;!-- --&gt;
+]
+
+Palette name: ColorBrewer accent
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+# Uses of color in data visualization
+
+&lt;table style = "border: none; line-height: 2.5;"&gt;
+&lt;tr style = "background: white;"&gt;
+&lt;td style = "text-align: left; width: 50%;"&gt;
+1. Distinguish categories (qualitative)
+&lt;/td&gt;
+&lt;td&gt;
+&lt;img src = "figure-design_files/qualitative.png" width = 100% style = "text-align: right; vertical-align: middle;"&gt;&lt;/img&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr style = "background: white;"&gt;
+&lt;td style = "text-align: left;"&gt;
+2. Represent numeric values (sequential)
+&lt;/td&gt;
+&lt;td&gt;
+&lt;img src = "figure-design_files/sequential.png" width = 100% style = "text-align: right; vertical-align: middle"&gt;&lt;/img&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr style = "background: white;"&gt;
+&lt;td style = "text-align: left;"&gt;
+3. Represent numeric values (diverging)
+&lt;/td&gt;
+&lt;td&gt;
+&lt;img src = "figure-design_files/diverging.png" width = 100% style = "text-align: right; vertical-align: middle"&gt;&lt;/img&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr style = "background: white;"&gt;
+&lt;td style = "text-align: left;"&gt;
+4. Highlight
+&lt;/td&gt;
+&lt;td&gt;
+&lt;img src = "figure-design_files/highlight.png" width = 100% style = "text-align: right; vertical-align: middle"&gt;&lt;/img&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+
+---
+
+
+## Compound figures
+
+--
+
+Two common scenarios:
+
+--
+
+1\. The same type of plot is replicated many times (small multiples)
+
+--
+
+2\. Several disparate plots are combined into one display
+
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/titanic-passenger-breakdown-1.png")
+background-position: left 50% top 60%
+background-size: 45%
+
+## 1. Small multiples (facets)
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/balance_data_context_files/figure-html/titanic-survival-by-gender-class-bad-1.png")
+background-position: left 50% top 60%
+background-size: 45%
+
+## 1. Small multiples (facets)
+
+.absolute-bottom-left[
+Avoid bars or other elements that are floating in space
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/balance_data_context_files/figure-html/titanic-survival-by-gender-class-1.png")
+background-position: left 50% top 60%
+background-size: 45%
+
+## 1. Small multiples (facets)
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+class: center middle
+
+## Small multiples work even for massive amounts of data
+
+---
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/movie-rankings-1.png")
+background-position: left 50% top 60%
+background-size: 45%
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-variable-y-lims-1.png")
+background-position: left 50% top 70%
+background-size: 50%
+
+## y-axis ranges should be consistent among panels
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-fixed-y-lims-1.png")
+background-position: left 50% top 70%
+background-size: 50%
+
+## y-axis ranges should be consistent among panels
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-compound-1.png")
+background-position: left 50% top 55%
+background-size: 75%
+
+## 2. Combining disparate figures into one display
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+--
+
+.absolute-bottom-left[
+Note: We now need plot labels (a), (b) to identify sub-plots
+]
+
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-compound-bad-1.png")
+background-position: left 50% top 55%
+background-size: 75%
+
+## Don't use overly large or otherwise prominent labels
+
+.absolute-bottom-left[
+Note: Also don't use serif fonts (such as Times) for labels
+]
+
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-good-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Use a consistent color language among sub-plots
+
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-inconsistent-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Use a consistent color language among sub-plots
+
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-good-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Pay attention to sub-plot alignment
+
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-misaligned-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Pay attention to sub-plot alignment
+
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-good-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Combine plots of different types
+
+
+.absolute-bottom-left[
+This helps your readers to distinguish different parts of the analysis 
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/telling_a_story_files/figure-html/athletes-composite-repetitive-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Combine plots of different types
+
+
+.absolute-bottom-left[
+This helps your readers to distinguish different parts of the analysis 
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-good-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Combine plots of different types
+
+
+.absolute-bottom-left[
+This helps your readers to distinguish different parts of the analysis 
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+
+---
+
+## Distinguish infographics from figures in article/book
+
+There are two distinct use cases:
+
+--
+
+**Infographic:** Standalone, has title/subtitle/caption
+
+--
+
+**Figure in article/book:** Caption contains title, not part of figure
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/figure_titles_captions_files/figure-html/corruption-development-infographic-1.png")
+background-position: left 50% top 45%
+background-size: 50%
+
+.absolute-bottom-left[
+Example of infographic
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/figure_titles_captions_files/figure-html/corruption-development-1.png")
+background-position: left 15% top 40%
+background-size: 50%
+
+.pull-right.width-35.move-down-2em.small-font[
+Figure 1. **Corruption and human development.** The most developed countries experience the least corruption. Inspired by a posting in [The Economist online (2011)](https://www.economist.com/graphic-detail/2011/12/02/corrosive-corruption). Data sources: Transparency International &amp; UN Human Development Report.
+]
+
+.absolute-bottom-left[
+Example of figure in article or book
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"slideNumberFormat": ""
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
