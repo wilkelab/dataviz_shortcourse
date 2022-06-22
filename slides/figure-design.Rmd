@@ -844,3 +844,11 @@ Example of figure in article or book
 
 Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
 
+---
+
+## Further reading
+
+Relevant chapters from Fundamentals of Data Visualization:
+- [Chapter 4: Color scales](https://clauswilke.com/dataviz/color-basics.html)
+- [Chapter 21: Multi-panel figures](https://clauswilke.com/dataviz/multi-panel-figures.html)
+- [Chapter 22: Titles, captions, and tables](https://clauswilke.com/dataviz/figure-titles-captions.html)

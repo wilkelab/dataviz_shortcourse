@@ -6,7 +6,7 @@
       "description": "A bootcamp-style course on data visualization",
       "author": [],
       "contents": "\nThis is the home page for a dataviz shortcourse by Claus O. Wilke.\nThe course is an abbreviated version of a semester-long course taught at\nThe University of Texas at Austin.\n\nReuse\nText and figures are licensed under Creative Commons Attribution CC BY 4.0. Any\ncomputer code (R, HTML, CSS, etc.) in slides and worksheets, including\nin slide and worksheet sources, is also licensed under MIT. Note that\nfigures in slides may be pulled in from external sources and may be\nlicensed under different terms. For such images, image credits are\navailable in the slide notes, accessible via pressing the letter\n‘p’.\n\n\n\n",
-      "last_modified": "2022-06-21T17:03:18-05:00"
+      "last_modified": "2022-06-22T17:42:59-05:00"
     },
     {
       "path": "lessons.html",
@@ -14,7 +14,7 @@
       "description": "",
       "author": [],
       "contents": "\n\nContents\nEffective Visual\nCommunication\nFrom Data to Visualisation\n1\nFrom Data to Visualisation\n2\nPrinciples of Figure\nDesign\nReuse\n\nEffective Visual\nCommunication\nHow to tell a story; prepare figures that make a point; make your\nfigures accessible\n\nMaterials:\n\nSlides\nFrom Data to Visualisation 1\nVisualizing amounts; visualizing distributions; visualizing\nassociations and trends\n\nMaterials:\n\nSlides\nFrom Data to Visualisation 2\nVisualizing uncertainty; visualizing geospatial data\n\nMaterials:\n\nSlides\nPrinciples of Figure Design\nColors; compound figures; infographics\n\nMaterials:\n\nSlides\nReuse\nText and figures are licensed under Creative Commons Attribution CC BY 4.0. Any\ncomputer code (R, HTML, CSS, etc.) in slides and worksheets, including\nin slide and worksheet sources, is also licensed under MIT. Note that\nfigures in slides may be pulled in from external sources and may be\nlicensed under different terms. For such images, image credits are\navailable in the slide notes, accessible via pressing the letter\n‘p’.\n\n\n\n",
-      "last_modified": "2022-06-21T17:03:18-05:00"
+      "last_modified": "2022-06-22T17:43:00-05:00"
     }
   ],
   "collections": []

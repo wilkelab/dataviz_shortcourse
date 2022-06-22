@@ -935,3 +935,11 @@ Location of individual wind turbines in the Shiloh Wind Farm
 ???
 
 Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Further reading
+
+Relevant chapters from Fundamentals of Data Visualization:
+- [Chapter 15: Visualizing geospatial data](https://clauswilke.com/dataviz/geospatial-data.html)
+- [Chapter 16: Visualizing uncertainty](https://clauswilke.com/dataviz/visualizing-uncertainty.html)

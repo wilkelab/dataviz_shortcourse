@@ -38,6 +38,9 @@ titanic <- read_csv(here("datasets", "titanic.csv")) %>%
   arrange(age, sex, class)
 
 lincoln_temps <- readRDS(here("datasets", "lincoln_temps.rds"))
+
+blue_jays <- read_csv(here("datasets", "blue_jays.csv"))
+hpi_trends <- read_csv(here("datasets", "hpi_trends.csv"))
 ```
 
 
@@ -1091,3 +1094,465 @@ Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reill
 
 Notice the single fill color. More colors would be distracting. 
 
+---
+
+
+## We visualize associations with scatter plots
+
+.center[
+```{r blue-jays-scatter, echo = FALSE, message = FALSE, fig.width = 6, fig.asp = 3.2/4, dev = "svg"}
+blue_jays %>%
+  ggplot(aes(body_mass_g, head_length_mm)) + 
+  geom_point(aes(fill = "blue jay birds"), pch = 21, color = "white", size = 2.5) +
+  scale_fill_manual(
+    values = c(`blue jay birds` = "black", `regression line` = "black"),
+    limits = c("blue jay birds"),
+    name = NULL,
+    guide = guide_legend(
+      direction = "horizontal",
+      override.aes = list(
+        size = 2.5,
+        linetype = 0
+      )
+    )
+  ) +
+  scale_color_manual(
+    values = c(`blue jay birds` = "black", `regression line` = "black"),
+    limits = c("blue jay birds"),
+    name = NULL
+  ) +
+  scale_x_continuous(name = "body mass (g)", limits = c(58.7, 81.6)) +
+  scale_y_continuous(name = "head length (mm)", limits = c(51.5, 60.8)) +
+  theme_minimal_grid() +
+  theme(
+    legend.position = "top",
+    legend.justification = "right",
+    legend.box.spacing = unit(3.5, "pt"), # distance between legend and plot
+    legend.text = element_text(vjust = 0.6),
+    legend.spacing.x = unit(2, "pt"),
+    legend.background = element_rect(fill = "white", color = NA),
+    legend.key.width = unit(10, "pt")
+  )
+```
+]
+
+???
+
+Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## We visualize associations with scatter plots
+
+.center[
+```{r blue-jays-scatter-line-sex, echo = FALSE, message = FALSE, fig.width = 6, fig.asp = 3.2/4, dev = "svg"}
+blue_jays %>%
+  ggplot(aes(body_mass_g, head_length_mm)) + 
+  geom_point(aes(fill = sex), pch = 21, color = "white", size = 2.5) +
+  #geom_smooth(method = "lm", size = 0.75, se = FALSE, color = "black", fullrange = TRUE) +
+  scale_x_continuous(name = "body mass (g)", limits = c(58.7, 81.6)) +
+  scale_y_continuous(name = "head length (mm)", limits = c(51.5, 60.8)) +
+  scale_fill_manual(
+    values = c(F = "#D55E00C0", M = "#0072B2C0"),
+    breaks = c("F", "M"),
+    labels = c("female birds   ", "male birds"),
+    name = NULL,
+    guide = guide_legend(
+      direction = "horizontal",
+      override.aes = list(size = 2.5, linetype = 0)
+    )
+  ) +
+  scale_color_manual(
+    values = c(F = "#D55E00", M = "#0072B2"),
+    breaks = c("F", "M"),
+    labels = c("female birds   ", "male birds"),
+    name = NULL
+  ) +
+  theme_minimal_grid() +
+  theme(
+    legend.position = "top",
+    legend.justification = "right",
+    legend.box.spacing = unit(3.5, "pt"), # distance between legend and plot
+    legend.text = element_text(vjust = 0.6),
+    legend.spacing.x = unit(2, "pt"),
+    legend.background = element_rect(fill = "white", color = NA),
+    legend.key.width = unit(10, "pt")
+  )
+```
+]
+
+???
+
+Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+
+## Regression lines emphasize the overall trend
+
+.center[
+```{r blue-jays-scatter-female, echo = FALSE, message = FALSE, fig.width = 6, fig.asp = 3.2/4, dev = "svg"}
+blue_jays %>%
+  filter(sex == "F") %>%
+  ggplot(aes(body_mass_g, head_length_mm, color = sex, fill = sex)) + 
+  geom_point(pch = 21, color = "white", size = 2.5) +
+  scale_x_continuous(name = "body mass (g)", limits = c(58.7, 81.6)) +
+  scale_y_continuous(name = "head length (mm)", limits = c(51.5, 60.8)) +
+  scale_fill_manual(
+    values = c(F = "#D55E00C0", M = "#0072B2C0"),
+    breaks = c("F", "M"),
+    labels = c("female birds   ", "male birds"),
+    name = NULL,
+    guide = guide_legend(
+      direction = "horizontal",
+      override.aes = list(size = 2.5, linetype = 0)
+    )
+  ) +
+  scale_color_manual(
+    values = c(F = "#D55E00", M = "#0072B2"),
+    breaks = c("F", "M"),
+    labels = c("female birds   ", "male birds"),
+    name = NULL
+  ) +
+  theme_minimal_grid() +
+  theme(
+    legend.position = "top",
+    legend.justification = "right",
+    legend.box.spacing = unit(3.5, "pt"), # distance between legend and plot
+    legend.text = element_text(vjust = 0.6),
+    legend.spacing.x = unit(2, "pt"),
+    legend.background = element_rect(fill = "white", color = NA),
+    legend.key.width = unit(10, "pt")
+  )
+```
+]
+
+???
+
+Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+## Regression lines emphasize the overall trend
+
+.center[
+```{r blue-jays-scatter-line-female, echo = FALSE, message = FALSE, fig.width = 6, fig.asp = 3.2/4, dev = "svg"}
+blue_jays %>%
+  filter(sex == "F") %>%
+  ggplot(aes(body_mass_g, head_length_mm, color = sex, fill = sex)) + 
+  geom_point(pch = 21, color = "white", size = 2.5) +
+  geom_smooth(method = "lm", size = 0.75, se = FALSE, fullrange = TRUE) +
+  scale_x_continuous(name = "body mass (g)", limits = c(58.7, 81.6)) +
+  scale_y_continuous(name = "head length (mm)", limits = c(51.5, 60.8)) +
+  scale_fill_manual(
+    values = c(F = "#D55E00C0", M = "#0072B2C0"),
+    breaks = c("F", "M"),
+    labels = c("female birds   ", "male birds"),
+    name = NULL,
+    guide = guide_legend(
+      direction = "horizontal",
+      override.aes = list(size = 2.5, linetype = 0)
+    )
+  ) +
+  scale_color_manual(
+    values = c(F = "#D55E00", M = "#0072B2"),
+    breaks = c("F", "M"),
+    labels = c("female birds   ", "male birds"),
+    name = NULL
+  ) +
+  theme_minimal_grid() +
+  theme(
+    legend.position = "top",
+    legend.justification = "right",
+    legend.box.spacing = unit(3.5, "pt"), # distance between legend and plot
+    legend.text = element_text(vjust = 0.6),
+    legend.spacing.x = unit(2, "pt"),
+    legend.background = element_rect(fill = "white", color = NA),
+    legend.key.width = unit(10, "pt")
+  )
+```
+]
+
+???
+
+Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+## Regression lines emphasize the overall trend
+
+.center[
+```{r blue-jays-scatter-male, echo = FALSE, message = FALSE, fig.width = 6, fig.asp = 3.2/4, dev = "svg"}
+blue_jays %>%
+  filter(sex == "M") %>%
+  ggplot(aes(body_mass_g, head_length_mm, color = sex, fill = sex)) + 
+  geom_point(pch = 21, color = "white", size = 2.5) +
+  scale_x_continuous(name = "body mass (g)", limits = c(58.7, 81.6)) +
+  scale_y_continuous(name = "head length (mm)", limits = c(51.5, 60.8)) +
+  scale_fill_manual(
+    values = c(F = "#D55E00C0", M = "#0072B2C0"),
+    breaks = c("F", "M"),
+    labels = c("female birds   ", "male birds"),
+    name = NULL,
+    guide = guide_legend(
+      direction = "horizontal",
+      override.aes = list(size = 2.5, linetype = 0)
+    )
+  ) +
+  scale_color_manual(
+    values = c(F = "#D55E00", M = "#0072B2"),
+    breaks = c("F", "M"),
+    labels = c("female birds   ", "male birds"),
+    name = NULL
+  ) +
+  theme_minimal_grid() +
+  theme(
+    legend.position = "top",
+    legend.justification = "right",
+    legend.box.spacing = unit(3.5, "pt"), # distance between legend and plot
+    legend.text = element_text(vjust = 0.6),
+    legend.spacing.x = unit(2, "pt"),
+    legend.background = element_rect(fill = "white", color = NA),
+    legend.key.width = unit(10, "pt")
+  )
+```
+]
+
+???
+
+Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+## Regression lines emphasize the overall trend
+
+.center[
+```{r blue-jays-scatter-line-male, echo = FALSE, message = FALSE, fig.width = 6, fig.asp = 3.2/4, dev = "svg"}
+blue_jays %>%
+  filter(sex == "M") %>%
+  ggplot(aes(body_mass_g, head_length_mm, color = sex, fill = sex)) + 
+  geom_point(pch = 21, color = "white", size = 2.5) +
+  geom_smooth(method = "lm", size = 0.75, se = FALSE, fullrange = TRUE) +
+  scale_x_continuous(name = "body mass (g)", limits = c(58.7, 81.6)) +
+  scale_y_continuous(name = "head length (mm)", limits = c(51.5, 60.8)) +
+  scale_fill_manual(
+    values = c(F = "#D55E00C0", M = "#0072B2C0"),
+    breaks = c("F", "M"),
+    labels = c("female birds   ", "male birds"),
+    name = NULL,
+    guide = guide_legend(
+      direction = "horizontal",
+      override.aes = list(size = 2.5, linetype = 0)
+    )
+  ) +
+  scale_color_manual(
+    values = c(F = "#D55E00", M = "#0072B2"),
+    breaks = c("F", "M"),
+    labels = c("female birds   ", "male birds"),
+    name = NULL
+  ) +
+  theme_minimal_grid() +
+  theme(
+    legend.position = "top",
+    legend.justification = "right",
+    legend.box.spacing = unit(3.5, "pt"), # distance between legend and plot
+    legend.text = element_text(vjust = 0.6),
+    legend.spacing.x = unit(2, "pt"),
+    legend.background = element_rect(fill = "white", color = NA),
+    legend.key.width = unit(10, "pt")
+  )
+```
+]
+
+???
+
+Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Regression lines emphasize the overall trend
+
+.center[
+```{r blue-jays-scatter-sex-line, echo = FALSE, message = FALSE, fig.width = 6, fig.asp = 3.2/4, dev = "svg"}
+blue_jays %>%
+  ggplot(aes(body_mass_g, head_length_mm, color = sex, fill = sex)) + 
+  geom_point(pch = 21, color = "white", size = 2.5) +
+  geom_smooth(method = "lm", size = 0.75, se = FALSE, fullrange = TRUE) +
+  scale_x_continuous(name = "body mass (g)", limits = c(58.7, 81.6)) +
+  scale_y_continuous(name = "head length (mm)", limits = c(51.5, 60.8)) +
+  scale_fill_manual(
+    values = c(F = "#D55E00C0", M = "#0072B2C0"),
+    breaks = c("F", "M"),
+    labels = c("female birds   ", "male birds"),
+    name = NULL,
+    guide = guide_legend(
+      direction = "horizontal",
+      override.aes = list(size = 2.5, linetype = 0)
+    )
+  ) +
+  scale_color_manual(
+    values = c(F = "#D55E00", M = "#0072B2"),
+    breaks = c("F", "M"),
+    labels = c("female birds   ", "male birds"),
+    name = NULL
+  ) +
+  theme_minimal_grid() +
+  theme(
+    legend.position = "top",
+    legend.justification = "right",
+    legend.box.spacing = unit(3.5, "pt"), # distance between legend and plot
+    legend.text = element_text(vjust = 0.6),
+    legend.spacing.x = unit(2, "pt"),
+    legend.background = element_rect(fill = "white", color = NA),
+    legend.key.width = unit(10, "pt")
+  )
+```
+]
+
+???
+
+Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Detrending: Removing the underlying trend
+
+.center[
+```{r hpi-no-trendline, echo = FALSE, warning = FALSE, fig.width = 6, fig.asp = 0.618, dev = "svg"}
+
+hpi_trends %>%
+  filter(state %in% c("California", "Nevada", "West Virginia", "Texas")) %>%
+  ggplot(aes(date, hpi)) +
+  geom_line(color = "#0072B2", size = 0.75) +
+  scale_x_date(name = NULL) +
+  scale_y_log10(name = "House Price Index (Dec. 2000 = 100)") +
+  facet_wrap(~state, scales = "free_x") +
+  theme_minimal_hgrid() +
+  theme(
+    strip.text = element_text(size = 12),
+    strip.background = element_rect(fill = "grey85"),
+    axis.line.x = element_line(color = "grey50"),
+    axis.ticks.x = element_line(color = "grey50"),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_text(margin = margin(0, 0, 0, 0))
+  )
+
+```
+]
+
+--
+
+.small-font[
+Did housing prices in California decline substantially from 1990 to 1998?
+]
+
+--
+
+.small-font[
+Did housing prices in West Virginia recover by 2017?
+]
+
+???
+
+Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+## Detrending: Removing the underlying trend
+
+.center[
+```{r hpi-trends, echo = FALSE, warning = FALSE, fig.width = 6, fig.asp = 0.618, dev = "svg"}
+
+hpi_trends %>%
+  filter(state %in% c("California", "Nevada", "West Virginia", "Texas")) %>%
+  ggplot(aes(date, hpi)) +
+  geom_line(aes(y = hpi_trend), color = "grey50", size = 0.4) +
+  geom_line(color = "#0072B2", size = 0.75) +
+  scale_x_date(name = NULL) +
+  scale_y_log10(name = "House Price Index (Dec. 2000 = 100)") +
+  facet_wrap(~state, scales = "free_x") +
+  theme_minimal_hgrid() +
+  theme(
+    strip.text = element_text(size = 12),
+    strip.background = element_rect(fill = "grey85"),
+    axis.line.x = element_line(color = "grey50"),
+    axis.ticks.x = element_line(color = "grey50"),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_text(margin = margin(0, 0, 0, 0))
+  )
+
+```
+]
+
+.small-font[
+Did housing prices in California decline substantially from 1990 to 1998?
+]
+
+.small-font[
+Did housing prices in West Virginia recover by 2017?
+]
+
+???
+
+Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+## Detrending: Removing the underlying trend
+
+.center[
+```{r hpi-detrended, echo = FALSE, warning = FALSE, fig.width = 6, fig.asp = 0.618, dev = "svg"}
+
+hpi_trends %>%
+  filter(state %in% c("California", "Nevada", "West Virginia", "Texas")) %>%
+  ggplot(aes(date, hpi_detrended)) +
+  geom_hline(yintercept = 1, color = "grey50", size = 0.4) +
+  geom_line(color = "#0072B2", size = 0.75) +
+  scale_x_date(name = NULL) +
+  scale_y_log10(
+    name = "House Price Index (detrended)",
+    breaks = c(0.752, 1, 1.33, 1.77),
+    labels = c("0.75", "1.00", "1.33", "1.77")
+  ) +
+  facet_wrap(~state, scales = "free_x") +
+  theme_minimal_hgrid() +
+  theme(
+    strip.text = element_text(size = 12),
+    strip.background = element_rect(fill = "grey85"),
+    axis.line.x = element_line(color = "grey50"),
+    axis.ticks.x = element_line(color = "grey50"),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_text(margin = margin(0, 0, 0, 0))
+  )
+
+```
+]
+
+.small-font[
+Did housing prices in California decline substantially from 1990 to 1998? — yes
+]
+
+.small-font[
+Did housing prices in West Virginia recover by 2017?  — no
+]
+
+???
+
+Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Further reading
+
+Relevant chapters from Fundamentals of Data Visualization:
+- [Chapter 6: Visualizing amounts](https://clauswilke.com/dataviz/visualizing-amounts.html)
+- [Chapter 7: Visualizing distributions: Histograms and density plots](https://clauswilke.com/dataviz/histograms-density-plots.html)
+- [Chapter 9: Visualizing many distributions at once](https://clauswilke.com/dataviz/boxplots-violins.html)
+- [Chapter 12: Visualizing associations among two or more quantitative variables](https://clauswilke.com/dataviz/visualizing-associations.html)
+- [Chapter 14: Visualizing trends](https://clauswilke.com/dataviz/visualizing-trends.html)
