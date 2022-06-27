@@ -34,6 +34,18 @@ update_geom_defaults("point", list(size = 2)) # 2 for full width, 2.5 for half w
 everest <- read_csv(here("datasets", "everest.csv"))
 ```
 
+## Topics covered
+
+--
+
+1. Visualizing uncertainty
+
+--
+
+2. Visualizing geospatial data
+
+---
+
 class: center middle
 
 # Let's imagine we're playing a game
@@ -550,6 +562,10 @@ ggplot(CI_df, aes(estimate, type)) +
 ]
 
 Includes only climbers and expedition members who **did not** summit
+
+---
+
+## Marginal effects example: Height reached on Everest
 
 ---
 

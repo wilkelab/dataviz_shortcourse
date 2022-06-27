@@ -43,6 +43,26 @@ blue_jays <- read_csv(here("datasets", "blue_jays.csv"))
 hpi_trends <- read_csv(here("datasets", "hpi_trends.csv"))
 ```
 
+## Topics covered
+
+--
+
+1. Visualizing amounts
+
+--
+
+2. Visualizing distributions
+
+--
+
+3. Visualizing associations and trends
+
+---
+class: middle center
+
+## Visualizing amounts
+
+---
 
 ## We often encounter datasets containing simple amounts
 
@@ -401,11 +421,9 @@ Data source: United States Census Bureau, 2016
 ]
 
 ---
+class: middle center
 
-
-class: center middle
-
-## Histograms and density plots
+## Visualizing distributions
 
 ---
 
@@ -1095,6 +1113,11 @@ Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reill
 Notice the single fill color. More colors would be distracting. 
 
 ---
+class: middle center
+
+## Visualizing associations and trends
+
+---
 
 
 ## We visualize associations with scatter plots
@@ -1382,6 +1405,50 @@ blue_jays %>%
   ggplot(aes(body_mass_g, head_length_mm, color = sex, fill = sex)) + 
   geom_point(pch = 21, color = "white", size = 2.5) +
   geom_smooth(method = "lm", size = 0.75, se = FALSE, fullrange = TRUE) +
+  scale_x_continuous(name = "body mass (g)", limits = c(58.7, 81.6)) +
+  scale_y_continuous(name = "head length (mm)", limits = c(51.5, 60.8)) +
+  scale_fill_manual(
+    values = c(F = "#D55E00C0", M = "#0072B2C0"),
+    breaks = c("F", "M"),
+    labels = c("female birds   ", "male birds"),
+    name = NULL,
+    guide = guide_legend(
+      direction = "horizontal",
+      override.aes = list(size = 2.5, linetype = 0)
+    )
+  ) +
+  scale_color_manual(
+    values = c(F = "#D55E00", M = "#0072B2"),
+    breaks = c("F", "M"),
+    labels = c("female birds   ", "male birds"),
+    name = NULL
+  ) +
+  theme_minimal_grid() +
+  theme(
+    legend.position = "top",
+    legend.justification = "right",
+    legend.box.spacing = unit(3.5, "pt"), # distance between legend and plot
+    legend.text = element_text(vjust = 0.6),
+    legend.spacing.x = unit(2, "pt"),
+    legend.background = element_rect(fill = "white", color = NA),
+    legend.key.width = unit(10, "pt")
+  )
+```
+]
+
+???
+
+Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+---
+
+## Regression lines emphasize the overall trend
+
+.center[
+```{r blue-jays-scatter-sex-error, echo = FALSE, message = FALSE, fig.width = 6, fig.asp = 3.2/4, dev = "svg"}
+blue_jays %>%
+  ggplot(aes(body_mass_g, head_length_mm, color = sex, fill = sex)) + 
+  geom_point(pch = 21, color = "white", size = 2.5) +
+  geom_smooth(method = "lm", size = 0.75, se = TRUE, fullrange = TRUE, key_glyph = "blank") +
   scale_x_continuous(name = "body mass (g)", limits = c(58.7, 81.6)) +
   scale_y_continuous(name = "head length (mm)", limits = c(51.5, 60.8)) +
   scale_fill_manual(

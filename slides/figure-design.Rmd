@@ -31,8 +31,24 @@ forensic_glass <- read_csv(here("datasets", "forensic_glass.csv"))
 
 ```
 
+## Topics covered
 
-# Uses of color in data visualization
+--
+
+1. Uses of color in data visualization
+
+--
+
+2. Compound figures
+
+--
+
+3. Balance data and context
+
+---
+
+
+## Uses of color in data visualization
 
 --
 
@@ -82,13 +98,13 @@ forensic_glass <- read_csv(here("datasets", "forensic_glass.csv"))
 
 ---
 
-# 1. Distinguish categories (qualitative)
+## 1. Distinguish categories (qualitative)
 
 <img src = "figure-design_files/qualitative.png" width = 100%></img>
 
 ---
 
-# Qualitative scale example
+## Qualitative scale example
 
 .center.nogap[
 ```{r popgrowth-vs-popsize-colored, echo = FALSE, message = FALSE, fig.width = 7.5, fig.asp = 0.618, dev = "svg"}
@@ -157,7 +173,7 @@ Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reill
 
 ---
 
-# Qualitative scale example
+## Qualitative scale example
 
 .center.nogap[
 ```{r popgrowth-vs-popsize-colored2, echo = FALSE, message = FALSE, fig.width = 7.5, fig.asp = 0.618, dev = "svg"}
@@ -179,7 +195,7 @@ Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reill
 
 ---
 
-# Qualitative scale example
+## Qualitative scale example
 
 .center.nogap[
 ```{r popgrowth-vs-popsize-colored3, echo = FALSE, message = FALSE, fig.width = 7.5, fig.asp = 0.618, dev = "svg"}
@@ -201,14 +217,14 @@ Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reill
 
 ---
 
-# 2. Represent numeric values (sequential)
+## 2. Represent numeric values (sequential)
 
 <img src = "figure-design_files/sequential.png" width = 100%></img>
 
 
 ---
 
-# Sequential scale example
+## Sequential scale example
 
 <br>
 
@@ -254,7 +270,7 @@ Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reill
 
 ---
 
-# Sequential scale example
+## Sequential scale example
 
 <br>
 
@@ -276,7 +292,7 @@ Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reill
 
 ---
 
-# Sequential scale example
+## Sequential scale example
 
 <br>
 
@@ -298,13 +314,13 @@ Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reill
 
 ---
 
-# 3. Represent numeric values (diverging)
+## 3. Represent numeric values (diverging)
 
 <img src = "figure-design_files/diverging.png" width = 100%></img>
 
 ---
 
-# Diverging scale example
+## Diverging scale example
 
 .center.nogap[
 ```{r forensic-correlations1, echo = FALSE, message = FALSE, fig.width = 4., fig.asp = 1, dev = "svg"}
@@ -363,7 +379,7 @@ Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reill
 
 ---
 
-# Diverging scale example
+## Diverging scale example
 
 .center.nogap[
 ```{r forensic-correlations2, echo = FALSE, message = FALSE, fig.width = 4., fig.asp = 1, dev = "svg"}
@@ -386,7 +402,7 @@ Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reill
 
 ---
 
-# Diverging scale example
+## Diverging scale example
 
 .center.nogap[
 ```{r forensic-correlations3, echo = FALSE, message = FALSE, fig.width = 4., fig.asp = 1, dev = "svg"}
@@ -409,13 +425,13 @@ Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reill
 
 ---
 
-# 4. Highlight
+## 4. Highlight
 
 <img src = "figure-design_files/highlight.png" width = 100%></img>
 
 ---
 
-# Highlight example
+## Highlight example
 
 .center[
 ```{r Aus-athletes-track, echo = FALSE, fig.width = 6, fig.asp = 0.618, dev = "svg"}
@@ -464,7 +480,7 @@ Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reill
 
 ---
 
-# Highlight example
+## Highlight example
 
 .center[
 ```{r Aus-athletes-track2, echo = FALSE, fig.width = 6, fig.asp = 0.618, dev = "svg"}
@@ -493,7 +509,7 @@ Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reill
 
 ---
 
-# Highlight example
+## Highlight example
 
 .center[
 ```{r Aus-athletes-track3, echo = FALSE, fig.width = 6, fig.asp = 0.618, dev = "svg"}
@@ -517,7 +533,7 @@ Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reill
 
 ---
 
-# Uses of color in data visualization
+## Uses of color in data visualization
 
 <table style = "border: none; line-height: 2.5;">
 <tr style = "background: white;">
@@ -558,11 +574,13 @@ Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reill
 </table>
 
 ---
-
+class: center middle
 
 ## Compound figures
 
---
+---
+
+## Compound figures
 
 Two common scenarios:
 
@@ -845,6 +863,64 @@ Example of figure in article or book
 Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
 
 ---
+class: center middle
+
+## Balance data and context
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/figure_titles_captions_files/figure-html/blue-jays-scatter-bubbles2-1.png")
+background-position: left 50% top 60%
+background-size: 45%
+
+## Label all axes and guides
+
+.absolute-bottom-left[
+Add units where appropriate or necessary
+]
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/figure_titles_captions_files/figure-html/tech-stocks-minimal-labeling-1.png")
+background-position: left 50% top 60%
+background-size: 55%
+
+## Self-explanatory labels can be omitted
+
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/balance_data_context_files/figure-html/Aus-athletes-grid-bad-1.png")
+background-position: left 50% top 60%
+background-size: 55%
+
+## Don't overload your figure with boxes and grid-lines
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/balance_data_context_files/figure-html/Aus-athletes-min-bad-1.png")
+background-position: left 50% top 60%
+background-size: 55%
+
+## But also don't hide useful information
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/balance_data_context_files/figure-html/Aus-athletes-grid-good-1.png")
+background-position: left 50% top 60%
+background-size: 55%
+
+## Axes and grid should be visible but not dominate
+---
+
+background-image: url("https://clauswilke.com/dataviz/balance_data_context_files/figure-html/Aus-athletes-grid-good-frame-1.png")
+background-position: left 50% top 60%
+background-size: 55%
+
+## A box around the figure can help separate the legend
+
+
+---
 
 ## Further reading
 
@@ -852,3 +928,4 @@ Relevant chapters from Fundamentals of Data Visualization:
 - [Chapter 4: Color scales](https://clauswilke.com/dataviz/color-basics.html)
 - [Chapter 21: Multi-panel figures](https://clauswilke.com/dataviz/multi-panel-figures.html)
 - [Chapter 22: Titles, captions, and tables](https://clauswilke.com/dataviz/figure-titles-captions.html)
+- [Chapter 23: Balance the data and the context](https://clauswilke.com/dataviz/balance-data-context.html)
