@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```
 
-This is the home page for a dataviz shortcourse by Claus O. Wilke. The course is an abbreviated version of a [semester-long course](https://wilkelab.org/SDS375) taught at The University of Texas at Austin.
+This is the home page for a dataviz shortcourse by Claus O. Wilke. The course is an abbreviated version of a [semester-long course](https://wilkelab.org/SDS375) taught at The University of Texas at Austin. Many of the materials presented are taken from the book [Fundamentals of Data Visualization.](https://clauswilke.com/dataviz/)
 
 <!--
 To run any of the R code examples locally on your own machine, you will need the following:
