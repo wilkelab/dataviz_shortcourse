@@ -105,6 +105,27 @@ https://clauswilke.com/dataviz
 
 <img src = "https://clauswilke.com/dataviz/cover.png", width = 30%, style = "position:absolute; top: 20%; left: 53%; box-shadow: 3px 5px 3px 1px #00000080;"></img>
 
+---
+
+## Three key principles of effective visual communication
+
+--
+
+1. Tell a story
+
+--
+
+2. Prepare figures that make a point
+
+--
+
+3. Make your figures accessible
+
+
+---
+class: center middle
+
+## 1. Tell a story
 
 ---
 
@@ -315,9 +336,23 @@ Development
 So I wrote a book; the book is entirely about concepts, not about coding, and it is meant as a resource for anybody doing data visualizations, regardless of their preferred visualization software
 
 ---
-class: center middle
+class: middle center
 
-## Telling a story with figures
+## 2. Prepare figures that make a point
+
+---
+
+## How to use figures to tell a story
+
+--
+
+- Every figure needs a clear purpose within the story arc
+
+--
+
+- A complete arc will usually require at least two figures
+
+
 
 ---
 
@@ -439,19 +474,7 @@ Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reill
 
 ---
 
-## Keep in mind
-
---
-
-- Every figure needs a clear purpose within the story arc
-
---
-
-- A complete arc will usually require at least two figures
-
----
-
-## Prepare figures that make a clear point
+## Don't overload your figures with irrelevant detail
 
 --
 
@@ -529,13 +552,15 @@ stamp_bad(p_delay_distance)
 ```
 ]
 
+Flight delays by airline, connection, and distance flown
+
 ???
 
 Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
 
 ---
 
-## Prepare figures that make a clear point
+## Don't overload your figures with irrelevant detail
 
 .center[
 ```{r mean-arrival-delay-nyc, cache = params$cache, echo = FALSE, message = FALSE, fig.width = 7.5, fig.asp = 0.618, dev = "svg"}
@@ -573,7 +598,8 @@ flights_grouped %>%
 ```
 ]
 
-<div style = "position: absolute; top: 24%; left: 45%; background: white;">
+<div style = "position: absolute; top: 24%; left: 45%; backgro
+und: white;">
 American and Delta<br>have the shortest delays
 </div>
 
@@ -614,8 +640,13 @@ Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.
 
 
 ---
+class: middle center
 
-## Make your work accessible
+## 3. Make your figures accessible
+
+---
+
+## Design for color-vision deficiency
 
 --
 
@@ -629,7 +660,7 @@ Red-green color-vision deficiency is the most common
 
 ---
 
-## Make your work accessible
+## Design for color-vision deficiency
 
 5%–8% of men are color blind!
 
@@ -639,9 +670,9 @@ Blue-green color-vision deficiency is rare but does occur
 
 ---
 
-## Make your work accessible
+## Design for color-vision deficiency
 
-Choose colors that can be distinguished with CVD
+Choose colors that can be distinguished by people with CVD
 
 <img src = "https://clauswilke.com/dataviz/pitfalls_of_color_use_files/figure-html/PiYG-cvd-sim-1.png", width = 100%></img>
 
@@ -898,6 +929,16 @@ Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reill
 
 ---
 
+## Three key principles of effective visual communication
+
+1. Tell a story
+
+2. Prepare figures that make a point
+
+3. Make your figures accessible
+
+---
+
 ## Further reading
 
 - Fundamentals of Data Visualization: [Chapter 29: Telling a story and making a point](https://clauswilke.com/dataviz/telling-a-story.html)
@@ -905,3 +946,8 @@ Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reill
 - Joshua Schimel (2011) Writing Science: How to Write Papers That Get Cited and Proposals That Get Funded.
 
 - Zeileis et al. (2020) [colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes.](https://www.jstatsoft.org/article/view/v096i01) Journal of Statistical Software 96:1–49.
+
+- Fundamentals of Data Visualization: [Chapter 19: Common pitfalls of color use](https://clauswilke.com/dataviz/color-pitfalls.html)
+
+- Fundamentals of Data Visualization: [Chapter 20: Redundant coding](https://clauswilke.com/dataviz/redundant-coding.html)
+

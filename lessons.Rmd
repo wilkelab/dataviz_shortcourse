@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Effective Visual Communication
 
-How to tell a story; prepare figures that make a point; make your figures accessible 
+Tell a story; prepare figures that make a point; make your figures accessible 
 
 <p class="nospace">Materials:</p>
 
