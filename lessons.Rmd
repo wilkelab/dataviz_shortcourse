@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Effective Visual Communication
 
-Tell a story; prepare figures that make a point; make your figures accessible 
+This lecture covers three core concepts of visual communication. First, I will discuss how to engage your audience by telling a story. Second, I will provide high-level guidance for designing visualizations that make a clear point. Third, I will describe key design principles that ensure your figures will be readable by people with vision impairments, and specifically impairments of color perception.
 
 <p class="nospace">Materials:</p>
 
