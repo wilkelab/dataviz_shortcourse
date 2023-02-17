@@ -788,6 +788,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -1860,15 +1861,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
-          var fn = $(this).children()[0]
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
           $(this).html(fn.shadowRoot.querySelector("sup"))
           $(this).id = fn.id
           fn.remove()
         }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
         }).join("\n");
         window.tippy(this, {
           allowHTML: true,
@@ -2408,7 +2415,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2473,13 +2480,7 @@ Slides
 
 
 <div class="d-article">
-<p>This is the home page for a dataviz shortcourse by Claus O. Wilke.
-The course is an abbreviated version of a <a
-href="https://wilkelab.org/SDS375">semester-long course</a> taught at
-The University of Texas at Austin. Many of the materials presented are
-taken from the book <a
-href="https://clauswilke.com/dataviz/">Fundamentals of Data
-Visualization.</a></p>
+<p>This is the home page for a dataviz shortcourse by Claus O. Wilke. The course is an abbreviated version of a <a href="https://wilkelab.org/SDS375">semester-long course</a> taught at The University of Texas at Austin. Many of the materials presented are taken from the book <a href="https://clauswilke.com/dataviz/">Fundamentals of Data Visualization.</a></p>
 <!--
 To run any of the R code examples locally on your own machine, you will need the following:
 
@@ -2491,33 +2492,23 @@ To run any of the R code examples locally on your own machine, you will need the
 You can install all required R packages at once by running the following code in the R command line:
 
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-    <span class='st'>"broom"</span>, <span class='st'>"cluster"</span>, <span class='st'>"colorspace"</span>, <span class='st'>"cowplot"</span>, <span class='st'>"distill"</span>, <span class='st'>"gapminder"</span>, 
-    <span class='st'>"GGally"</span>, <span class='st'>"gganimate"</span>, <span class='st'>"ggiraph"</span>, <span class='st'>"ggdendro"</span>, <span class='st'>"ggdist"</span>, <span class='st'>"ggforce"</span>,
-    <span class='st'>"ggplot2movies"</span>, <span class='st'>"ggrepel"</span>, <span class='st'>"ggridges"</span>, <span class='st'>"ggthemes"</span>, <span class='st'>"gifski"</span>, <span class='st'>"glue"</span>,
-    <span class='st'>"knitr"</span>, <span class='st'>"learnr"</span>, <span class='st'>"naniar"</span>, <span class='st'>"margins"</span>, <span class='st'>"MASS"</span>, <span class='st'>"Matrix"</span>,
-    <span class='st'>"nycflights13"</span>, <span class='st'>"palmerpenguins"</span>, <span class='st'>"patchwork"</span>, <span class='st'>"rgdal"</span>, <span class='st'>"rmarkdown"</span>,
-    <span class='st'>"sf"</span>, <span class='st'>"tidyverse"</span>, <span class='st'>"transformr"</span>, <span class='st'>"umap"</span>, <span class='st'>"xaringan"</span>
-  <span class='op'>)</span>
-<span class='op'>)</span>
-</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
+<span>    <span class='st'>"broom"</span>, <span class='st'>"cluster"</span>, <span class='st'>"colorspace"</span>, <span class='st'>"cowplot"</span>, <span class='st'>"distill"</span>, <span class='st'>"gapminder"</span>, </span>
+<span>    <span class='st'>"GGally"</span>, <span class='st'>"gganimate"</span>, <span class='st'>"ggiraph"</span>, <span class='st'>"ggdendro"</span>, <span class='st'>"ggdist"</span>, <span class='st'>"ggforce"</span>,</span>
+<span>    <span class='st'>"ggplot2movies"</span>, <span class='st'>"ggrepel"</span>, <span class='st'>"ggridges"</span>, <span class='st'>"ggthemes"</span>, <span class='st'>"gifski"</span>, <span class='st'>"glue"</span>,</span>
+<span>    <span class='st'>"knitr"</span>, <span class='st'>"learnr"</span>, <span class='st'>"naniar"</span>, <span class='st'>"margins"</span>, <span class='st'>"MASS"</span>, <span class='st'>"Matrix"</span>,</span>
+<span>    <span class='st'>"nycflights13"</span>, <span class='st'>"palmerpenguins"</span>, <span class='st'>"patchwork"</span>, <span class='st'>"rgdal"</span>, <span class='st'>"rmarkdown"</span>,</span>
+<span>    <span class='st'>"sf"</span>, <span class='st'>"tidyverse"</span>, <span class='st'>"transformr"</span>, <span class='st'>"umap"</span>, <span class='st'>"xaringan"</span></span>
+<span>  <span class='op'>)</span></span>
+<span><span class='op'>)</span></span></code></pre></div>
 
 </div>
 
 -->
 <h2 class="appendix" id="reuse">Reuse</h2>
-<p>Text and figures are licensed under Creative Commons Attribution <a
-href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Any
-computer code (R, HTML, CSS, etc.) in slides and worksheets, including
-in slide and worksheet sources, is also licensed under <a
-href="https://github.com/wilkelab/SDS375/LICENSE.md">MIT</a>. Note that
-figures in slides may be pulled in from external sources and may be
-licensed under different terms. For such images, image credits are
-available in the slide notes, accessible via pressing the letter
-‘p’.</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>Text and figures are licensed under Creative Commons Attribution <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Any computer code (R, HTML, CSS, etc.) in slides and worksheets, including in slide and worksheet sources, is also licensed under <a href="https://github.com/wilkelab/SDS375/LICENSE.md">MIT</a>. Note that figures in slides may be pulled in from external sources and may be licensed under different terms. For such images, image credits are available in the slide notes, accessible via pressing the letter ‘p’.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
