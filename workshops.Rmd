@@ -1,0 +1,26 @@
+---
+title: "Workshops"
+description: ""
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## Past and present workshops
+
+Materials for past and present workshops. The specific slide sets may differ from the four main lessons. All materials are primarily based on material from my semester-long [data visualization course at UT Austin.](https://wilkelab.org/SDS375/)
+
+<strong class="nospace">2024-05-28</strong>
+
+- [Slides Part 1](materials/2024-05-28-part1.html) (telling a story, making a point, making figures accessible)
+- [Slides Part 2](materials/2024-05-28-part2.html) (topic 1, topic 2, topic 3)
+
+## Reuse {.appendix}
+
+Text and figures are licensed under Creative Commons Attribution [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Any computer code (R, HTML, CSS, etc.) in slides and worksheets, including in slide and worksheet sources, is also licensed under [MIT](https://github.com/wilkelab/SDS375/LICENSE.md). Note that figures in slides may be pulled in from external sources and may be licensed under different terms. For such images, image credits are available in the slide notes, accessible via pressing the letter 'p'.
