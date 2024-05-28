@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Effective Visual Communication, Part 2</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Claus O. Wilke" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/d3-bundle/d3-bundle.min.js"></script>
+    <script src="libs/d3-lasso/d3-lasso.min.js"></script>
+    <script src="libs/save-svg-as-png/save-svg-as-png.min.js"></script>
+    <script src="libs/flatbush/flatbush.min.js"></script>
+    <link href="libs/ggiraphjs/ggiraphjs.min.css" rel="stylesheet" />
+    <script src="libs/ggiraphjs/ggiraphjs.min.js"></script>
+    <script src="libs/girafe-binding/girafe.js"></script>
+    <link rel="stylesheet" href="Wilke-slides-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, title-slide
+
+.title[
+# Effective Visual Communication, Part 2
+]
+.author[
+### Claus O. Wilke
+]
+.date[
+### last updated: 2024-05-27
+]
+
+---
+
+
+
+
+## Three more principles
+
+--
+
+4\. Pay attention to figure composition and context
+
+--
+
+5\. Use text annotations
+
+--
+
+6\. Avoid overplotting
+
+
+---
+class: center middle
+
+## 4. Pay attention to figure composition and context
+
+---
+
+## Distinguish infographics from figures in article/book
+
+There are two distinct use cases:
+
+--
+
+**Infographic:** Standalone, has title/subtitle/caption
+
+--
+
+**Figure in article/book:** Caption contains title, not part of figure
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/figure_titles_captions_files/figure-html/corruption-development-infographic-1.png")
+background-position: left 50% top 45%
+background-size: 50%
+
+.absolute-bottom-left[
+Example of infographic
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/figure_titles_captions_files/figure-html/corruption-development-1.png")
+background-position: left 15% top 40%
+background-size: 50%
+
+.pull-right.width-35.move-down-2em.small-font[
+Figure 1. **Corruption and human development.** The most developed countries experience the least corruption. Inspired by a posting in [The Economist online (2011)](https://www.economist.com/graphic-detail/2011/12/02/corrosive-corruption). Data sources: Transparency International &amp; UN Human Development Report.
+]
+
+.absolute-bottom-left[
+Example of figure in article or book
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Compound figures
+
+Two common scenarios:
+
+--
+
+1\. The same type of plot is replicated many times (small multiples)
+
+--
+
+2\. Several disparate plots are combined into one display
+
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/titanic-passenger-breakdown-1.png")
+background-position: left 50% top 60%
+background-size: 45%
+
+## 1. Small multiples (facets)
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/balance_data_context_files/figure-html/titanic-survival-by-gender-class-bad-1.png")
+background-position: left 50% top 60%
+background-size: 45%
+
+## 1. Small multiples (facets)
+
+.absolute-bottom-left[
+Avoid bars or other elements that are floating in space
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/balance_data_context_files/figure-html/titanic-survival-by-gender-class-1.png")
+background-position: left 50% top 60%
+background-size: 45%
+
+## 1. Small multiples (facets)
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+class: center middle
+
+## Small multiples work even for massive amounts of data
+
+---
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/movie-rankings-1.png")
+background-position: left 50% top 60%
+background-size: 45%
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-variable-y-lims-1.png")
+background-position: left 50% top 70%
+background-size: 50%
+
+## y-axis ranges should be consistent among panels
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-fixed-y-lims-1.png")
+background-position: left 50% top 70%
+background-size: 50%
+
+## y-axis ranges should be consistent among panels
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-compound-1.png")
+background-position: left 50% top 55%
+background-size: 75%
+
+## 2. Combining disparate figures into one display
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+--
+
+.absolute-bottom-left[
+Note: We now need plot labels ("a", "b") to identify sub-plots
+]
+
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-compound-bad-1.png")
+background-position: left 50% top 55%
+background-size: 75%
+
+## Don't use overly large or otherwise prominent labels
+
+.absolute-bottom-left[
+Note: Also don't use serif fonts (such as Times) for labels
+]
+
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-good-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Use a consistent color language among sub-plots
+
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-inconsistent-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Use a consistent color language among sub-plots
+
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-good-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Pay attention to sub-plot alignment
+
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-misaligned-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Pay attention to sub-plot alignment
+
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-good-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Combine plots of different types
+
+
+.absolute-bottom-left[
+This helps your readers to distinguish different parts of the analysis 
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/telling_a_story_files/figure-html/athletes-composite-repetitive-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Combine plots of different types
+
+
+.absolute-bottom-left[
+This helps your readers to distinguish different parts of the analysis 
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-good-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Combine plots of different types
+
+
+.absolute-bottom-left[
+This helps your readers to distinguish different parts of the analysis 
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+class: center middle
+
+## 5. Use text annotations
+
+---
+
+## Use direct labeling instead of legends
+
+.center[
+&lt;img src="2024-05-28-part2_files/figure-html/tech-stocks-good-no-legend-1.svg" width="60%" /&gt;
+]
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Direct labeling the Iris scatter plot
+
+.center[
+&lt;img src="2024-05-28-part2_files/figure-html/iris-scatter-with-ellipses-1.svg" width="45%" /&gt;
+]
+
+The ellipses help guide the eye
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Label only a subset if there are too many items to label
+
+.center[
+&lt;img src="2024-05-28-part2_files/figure-html/texas-counties-log-1.svg" width="70%" /&gt;
+]
+
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Interactivity helps a lot
+
+.center[
+<div class="girafe html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-ac269391347aee253f1d" style="width:70%;height:345.6px;"></div>
+<script type="application/json" data-for="htmlwidget-ac269391347aee253f1d">{"x":{"html":"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='ggiraph-svg' role='img' id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72' viewBox='0 0 576 345.6'>\n <defs id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_defs'>\n  <clipPath id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_c1'>\n   <rect x='0' y='0' width='576' height='345.6'/>\n  <\/clipPath>\n <\/defs>\n <g id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_rootg' class='ggiraph-svg-rootg'>\n  <g clip-path='url(#svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_c1)'>\n   <rect x='0' y='0' width='576' height='345.6' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='0.75' stroke-linejoin='round' stroke-linecap='round' class='ggiraph-svg-bg'/>\n   <polyline points='52.70,286.31 569.03,286.31' fill='none' stroke='#D9D9D9' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='52.70,225.35 569.03,225.35' fill='none' stroke='#D9D9D9' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='52.70,164.40 569.03,164.40' fill='none' stroke='#D9D9D9' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='52.70,103.44 569.03,103.44' fill='none' stroke='#D9D9D9' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='52.70,42.48 569.03,42.48' fill='none' stroke='#D9D9D9' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <line x1='52.7' y1='164.4' x2='569.03' y2='164.4' stroke='#666666' stroke-opacity='1' stroke-width='1.07' stroke-dasharray='4,4' stroke-linejoin='round' stroke-linecap='butt'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e1' cx='53.72' cy='21.29' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Harris' data-id='Harris'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e2' cx='55.75' cy='35.78' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Dallas' data-id='Dallas'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e3' cx='57.78' cy='42.9' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Tarrant' data-id='Tarrant'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e4' cx='59.81' cy='44.32' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Bexar' data-id='Bexar'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e5' cx='61.85' cy='57.96' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Travis' data-id='Travis'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e6' cx='63.88' cy='64.48' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='El Paso' data-id='El Paso'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e7' cx='65.91' cy='65.1' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Collin' data-id='Collin'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e8' cx='67.94' cy='65.35' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Hidalgo' data-id='Hidalgo'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e9' cx='69.98' cy='69.49' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Denton' data-id='Denton'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e10' cx='72.01' cy='72.77' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Fort Bend' data-id='Fort Bend'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e11' cx='74.04' cy='79.4' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Montgomery' data-id='Montgomery'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e12' cx='76.08' cy='81.4' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Williamson' data-id='Williamson'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e13' cx='78.11' cy='82.45' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Cameron' data-id='Cameron'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e14' cx='80.14' cy='87.14' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Nueces' data-id='Nueces'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e15' cx='82.17' cy='89.33' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Brazoria' data-id='Brazoria'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e16' cx='84.21' cy='89.58' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Bell' data-id='Bell'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e17' cx='86.24' cy='91.25' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Galveston' data-id='Galveston'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e18' cx='88.27' cy='92.41' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Lubbock' data-id='Lubbock'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e19' cx='90.31' cy='95.06' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Jefferson' data-id='Jefferson'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e20' cx='92.34' cy='95.27' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Webb' data-id='Webb'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e21' cx='94.37' cy='96.95' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='McLennan' data-id='McLennan'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e22' cx='96.4' cy='99.95' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Smith' data-id='Smith'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e23' cx='98.44' cy='101.9' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Brazos' data-id='Brazos'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e24' cx='100.47' cy='107.6' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Hays' data-id='Hays'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e25' cx='102.5' cy='108.66' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Johnson' data-id='Johnson'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e26' cx='104.53' cy='108.89' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Ellis' data-id='Ellis'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e27' cx='106.57' cy='111.2' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Ector' data-id='Ector'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e28' cx='108.6' cy='111.25' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Midland' data-id='Midland'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e29' cx='110.63' cy='112.3' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Guadalupe' data-id='Guadalupe'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e30' cx='112.67' cy='112.3' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Taylor' data-id='Taylor'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e31' cx='114.7' cy='112.31' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Wichita' data-id='Wichita'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e32' cx='116.73' cy='114.35' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Gregg' data-id='Gregg'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e33' cx='118.76' cy='114.49' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Potter' data-id='Potter'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e34' cx='120.8' cy='114.54' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Grayson' data-id='Grayson'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e35' cx='122.83' cy='114.57' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Randall' data-id='Randall'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e36' cx='124.86' cy='115.42' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Parker' data-id='Parker'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e37' cx='126.9' cy='116.98' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Tom Green' data-id='Tom Green'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e38' cx='128.93' cy='117.4' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Comal' data-id='Comal'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e39' cx='130.96' cy='118.68' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Kaufman' data-id='Kaufman'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e40' cx='132.99' cy='121.6' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Bowie' data-id='Bowie'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e41' cx='135.03' cy='123.3' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Victoria' data-id='Victoria'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e42' cx='137.06' cy='123.31' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Angelina' data-id='Angelina'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e43' cx='139.09' cy='123.51' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Hunt' data-id='Hunt'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e44' cx='141.13' cy='124.86' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Orange' data-id='Orange'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e45' cx='143.16' cy='125.95' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Henderson' data-id='Henderson'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e46' cx='145.19' cy='126.02' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Rockwall' data-id='Rockwall'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e47' cx='147.22' cy='126.94' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Liberty' data-id='Liberty'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e48' cx='149.26' cy='127.03' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Coryell' data-id='Coryell'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e49' cx='151.29' cy='127.47' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Bastrop' data-id='Bastrop'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e50' cx='153.32' cy='129.82' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Walker' data-id='Walker'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e51' cx='155.35' cy='130.7' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Harrison' data-id='Harrison'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e52' cx='157.39' cy='131.04' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='San Patricio' data-id='San Patricio'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e53' cx='159.42' cy='131.15' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Nacogdoches' data-id='Nacogdoches'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e54' cx='161.45' cy='132.65' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Starr' data-id='Starr'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e55' cx='163.49' cy='133.47' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Wise' data-id='Wise'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e56' cx='165.52' cy='133.77' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Anderson' data-id='Anderson'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e57' cx='167.55' cy='135.56' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Hardin' data-id='Hardin'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e58' cx='169.58' cy='135.74' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Maverick' data-id='Maverick'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e59' cx='171.62' cy='136.2' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Rusk' data-id='Rusk'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e60' cx='173.65' cy='136.57' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Van Zandt' data-id='Van Zandt'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e61' cx='175.68' cy='137.29' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Hood' data-id='Hood'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e62' cx='177.72' cy='137.46' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Cherokee' data-id='Cherokee'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e63' cx='179.75' cy='138.01' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Lamar' data-id='Lamar'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e64' cx='181.78' cy='138.1' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Kerr' data-id='Kerr'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e65' cx='183.81' cy='138.51' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Val Verde' data-id='Val Verde'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e66' cx='185.85' cy='139.13' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Navarro' data-id='Navarro'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e67' cx='187.88' cy='140.11' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Medina' data-id='Medina'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e68' cx='189.91' cy='140.45' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Polk' data-id='Polk'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e69' cx='191.94' cy='140.75' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Atascosa' data-id='Atascosa'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e70' cx='193.98' cy='141.77' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Waller' data-id='Waller'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e71' cx='196.01' cy='141.95' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Wilson' data-id='Wilson'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e72' cx='198.04' cy='142.05' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Burnet' data-id='Burnet'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e73' cx='200.08' cy='142.54' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Wood' data-id='Wood'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e74' cx='202.11' cy='142.98' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Wharton' data-id='Wharton'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e75' cx='204.14' cy='143.26' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Jim Wells' data-id='Jim Wells'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e76' cx='206.17' cy='144.27' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Upshur' data-id='Upshur'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e77' cx='208.21' cy='144.87' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Cooke' data-id='Cooke'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e78' cx='210.24' cy='145.1' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Brown' data-id='Brown'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e79' cx='212.27' cy='145.12' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Caldwell' data-id='Caldwell'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e80' cx='214.31' cy='145.25' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Erath' data-id='Erath'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e81' cx='216.34' cy='146.09' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Matagorda' data-id='Matagorda'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e82' cx='218.37' cy='146.4' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Hale' data-id='Hale'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e83' cx='220.4' cy='146.82' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Jasper' data-id='Jasper'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e84' cx='222.44' cy='147.23' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Hopkins' data-id='Hopkins'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e85' cx='224.47' cy='147.27' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Chambers' data-id='Chambers'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e86' cx='226.5' cy='147.28' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Hill' data-id='Hill'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e87' cx='228.53' cy='147.34' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Howard' data-id='Howard'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e88' cx='230.57' cy='148.18' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Fannin' data-id='Fannin'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e89' cx='232.6' cy='148.34' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Washington' data-id='Washington'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e90' cx='234.63' cy='148.58' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Kendall' data-id='Kendall'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e91' cx='236.67' cy='149.44' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Titus' data-id='Titus'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e92' cx='238.7' cy='149.67' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Kleberg' data-id='Kleberg'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e93' cx='240.73' cy='149.83' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Bee' data-id='Bee'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e94' cx='242.76' cy='151.02' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Cass' data-id='Cass'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e95' cx='244.8' cy='152.86' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Austin' data-id='Austin'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e96' cx='246.83' cy='153.15' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Palo Pinto' data-id='Palo Pinto'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e97' cx='248.86' cy='154.61' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Grimes' data-id='Grimes'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e98' cx='250.9' cy='154.81' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Uvalde' data-id='Uvalde'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e99' cx='252.93' cy='154.83' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='San Jacinto' data-id='San Jacinto'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e100' cx='254.96' cy='155.78' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Shelby' data-id='Shelby'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e101' cx='256.99' cy='156.43' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Gillespie' data-id='Gillespie'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e102' cx='259.03' cy='156.51' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Milam' data-id='Milam'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e103' cx='261.06' cy='156.73' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Fayette' data-id='Fayette'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e104' cx='263.09' cy='157.56' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Panola' data-id='Panola'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e105' cx='265.12' cy='157.63' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Houston' data-id='Houston'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e106' cx='267.16' cy='158.02' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Limestone' data-id='Limestone'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e107' cx='269.19' cy='158.28' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Aransas' data-id='Aransas'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e108' cx='271.22' cy='158.54' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Hockley' data-id='Hockley'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e109' cx='273.26' cy='159' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Gray' data-id='Gray'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e110' cx='275.29' cy='159.46' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Hutchinson' data-id='Hutchinson'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e111' cx='277.32' cy='159.48' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Willacy' data-id='Willacy'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e112' cx='279.35' cy='159.75' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Moore' data-id='Moore'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e113' cx='281.39' cy='159.92' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Tyler' data-id='Tyler'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e114' cx='283.42' cy='160.39' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Calhoun' data-id='Calhoun'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e115' cx='285.45' cy='161.03' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Colorado' data-id='Colorado'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e116' cx='287.49' cy='161.53' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Bandera' data-id='Bandera'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e117' cx='289.52' cy='161.9' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Jones' data-id='Jones'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e118' cx='291.55' cy='162.03' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='DeWitt' data-id='DeWitt'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e119' cx='293.58' cy='162.41' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Freestone' data-id='Freestone'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e120' cx='295.62' cy='162.42' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Gonzales' data-id='Gonzales'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e121' cx='297.65' cy='162.54' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Montague' data-id='Montague'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e122' cx='299.68' cy='162.59' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Lampasas' data-id='Lampasas'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e123' cx='301.71' cy='163.01' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Deaf Smith' data-id='Deaf Smith'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e124' cx='303.75' cy='163.1' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Llano' data-id='Llano'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e125' cx='305.78' cy='163.16' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Lavaca' data-id='Lavaca'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e126' cx='307.81' cy='164.11' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Eastland' data-id='Eastland'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e127' cx='309.85' cy='164.15' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Young' data-id='Young'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e128' cx='311.88' cy='164.64' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Bosque' data-id='Bosque'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e129' cx='313.91' cy='165.15' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Falls' data-id='Falls'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e130' cx='315.94' cy='165.66' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Gaines' data-id='Gaines'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e131' cx='317.98' cy='166.13' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Frio' data-id='Frio'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e132' cx='320.01' cy='166.17' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Burleson' data-id='Burleson'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e133' cx='322.04' cy='166.59' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Scurry' data-id='Scurry'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e134' cx='324.08' cy='166.78' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Leon' data-id='Leon'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e135' cx='326.11' cy='167.06' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Robertson' data-id='Robertson'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e136' cx='328.14' cy='167.08' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Lee' data-id='Lee'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e137' cx='330.17' cy='168.9' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Pecos' data-id='Pecos'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e138' cx='332.21' cy='169.4' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Nolan' data-id='Nolan'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e139' cx='334.24' cy='170.09' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Karnes' data-id='Karnes'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e140' cx='336.27' cy='170.16' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Andrews' data-id='Andrews'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e141' cx='338.31' cy='170.52' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Trinity' data-id='Trinity'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e142' cx='340.34' cy='170.78' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Newton' data-id='Newton'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e143' cx='342.37' cy='171.46' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Jackson' data-id='Jackson'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e144' cx='344.4' cy='171.57' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Zapata' data-id='Zapata'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e145' cx='346.44' cy='171.65' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Lamb' data-id='Lamb'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e146' cx='348.47' cy='171.65' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Comanche' data-id='Comanche'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e147' cx='350.5' cy='171.92' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Dawson' data-id='Dawson'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e148' cx='352.53' cy='172.02' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Reeves' data-id='Reeves'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e149' cx='354.57' cy='172.25' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Madison' data-id='Madison'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e150' cx='356.6' cy='172.48' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Callahan' data-id='Callahan'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e151' cx='358.63' cy='172.5' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Wilbarger' data-id='Wilbarger'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e152' cx='360.67' cy='173.7' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Morris' data-id='Morris'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e153' cx='362.7' cy='173.85' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Red River' data-id='Red River'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e154' cx='364.73' cy='174.29' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Terry' data-id='Terry'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e155' cx='366.76' cy='174.82' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Camp' data-id='Camp'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e156' cx='368.8' cy='176.17' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Duval' data-id='Duval'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e157' cx='370.83' cy='176.41' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Zavala' data-id='Zavala'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e158' cx='372.86' cy='176.74' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Live Oak' data-id='Live Oak'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e159' cx='374.9' cy='178.2' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Rains' data-id='Rains'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e160' cx='376.93' cy='178.39' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Sabine' data-id='Sabine'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e161' cx='378.96' cy='178.59' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Clay' data-id='Clay'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e162' cx='380.99' cy='178.83' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Ward' data-id='Ward'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e163' cx='383.03' cy='178.96' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Franklin' data-id='Franklin'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e164' cx='385.06' cy='179.1' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Marion' data-id='Marion'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e165' cx='387.09' cy='179.22' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Runnels' data-id='Runnels'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e166' cx='389.12' cy='179.23' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Blanco' data-id='Blanco'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e167' cx='391.16' cy='179.81' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Parmer' data-id='Parmer'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e168' cx='393.19' cy='179.93' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Ochiltree' data-id='Ochiltree'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e169' cx='395.22' cy='180.52' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Dimmit' data-id='Dimmit'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e170' cx='397.26' cy='181.51' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Stephens' data-id='Stephens'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e171' cx='399.29' cy='182.14' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Mitchell' data-id='Mitchell'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e172' cx='401.32' cy='182.63' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Brewster' data-id='Brewster'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e173' cx='403.35' cy='183.14' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Archer' data-id='Archer'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e174' cx='405.39' cy='183.17' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Jack' data-id='Jack'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e175' cx='407.42' cy='183.61' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Coleman' data-id='Coleman'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e176' cx='409.45' cy='183.7' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='San Augustine' data-id='San Augustine'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e177' cx='411.49' cy='184.76' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Hamilton' data-id='Hamilton'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e178' cx='413.52' cy='184.85' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Somervell' data-id='Somervell'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e179' cx='415.55' cy='185.5' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='McCulloch' data-id='McCulloch'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e180' cx='417.58' cy='186.22' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Castro' data-id='Castro'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e181' cx='419.62' cy='186.82' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Yoakum' data-id='Yoakum'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e182' cx='421.65' cy='186.91' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Swisher' data-id='Swisher'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e183' cx='423.68' cy='187.03' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Presidio' data-id='Presidio'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e184' cx='425.71' cy='188.54' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Refugio' data-id='Refugio'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e185' cx='427.75' cy='189.12' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Brooks' data-id='Brooks'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e186' cx='429.78' cy='189.17' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Goliad' data-id='Goliad'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e187' cx='431.81' cy='189.34' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Bailey' data-id='Bailey'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e188' cx='433.85' cy='189.54' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Winkler' data-id='Winkler'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e189' cx='435.88' cy='189.8' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Childress' data-id='Childress'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e190' cx='437.91' cy='190.39' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='La Salle' data-id='La Salle'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e191' cx='439.94' cy='191.1' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Dallam' data-id='Dallam'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e192' cx='441.98' cy='192.08' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Garza' data-id='Garza'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e193' cx='444.01' cy='192.14' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Floyd' data-id='Floyd'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e194' cx='446.04' cy='193.24' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Carson' data-id='Carson'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e195' cx='448.08' cy='193.46' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='San Saba' data-id='San Saba'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e196' cx='450.11' cy='193.76' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Hartley' data-id='Hartley'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e197' cx='452.14' cy='193.78' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Crosby' data-id='Crosby'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e198' cx='454.17' cy='194.41' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Lynn' data-id='Lynn'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e199' cx='456.21' cy='194.48' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Haskell' data-id='Haskell'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e200' cx='458.24' cy='195.8' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Hansford' data-id='Hansford'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e201' cx='460.27' cy='196.78' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Wheeler' data-id='Wheeler'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e202' cx='462.3' cy='197.32' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Jim Hogg' data-id='Jim Hogg'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e203' cx='464.34' cy='197.67' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Delta' data-id='Delta'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e204' cx='466.37' cy='199.2' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Mills' data-id='Mills'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e205' cx='468.4' cy='199.95' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Martin' data-id='Martin'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e206' cx='470.44' cy='201.03' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Kimble' data-id='Kimble'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e207' cx='472.47' cy='202.4' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Crane' data-id='Crane'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e208' cx='474.5' cy='203.87' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Hardeman' data-id='Hardeman'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e209' cx='476.53' cy='203.94' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Sutton' data-id='Sutton'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e210' cx='478.57' cy='204.2' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Concho' data-id='Concho'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e211' cx='480.6' cy='204.69' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Mason' data-id='Mason'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e212' cx='482.63' cy='204.94' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Fisher' data-id='Fisher'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e213' cx='484.67' cy='206.08' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Hemphill' data-id='Hemphill'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e214' cx='486.7' cy='206.65' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Baylor' data-id='Baylor'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e215' cx='488.73' cy='206.7' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Crockett' data-id='Crockett'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e216' cx='490.76' cy='206.7' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Knox' data-id='Knox'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e217' cx='492.8' cy='207' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Donley' data-id='Donley'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e218' cx='494.83' cy='207.57' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Kinney' data-id='Kinney'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e219' cx='496.86' cy='208.49' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Hudspeth' data-id='Hudspeth'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e220' cx='498.9' cy='208.6' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Schleicher' data-id='Schleicher'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e221' cx='500.93' cy='209.24' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Shackelford' data-id='Shackelford'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e222' cx='502.96' cy='209.33' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Reagan' data-id='Reagan'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e223' cx='504.99' cy='209.42' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Upton' data-id='Upton'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e224' cx='507.03' cy='209.44' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Hall' data-id='Hall'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e225' cx='509.06' cy='209.7' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Coke' data-id='Coke'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e226' cx='511.09' cy='209.79' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Real' data-id='Real'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e227' cx='513.12' cy='209.85' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Lipscomb' data-id='Lipscomb'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e228' cx='515.16' cy='211.29' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Cochran' data-id='Cochran'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e229' cx='517.19' cy='211.89' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Collingsworth' data-id='Collingsworth'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e230' cx='519.22' cy='212.09' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Sherman' data-id='Sherman'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e231' cx='521.26' cy='217.81' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Dickens' data-id='Dickens'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e232' cx='523.29' cy='218.31' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Culberson' data-id='Culberson'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e233' cx='525.32' cy='218.94' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Jeff Davis' data-id='Jeff Davis'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e234' cx='527.35' cy='220.1' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Menard' data-id='Menard'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e235' cx='529.39' cy='222.44' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Oldham' data-id='Oldham'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e236' cx='531.42' cy='223.09' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Edwards' data-id='Edwards'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e237' cx='533.45' cy='224.46' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Armstrong' data-id='Armstrong'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e238' cx='535.49' cy='228.36' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Throckmorton' data-id='Throckmorton'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e239' cx='537.52' cy='228.42' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Briscoe' data-id='Briscoe'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e240' cx='539.55' cy='229.04' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Irion' data-id='Irion'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e241' cx='541.58' cy='230.65' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Cottle' data-id='Cottle'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e242' cx='543.62' cy='230.91' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Stonewall' data-id='Stonewall'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e243' cx='545.65' cy='233.8' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Foard' data-id='Foard'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e244' cx='547.68' cy='236.08' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Glasscock' data-id='Glasscock'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e245' cx='549.71' cy='236.42' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Motley' data-id='Motley'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e246' cx='551.75' cy='237.93' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Sterling' data-id='Sterling'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e247' cx='553.78' cy='241.9' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Terrell' data-id='Terrell'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e248' cx='555.81' cy='243.42' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Roberts' data-id='Roberts'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e249' cx='557.85' cy='247.11' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Kent' data-id='Kent'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e250' cx='559.88' cy='250.65' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='McMullen' data-id='McMullen'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e251' cx='561.91' cy='253.24' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Borden' data-id='Borden'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e252' cx='563.94' cy='264.69' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Kenedy' data-id='Kenedy'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e253' cx='565.98' cy='274.61' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='King' data-id='King'/>\n   <circle id='svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72_e254' cx='568.01' cy='307.68' r='0.67pt' fill='#0072B2' fill-opacity='1' stroke='#0072B2' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Loving' data-id='Loving'/>\n   <line x1='57.2' y1='17.59' x2='55.87' y2='19.01' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='59.22' y1='32.1' x2='57.9' y2='33.49' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='63.37' y1='46.88' x2='60.59' y2='44.91' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='98.91' y1='77.97' x2='88.41' y2='88.97' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='93.75' y1='89.56' x2='91.56' y2='90.7' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='128.17' y1='108.93' x2='128.69' y2='114.77' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='147.98' y1='118.19' x2='137.04' y2='120.68' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='188.73' y1='145.41' x2='191.13' y2='143.75' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='244.9' y1='160.15' x2='250' y2='156.77' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='393.43' y1='186' x2='396.35' y2='184.08' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='424.19' y1='194.5' x2='427.45' y2='191.39' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='506.04' y1='203.81' x2='509.11' y2='207.45' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='520.84' y1='209.53' x2='517.43' y2='209.67' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='560.33' y1='262.88' x2='560.61' y2='263.02' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='564.26' y1='279.46' x2='565.06' y2='277.18' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='567.23' y1='302.96' x2='567.57' y2='305.06' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <text x='59' y='17.77' font-size='7.5pt' font-family='Helvetica'>Harris<\/text>\n   <text x='61.02' y='32.28' font-size='7.5pt' font-family='Helvetica'>Dallas<\/text>\n   <text x='65.17' y='53.25' font-size='7.5pt' font-family='Helvetica'>Tarrant<\/text>\n   <text x='79.32' y='76.17' font-size='7.5pt' font-family='Helvetica'>Galveston<\/text>\n   <text x='95.55' y='90.6' font-size='7.5pt' font-family='Helvetica'>Lubbock<\/text>\n   <text x='113.72' y='107.13' font-size='7.5pt' font-family='Helvetica'>Comal<\/text>\n   <text x='149.78' y='121.52' font-size='7.5pt' font-family='Helvetica'>Bowie<\/text>\n   <text x='168.84' y='154.39' font-size='7.5pt' font-family='Helvetica'>Waller<\/text>\n   <text x='206.16' y='169.12' font-size='7.5pt' font-family='Helvetica'>San Jacinto<\/text>\n   <text x='366.87' y='194.98' font-size='7.5pt' font-family='Helvetica'>Mitchell<\/text>\n   <text x='408.05' y='203.48' font-size='7.5pt' font-family='Helvetica'>Goliad<\/text>\n   <text x='494.91' y='202.01' font-size='7.5pt' font-family='Helvetica'>Real<\/text>\n   <text x='522.64' y='213.12' font-size='7.5pt' font-family='Helvetica'>Lipscomb<\/text>\n   <text x='524.64' y='265.11' font-size='7.5pt' font-family='Helvetica'>Kenedy<\/text>\n   <text x='542.45' y='286.46' font-size='7.5pt' font-family='Helvetica'>King<\/text>\n   <text x='535.97' y='303.04' font-size='7.5pt' font-family='Helvetica'>Loving<\/text>\n   <text x='23.6' y='292.12' font-size='9pt' font-family='Helvetica'>10<\/text>\n   <text x='36.95' y='286.15' font-size='6.3pt' font-family='Symbol'>−<\/text>\n   <text x='41.56' y='286.15' font-size='6.3pt' font-family='Helvetica'>2<\/text>\n   <text x='23.6' y='231.14' font-size='9pt' font-family='Helvetica'>10<\/text>\n   <text x='36.95' y='225.18' font-size='6.3pt' font-family='Symbol'>−<\/text>\n   <text x='41.56' y='225.18' font-size='6.3pt' font-family='Helvetica'>1<\/text>\n   <text x='28.21' y='170.2' font-size='9pt' font-family='Helvetica'>10<\/text>\n   <text x='41.56' y='164.23' font-size='6.3pt' font-family='Helvetica'>0<\/text>\n   <text x='28.21' y='109.23' font-size='9pt' font-family='Helvetica'>10<\/text>\n   <text x='41.56' y='103.26' font-size='6.3pt' font-family='Helvetica'>1<\/text>\n   <text x='28.21' y='48.29' font-size='9pt' font-family='Helvetica'>10<\/text>\n   <text x='41.56' y='42.33' font-size='6.3pt' font-family='Helvetica'>2<\/text>\n   <polyline points='49.21,286.31 52.70,286.31' fill='none' stroke='#D9D9D9' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='49.21,225.35 52.70,225.35' fill='none' stroke='#D9D9D9' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='49.21,164.40 52.70,164.40' fill='none' stroke='#D9D9D9' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='49.21,103.44 52.70,103.44' fill='none' stroke='#D9D9D9' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='49.21,42.48 52.70,42.48' fill='none' stroke='#D9D9D9' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <text x='173.94' y='335.53' font-size='10.5pt' font-family='Helvetica'>Texas counties, from most to least populous<\/text>\n   <text transform='translate(17.02,251.24) rotate(-90.00)' font-size='10.5pt' font-family='Helvetica'>population number / median<\/text>\n  <\/g>\n <\/g>\n<\/svg>","js":null,"uid":"svg_d68b0ec2_c2a5_4265_8d15_fbd987f7af72","ratio":1.666666666666667,"settings":{"tooltip":{"css":".tooltip_SVGID_ { font-size:16px;padding:2px 4px 2px 4px;background:black;color:white;border-radius:2px 2px 2px 2px; ; position:absolute;pointer-events:none;z-index:999;}","placement":"container","opacity":0.9,"offx":10,"offy":0,"use_cursor_pos":true,"use_fill":false,"use_stroke":false,"delay_over":0,"delay_out":0},"hover":{"css":".hover_data_SVGID_ { stroke-width: 3; stroke: #E69F00; }","reactive":false,"nearest_distance":null},"hover_inv":{"css":""},"hover_key":{"css":".hover_key_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_key_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_key_SVGID_ { fill:orange;stroke:black; }\nline.hover_key_SVGID_, polyline.hover_key_SVGID_ { fill:none;stroke:orange; }\nrect.hover_key_SVGID_, polygon.hover_key_SVGID_, path.hover_key_SVGID_ { fill:orange;stroke:none; }\nimage.hover_key_SVGID_ { stroke:orange; }","reactive":true},"hover_theme":{"css":".hover_theme_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_theme_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_theme_SVGID_ { fill:orange;stroke:black; }\nline.hover_theme_SVGID_, polyline.hover_theme_SVGID_ { fill:none;stroke:orange; }\nrect.hover_theme_SVGID_, polygon.hover_theme_SVGID_, path.hover_theme_SVGID_ { fill:orange;stroke:none; }\nimage.hover_theme_SVGID_ { stroke:orange; }","reactive":true},"select":{"css":".select_data_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_data_SVGID_ { stroke:none;fill:red; }\ncircle.select_data_SVGID_ { fill:red;stroke:black; }\nline.select_data_SVGID_, polyline.select_data_SVGID_ { fill:none;stroke:red; }\nrect.select_data_SVGID_, polygon.select_data_SVGID_, path.select_data_SVGID_ { fill:red;stroke:none; }\nimage.select_data_SVGID_ { stroke:red; }","type":"multiple","only_shiny":true,"selected":[]},"select_inv":{"css":""},"select_key":{"css":".select_key_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_key_SVGID_ { stroke:none;fill:red; }\ncircle.select_key_SVGID_ { fill:red;stroke:black; }\nline.select_key_SVGID_, polyline.select_key_SVGID_ { fill:none;stroke:red; }\nrect.select_key_SVGID_, polygon.select_key_SVGID_, path.select_key_SVGID_ { fill:red;stroke:none; }\nimage.select_key_SVGID_ { stroke:red; }","type":"single","only_shiny":true,"selected":[]},"select_theme":{"css":".select_theme_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_theme_SVGID_ { stroke:none;fill:red; }\ncircle.select_theme_SVGID_ { fill:red;stroke:black; }\nline.select_theme_SVGID_, polyline.select_theme_SVGID_ { fill:none;stroke:red; }\nrect.select_theme_SVGID_, polygon.select_theme_SVGID_, path.select_theme_SVGID_ { fill:red;stroke:none; }\nimage.select_theme_SVGID_ { stroke:red; }","type":"single","only_shiny":true,"selected":[]},"zoom":{"min":1,"max":1,"duration":300},"toolbar":{"position":"topright","pngname":"diagram","tooltips":null,"hidden":[],"delay_over":200,"delay_out":500},"sizing":{"rescale":true,"width":0.7}}},"evals":[],"jsHooks":[]}</script>
+]
+
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+---
+
+## Further reading
+
+- Fundamentals of Data Visualization: [Chapter 21: Multi-panel figures](https://clauswilke.com/dataviz/multi-panel-figures.html)
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"slideNumberFormat": ""
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,580 @@
+---
+title: "Effective Visual Communication, Part 2"
+author: "Claus O. Wilke"
+date: "last updated: `r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: [default, "Wilke-slides-theme.css"]
+    lib_dir: libs
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      slideNumberFormat: ''
+      titleSlideClass: [center, middle]
+---
+
+```{r setup, include=FALSE, echo=FALSE, message = FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(comment = "")
+
+library(tidyverse)
+library(cowplot)
+library(colorspace)
+library(ggrepel)
+library(ggiraph)
+
+# ggplot2 settings so plots scale well for slide size 
+theme_set(theme_gray(16)) # 16 for full width, 18 for half width 
+update_geom_defaults("point", list(size = 2.0)) # 2 for full width, 2.5 for half width
+
+tech_stocks <- read_csv("https://wilkelab.org/SDS375/datasets/tech_stocks.csv") %>%
+  mutate(date = ymd(date)) %>%
+  select(company, date, price_indexed)
+
+# tx_counties dataset
+US_census <- read_csv("https://wilkelab.org/SDS375/datasets/US_census.csv")
+
+tx_counties <- US_census %>% 
+  filter(state == "Texas") %>%
+  select(name, pop2010) %>%
+  extract(name, "county", regex = "(.+) County")
+```
+
+## Three more principles
+
+--
+
+4\. Pay attention to figure composition and context
+
+--
+
+5\. Use text annotations
+
+--
+
+6\. Avoid overplotting
+
+
+---
+class: center middle
+
+## 4. Pay attention to figure composition and context
+
+---
+
+## Distinguish infographics from figures in article/book
+
+There are two distinct use cases:
+
+--
+
+**Infographic:** Standalone, has title/subtitle/caption
+
+--
+
+**Figure in article/book:** Caption contains title, not part of figure
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/figure_titles_captions_files/figure-html/corruption-development-infographic-1.png")
+background-position: left 50% top 45%
+background-size: 50%
+
+.absolute-bottom-left[
+Example of infographic
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/figure_titles_captions_files/figure-html/corruption-development-1.png")
+background-position: left 15% top 40%
+background-size: 50%
+
+.pull-right.width-35.move-down-2em.small-font[
+Figure 1. **Corruption and human development.** The most developed countries experience the least corruption. Inspired by a posting in [The Economist online (2011)](https://www.economist.com/graphic-detail/2011/12/02/corrosive-corruption). Data sources: Transparency International & UN Human Development Report.
+]
+
+.absolute-bottom-left[
+Example of figure in article or book
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Compound figures
+
+Two common scenarios:
+
+--
+
+1\. The same type of plot is replicated many times (small multiples)
+
+--
+
+2\. Several disparate plots are combined into one display
+
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/titanic-passenger-breakdown-1.png")
+background-position: left 50% top 60%
+background-size: 45%
+
+## 1. Small multiples (facets)
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/balance_data_context_files/figure-html/titanic-survival-by-gender-class-bad-1.png")
+background-position: left 50% top 60%
+background-size: 45%
+
+## 1. Small multiples (facets)
+
+.absolute-bottom-left[
+Avoid bars or other elements that are floating in space
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/balance_data_context_files/figure-html/titanic-survival-by-gender-class-1.png")
+background-position: left 50% top 60%
+background-size: 45%
+
+## 1. Small multiples (facets)
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+class: center middle
+
+## Small multiples work even for massive amounts of data
+
+---
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/movie-rankings-1.png")
+background-position: left 50% top 60%
+background-size: 45%
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-variable-y-lims-1.png")
+background-position: left 50% top 70%
+background-size: 50%
+
+## y-axis ranges should be consistent among panels
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-fixed-y-lims-1.png")
+background-position: left 50% top 70%
+background-size: 50%
+
+## y-axis ranges should be consistent among panels
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-compound-1.png")
+background-position: left 50% top 55%
+background-size: 75%
+
+## 2. Combining disparate figures into one display
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+--
+
+.absolute-bottom-left[
+Note: We now need plot labels ("a", "b") to identify sub-plots
+]
+
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-compound-bad-1.png")
+background-position: left 50% top 55%
+background-size: 75%
+
+## Don't use overly large or otherwise prominent labels
+
+.absolute-bottom-left[
+Note: Also don't use serif fonts (such as Times) for labels
+]
+
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-good-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Use a consistent color language among sub-plots
+
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-inconsistent-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Use a consistent color language among sub-plots
+
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-good-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Pay attention to sub-plot alignment
+
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-misaligned-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Pay attention to sub-plot alignment
+
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-good-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Combine plots of different types
+
+
+.absolute-bottom-left[
+This helps your readers to distinguish different parts of the analysis 
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/telling_a_story_files/figure-html/athletes-composite-repetitive-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Combine plots of different types
+
+
+.absolute-bottom-left[
+This helps your readers to distinguish different parts of the analysis 
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-good-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Combine plots of different types
+
+
+.absolute-bottom-left[
+This helps your readers to distinguish different parts of the analysis 
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+class: center middle
+
+## 5. Use text annotations
+
+---
+
+## Use direct labeling instead of legends
+
+.center[
+```{r tech-stocks-good-no-legend, echo = FALSE, out.width = "60%", fig.width = 7, fig.asp = 0.618, dev = "svg"}
+tech_stocks_last <- filter(tech_stocks, date == "2017-06-02")
+
+ggplot(tech_stocks, aes(x = date, y = price_indexed, color = company)) +
+  scale_color_manual(
+    values = c(
+      Facebook = "#000000", 
+      Alphabet = "#E69F00", 
+      Microsoft = "#56B4E9",
+      Apple = "#009E73"
+    ),
+    name = "",
+    breaks = c("Facebook", "Alphabet", "Microsoft", "Apple"),
+    guide = "none"
+  ) +
+  scale_x_date(
+    name = "year",
+    limits = c(ymd("2012-06-01"), ymd("2017-05-31")),
+    expand = c(0,0)
+  ) + 
+  scale_y_continuous(
+    name = "stock price, indexed",
+    limits = c(0, 560),
+    expand = c(0,0),
+    sec.axis = dup_axis(
+      breaks = tech_stocks_last$price_indexed,
+      labels = tech_stocks_last$company,
+      name = NULL
+    )
+  ) +
+  geom_line(linewidth = 0.66, na.rm = TRUE) +
+  theme_minimal_hgrid() + 
+  theme(
+    axis.ticks.length.y.right = grid::unit(0, "pt"),
+    plot.margin = margin(3, 7, 3, 1.5)
+  )
+```
+]
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Direct labeling the Iris scatter plot
+
+.center[
+```{r iris-scatter-with-ellipses, echo = FALSE, out.width = "45%", fig.width = 5.5, fig.asp = 0.8, dev = "svg"}
+iris_labels <- tibble(
+  Species = c("setosa", "virginica", "versicolor"),
+  label = c("Iris setosa", "Iris virginica", "Iris versicolor"),
+  Sepal.Width = c(4.2, 3.76, 2.08),
+  Sepal.Length = c(5.7, 7, 5.1),
+  hjust = c(0, 0.5, 0),
+  vjust = c(0, 0.5, 1)
+)
+
+ggplot(
+  iris,
+  aes(x = Sepal.Length, y = Sepal.Width, color = Species)
+) + 
+  geom_point(
+    aes(shape = Species, fill = Species),
+    size = 2.5,
+    position = position_jitter(
+      width = 0.01 * diff(range(iris$Sepal.Length)),
+      height = 0.01 * diff(range(iris$Sepal.Width)),
+      seed = 3942)
+  ) +
+  stat_ellipse(linewidth = 0.5) +
+  geom_text(
+    data = iris_labels,
+    aes(
+      x = Sepal.Length, y = Sepal.Width,
+      label = label, color = Species,
+      hjust = hjust, vjust = vjust
+    ),
+    size = 14/.pt,
+    fontface = "italic",
+    inherit.aes = FALSE
+  ) +
+  scale_shape_manual(
+    values = c(21, 22, 23),
+    breaks = c("setosa", "virginica", "versicolor"),
+    name = NULL
+  ) +
+  scale_fill_manual(
+    values = c("#56B4E980", "#E69F0080", "#009E7380"),
+    breaks = c("setosa", "virginica", "versicolor"),
+    name = NULL
+  ) +
+  scale_color_manual(
+    values = darken(c("#56B4E9", "#E69F00", "#009E73"), 0.3),
+    breaks = c("setosa", "virginica", "versicolor"),
+    name = NULL
+  ) +
+  guides(fill = "none", color = "none", shape = "none") +
+  scale_x_continuous(
+    limits = c(3.95, 8.2), expand = c(0, 0),
+    labels = c("4.0", "5.0", "6.0", "7.0", "8.0"),
+    name = "Sepal length"
+  ) +
+  scale_y_continuous(
+    limits = c(1.9, 4.6), expand = c(0, 0),
+    name = "Sepal width"
+  ) +
+  theme_half_open()
+```
+]
+
+The ellipses help guide the eye
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Label only a subset if there are too many items to label
+
+.center[
+```{r texas-counties-log, echo = FALSE, message = FALSE, out.width = "70%", fig.width = 8, fig.asp = 0.6, dev = "svg"}
+set.seed(3878)
+
+tx_counties_labels <- tx_counties %>% 
+  mutate(popratio = pop2010/median(pop2010)) %>%
+  arrange(desc(popratio)) %>%
+  mutate(
+    index = 1:n(),
+    label = ifelse(index <= 3 | index > n()-3 | runif(n()) < .04, county, ""),
+    label_large = ifelse(index <= 6, county, "")
+  )
+
+ggplot(tx_counties_labels, aes(x = index, y = popratio)) +
+  geom_hline(yintercept = 1, linetype = 2, color = "grey40") +
+  geom_point(size = 0.5, color = "#0072B2") +
+  geom_text_repel(
+    aes(label = label),
+    size = 10/.pt,
+    point.padding = .4, color = "black",
+    min.segment.length = 0,
+    max.overlaps = Inf
+  ) +
+  scale_y_log10(
+    breaks = c(.01, .1, 1, 10, 100),
+    name = "population number / median",
+    labels = expression(10^-2, 10^-1, 10^0, 10^1, 10^2)
+  ) +
+  scale_x_continuous(
+    limits = c(.5, nrow(tx_counties) + .5), expand = c(0, 0),
+    breaks = NULL, #c(1, 50*(1:5)),
+    name = "Texas counties, from most to least populous"
+  ) +
+  theme_minimal_hgrid(14) +
+  theme(axis.line = element_blank())
+```
+]
+
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Interactivity helps a lot
+
+.center[
+```{r texas-counties-log-interactive, echo = FALSE, message = FALSE, out.width = "70%", fig.width = 8, fig.asp = 0.6, dev = "svg"}
+tx_counties_plot <- ggplot(tx_counties_labels, aes(x = index, y = popratio)) +
+  geom_hline(yintercept = 1, linetype = 2, color = "grey40") +
+  geom_point_interactive(
+    aes(tooltip = county, data_id = county),
+    size = 0.5,
+    color = "#0072B2"
+  ) +
+  geom_text_repel(
+    aes(label = label),
+    size = 10/.pt,
+    point.padding = .4, color = "black",
+    min.segment.length = 0,
+    max.overlaps = 1000
+  ) +
+  scale_y_log10(
+    breaks = c(.01, .1, 1, 10, 100),
+    name = "population number / median",
+    labels = expression(10^-2, 10^-1, 10^0, 10^1, 10^2)
+  ) +
+  scale_x_continuous(
+    limits = c(.5, nrow(tx_counties) + .5), expand = c(0, 0),
+    breaks = NULL, #c(1, 50*(1:5)),
+    name = "Texas counties, from most to least populous"
+  ) +
+  coord_cartesian(clip = "off") +
+  theme_minimal_hgrid(14) +
+  theme(axis.line = element_blank())
+
+# CSS for the standard tool tips we'll use
+tooltip_css <- "font-size:16px;padding:2px 4px 2px 4px;background:black;color:white;border-radius:2px 2px 2px 2px;"
+
+girafe(
+  ggobj = tx_counties_plot,
+  width_svg = 8,
+  height_svg = 8*.6,
+  options = list(
+    opts_tooltip(css = tooltip_css, delay_mouseover = 0, delay_mouseout = 0),
+    opts_hover(css = "stroke-width: 3; stroke: #E69F00;"),
+    opts_sizing(rescale = TRUE, width = 0.7)
+  )
+)
+
+```
+]
+
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+---
+
+## Further reading
+
+- Fundamentals of Data Visualization: [Chapter 21: Multi-panel figures](https://clauswilke.com/dataviz/multi-panel-figures.html)
+

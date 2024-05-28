@@ -19,7 +19,7 @@ Materials for past and present workshops. The specific slide sets may differ fro
 <strong class="nospace">2024-05-28</strong>
 
 - [Slides Part 1](materials/2024-05-28-part1.html) (telling a story, making a point, making figures accessible)
-- [Slides Part 2](materials/2024-05-28-part2.html) (topic 1, topic 2, topic 3)
+- [Slides Part 2](materials/2024-05-28-part2.html) (figure composition and context, text annotations, overplotting)
 
 ## Reuse {.appendix}
 
