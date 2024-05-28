@@ -23,22 +23,40 @@ library(cowplot)
 library(colorspace)
 library(ggrepel)
 library(ggiraph)
+library(sf)
+library(here)
 
 # ggplot2 settings so plots scale well for slide size 
 theme_set(theme_gray(16)) # 16 for full width, 18 for half width 
 update_geom_defaults("point", list(size = 2.0)) # 2 for full width, 2.5 for half width
 
-tech_stocks <- read_csv("https://wilkelab.org/SDS375/datasets/tech_stocks.csv") %>%
+tech_stocks <- read_csv(here("datasets", "tech_stocks.csv")) %>%
   mutate(date = ymd(date)) %>%
   select(company, date, price_indexed)
 
 # tx_counties dataset
-US_census <- read_csv("https://wilkelab.org/SDS375/datasets/US_census.csv")
+US_census <- read_csv(here("datasets", "US_census.csv"))
 
 tx_counties <- US_census %>% 
   filter(state == "Texas") %>%
   select(name, pop2010) %>%
   extract(name, "county", regex = "(.+) County")
+
+texas_income <- readRDS(here("datasets", "Texas_income.rds")) %>%
+  select(-county)
+
+tx_census <- US_census %>% 
+  filter(state == "Texas") %>%
+  select(FIPS, name, pop2010, area) %>%
+  extract(name, "county", regex = "(.+) County") %>%
+  mutate(
+    FIPS = as.character(FIPS),
+    popratio = pop2010/median(pop2010),
+  )
+
+tx_counties <- left_join(texas_income, tx_census, by = "FIPS")
+
+blue_jays <- read_csv(here("datasets", "blue_jays.csv"))
 ```
 
 ## Three more principles
@@ -77,7 +95,7 @@ There are two distinct use cases:
 
 ---
 
-background-image: url("https://clauswilke.com/dataviz/figure_titles_captions_files/figure-html/corruption-development-infographic-1.png")
+background-image: url("dataviz/figure_titles_captions_files/figure-html/corruption-development-infographic-1.png")
 background-position: left 50% top 45%
 background-size: 50%
 
@@ -92,7 +110,7 @@ Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.
 
 ---
 
-background-image: url("https://clauswilke.com/dataviz/figure_titles_captions_files/figure-html/corruption-development-1.png")
+background-image: url("dataviz/figure_titles_captions_files/figure-html/corruption-development-1.png")
 background-position: left 15% top 40%
 background-size: 50%
 
@@ -108,106 +126,14 @@ Example of figure in article or book
 
 Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
 
----
-
-## Compound figures
-
-Two common scenarios:
-
---
-
-1\. The same type of plot is replicated many times (small multiples)
-
---
-
-2\. Several disparate plots are combined into one display
-
 
 ---
 
-background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/titanic-passenger-breakdown-1.png")
-background-position: left 50% top 60%
-background-size: 45%
-
-## 1. Small multiples (facets)
-
-???
-
-Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
-
----
-
-background-image: url("https://clauswilke.com/dataviz/balance_data_context_files/figure-html/titanic-survival-by-gender-class-bad-1.png")
-background-position: left 50% top 60%
-background-size: 45%
-
-## 1. Small multiples (facets)
-
-.absolute-bottom-left[
-Avoid bars or other elements that are floating in space
-]
-
-???
-
-Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
-
----
-
-background-image: url("https://clauswilke.com/dataviz/balance_data_context_files/figure-html/titanic-survival-by-gender-class-1.png")
-background-position: left 50% top 60%
-background-size: 45%
-
-## 1. Small multiples (facets)
-
-???
-
-Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
-
----
-class: center middle
-
-## Small multiples work even for massive amounts of data
-
----
-background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/movie-rankings-1.png")
-background-position: left 50% top 60%
-background-size: 45%
-
-???
-
-Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
-
----
-
-background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-variable-y-lims-1.png")
-background-position: left 50% top 70%
-background-size: 50%
-
-## y-axis ranges should be consistent among panels
-
-???
-
-Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
-
----
-
-background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-fixed-y-lims-1.png")
-background-position: left 50% top 70%
-background-size: 50%
-
-## y-axis ranges should be consistent among panels
-
-???
-
-Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
-
----
-
-background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-compound-1.png")
+background-image: url("dataviz/multi-panel_figures_files/figure-html/BA-degrees-compound-1.png")
 background-position: left 50% top 55%
 background-size: 75%
 
-## 2. Combining disparate figures into one display
+## You can combine disparate figures into one display
 
 ???
 
@@ -222,7 +148,7 @@ Note: We now need plot labels ("a", "b") to identify sub-plots
 
 ---
 
-background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-compound-bad-1.png")
+background-image: url("dataviz/multi-panel_figures_files/figure-html/BA-degrees-compound-bad-1.png")
 background-position: left 50% top 55%
 background-size: 75%
 
@@ -239,7 +165,7 @@ Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.
 
 ---
 
-background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-good-1.png")
+background-image: url("dataviz/multi-panel_figures_files/figure-html/athletes-composite-good-1.png")
 background-position: left 50% top 65%
 background-size: 50%
 
@@ -252,7 +178,7 @@ Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.
 
 ---
 
-background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-inconsistent-1.png")
+background-image: url("dataviz/multi-panel_figures_files/figure-html/athletes-composite-inconsistent-1.png")
 background-position: left 50% top 65%
 background-size: 50%
 
@@ -265,20 +191,7 @@ Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.
 
 ---
 
-background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-good-1.png")
-background-position: left 50% top 65%
-background-size: 50%
-
-## Pay attention to sub-plot alignment
-
-
-???
-
-Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
-
----
-
-background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-misaligned-1.png")
+background-image: url("dataviz/multi-panel_figures_files/figure-html/athletes-composite-misaligned-1.png")
 background-position: left 50% top 65%
 background-size: 50%
 
@@ -292,11 +205,11 @@ Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.
 
 ---
 
-background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-good-1.png")
+background-image: url("dataviz/telling_a_story_files/figure-html/athletes-composite-repetitive-1.png")
 background-position: left 50% top 65%
 background-size: 50%
 
-## Combine plots of different types
+## Make strategic use of different plot types
 
 
 .absolute-bottom-left[
@@ -310,11 +223,11 @@ Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.
 
 ---
 
-background-image: url("https://clauswilke.com/dataviz/telling_a_story_files/figure-html/athletes-composite-repetitive-1.png")
+background-image: url("dataviz/multi-panel_figures_files/figure-html/athletes-composite-good-1.png")
 background-position: left 50% top 65%
 background-size: 50%
 
-## Combine plots of different types
+## Make strategic use of different plot types
 
 
 .absolute-bottom-left[
@@ -324,20 +237,83 @@ This helps your readers to distinguish different parts of the analysis
 ???
 
 Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+---
 
+## Some thoughts about small multiples (facets)
 
 ---
 
-background-image: url("https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/athletes-composite-good-1.png")
-background-position: left 50% top 65%
-background-size: 50%
+background-image: url("dataviz/multi-panel_figures_files/figure-html/titanic-passenger-breakdown-1.png")
+background-position: left 50% top 60%
+background-size: 45%
 
-## Combine plots of different types
+## Some thoughts about small multiples (facets)
 
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("dataviz/balance_data_context_files/figure-html/titanic-survival-by-gender-class-bad-1.png")
+background-position: left 50% top 60%
+background-size: 45%
+
+## Some thoughts about small multiples (facets)
 
 .absolute-bottom-left[
-This helps your readers to distinguish different parts of the analysis 
+Avoid bars or other elements that are floating in space
 ]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("dataviz/balance_data_context_files/figure-html/titanic-survival-by-gender-class-1.png")
+background-position: left 50% top 60%
+background-size: 45%
+
+## Some thoughts about small multiples (facets)
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+class: center middle
+
+## Small multiples work even for massive amounts of data
+
+---
+background-image: url("dataviz/multi-panel_figures_files/figure-html/movie-rankings-1.png")
+background-position: left 50% top 60%
+background-size: 45%
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("dataviz/multi-panel_figures_files/figure-html/BA-degrees-variable-y-lims-1.png")
+background-position: left 50% top 70%
+background-size: 50%
+
+## y-axis ranges should be consistent among panels
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("dataviz/multi-panel_figures_files/figure-html/BA-degrees-fixed-y-lims-1.png")
+background-position: left 50% top 70%
+background-size: 50%
+
+## y-axis ranges should be consistent among panels
 
 ???
 
@@ -572,9 +548,566 @@ girafe(
 ???
 
 Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Highlight across two plots for added context
+
+.center[
+```{r tx_income_combined, echo = FALSE}
+texas_scatter <- tx_counties %>%
+  ggplot(aes(pop2010, median_income)) +
+  geom_point_interactive(
+    aes(
+      tooltip = county,
+      data_id = county
+    ),
+    na.rm = TRUE, size = 4,
+    shape = 21,
+    color = "#0072B2", fill = "#0072B280"
+  ) +
+  scale_y_continuous(
+    name = "Median income (USD)",
+    limits = c(21000, 97000),
+    breaks = c(40000, 60000, 80000),
+    labels = scales::dollar_format(),
+    expand = c(0, 0)
+  ) +
+  scale_x_log10(
+    name = "Number of inhabitants",
+    limits = c(300, 4100000),
+    breaks = c(1e2, 1e3, 1e4, 1e5, 1e6),
+    labels = expression(10^2, 10^3, 10^4, 10^5, 10^6)
+  ) +
+  theme_minimal_grid()
+
+texas_county_map <- tx_counties %>%
+  mutate(
+    onclick = glue::glue('window.open("https://en.wikipedia.org/wiki/{county} County, Texas")')
+  ) %>%
+  ggplot() +
+  geom_sf_interactive(
+    aes(
+      tooltip = county,
+      data_id = county,
+      onclick = onclick
+    ),
+    fill = "#0072B240", color = "black", size = 0.5/.pt
+  ) +
+  coord_sf(crs = 3083) +
+  theme_void()
+
+girafe(
+  ggobj = plot_grid(texas_scatter, texas_county_map, rel_widths = c(1.2, 1)),
+  width_svg = 10,
+  height_svg = 5,
+  options = list(
+    opts_tooltip(css = tooltip_css, delay_mouseover = 0, delay_mouseout = 0),
+    opts_hover(css = "fill: #E69F00; fill-opacity: 1.0; stroke: #E69F00;"),
+    opts_sizing(rescale = TRUE, width = 0.8)
+  )
+)
+```
+]
+
+---
+class: center middle
+
+## 6. Avoid overplotting
+
+---
+
+## Be aware of points plotted exactly on top of one another
+
+.center[
+```{r  mpg-cty-displ-solid, echo = FALSE, message = FALSE, out.width = "55%", fig.width = 6, fig.asp=.7416, dev = "svg"}
+p_mpg_solid <- ggplot(mpg, aes(y = cty, x = displ, color = drv, fill = drv)) +
+  geom_point(size = 3, shape = 21) + 
+  scale_x_continuous(
+    name = "displacement (l)",
+    limits = c(1.4, 7.1),
+    breaks = 2:7
+  ) +
+  scale_y_continuous(
+    name = "fuel economy (mpg)",
+    limits = c(5.3, 37),
+    breaks = 5*(2:7),
+    expand = c(0, 0)
+  ) +
+  scale_color_manual(
+    values = c("#202020", "#E69F00", "#56B4E9"), 
+    name = "drive train",
+    breaks = c("f", "r", "4"),
+    labels = c("FWD", "RWD", "4WD")
+  ) +
+  scale_fill_manual(
+    values = c("#202020", "#E69F00", "#56B4E9"), 
+    name = "drive train",
+    breaks = c("f", "r", "4"),
+    labels = c("FWD", "RWD", "4WD")
+  ) +
+  theme_half_open() +
+  theme(
+    legend.position = "inside",
+    legend.position.inside = c(.7, .8),
+    plot.margin = margin(3, 7, 3, 1.5)
+  )
+
+stamp_bad(p_mpg_solid)
+```
+]
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+--
+
+Technical term for this problem: overplotting
+
+---
+
+## Partial transparency helps highlight overlapping points
+
+.center[
+```{r mpg-cty-displ-transp, echo = FALSE, message = FALSE, out.width = "55%", fig.width = 6, fig.asp=.7416, dev = "svg"}
+ggplot(mpg, aes(y = cty, x = displ, color = drv, fill = drv)) +
+  geom_point(size = 3, shape = 21) + 
+  scale_x_continuous(
+    name = "displacement (l)",
+    limits = c(1.4, 7.1),
+    breaks = 2:7
+  ) +
+  scale_y_continuous(
+    name = "fuel economy (mpg)",
+    limits = c(5.3, 37),
+    breaks = 5*(2:7),
+    expand = c(0, 0)
+  ) +
+  scale_color_manual(
+    values = c("#202020", "#E69F00", "#56B4E9"), 
+    name = "drive train",
+    breaks = c("f", "r", "4"),
+    labels = c("FWD", "RWD", "4WD")
+  ) +
+  scale_fill_manual(
+    values = c("#20202080", "#E69F0080", "#56B4E980"),
+    name = "drive train",
+    breaks = c("f", "r", "4"),
+    labels = c("FWD", "RWD", "4WD")
+  ) +
+  theme_half_open() +
+  theme(
+    legend.position = "inside",
+    legend.position.inside = c(.7, .8),
+    plot.margin = margin(3, 7, 3, 1.5)
+  )
+```
+]
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## A little jitter shows overlaps even more clearly
+
+.center[
+```{r mpg-cty-displ-jitter, echo = FALSE, message = FALSE, out.width = "55%", fig.width = 6, fig.asp=.7416, dev = "svg"}
+ggplot(mpg, aes(y = cty, x = displ, color = drv, fill = drv)) +
+  geom_point(
+    size = 3, shape = 21,
+    position = position_jitter(
+      width = 0.01 * diff(range(mpg$displ)),
+      height = 0.01 * diff(range(mpg$cty)),
+      seed = 7384
+    )
+  ) + 
+  scale_x_continuous(
+    name = "displacement (l)",
+    limits = c(1.4, 7.1),
+    breaks = 2:7
+  ) +
+  scale_y_continuous(
+    name = "fuel economy (mpg)",
+    limits = c(5.3, 37),
+    breaks = 5*(2:7),
+    expand = c(0, 0)
+  ) +
+  scale_color_manual(
+    values = c("#202020", "#E69F00", "#56B4E9"), 
+    name = "drive train",
+    breaks = c("f", "r", "4"),
+    labels = c("FWD", "RWD", "4WD")
+  ) +
+  scale_fill_manual(
+    values = c("#20202080", "#E69F0080", "#56B4E980"),
+    name = "drive train",
+    breaks = c("f", "r", "4"),
+    labels = c("FWD", "RWD", "4WD")
+  ) +
+  theme_half_open() +
+  theme(
+    legend.position = "inside",
+    legend.position.inside = c(.7, .8),
+    plot.margin = margin(3, 7, 3, 1.5)
+  )
+```
+]
+
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## But don't jitter too much
+
+.center[
+```{r mpg-cty-displ-jitter-extreme, echo = FALSE, message = FALSE, out.width = "55%", fig.width = 6, fig.asp=.7416, dev = "svg"}
+p_mpg_jitter_extreme <- ggplot(mpg, aes(y = cty, x = displ, color = drv, fill = drv)) +
+  geom_point(
+    size = 3, shape = 21,
+    position = position_jitter(
+      width = 0.1 * diff(range(mpg$displ)),
+      height = 0.1 * diff(range(mpg$cty)),
+      seed = 7384
+    )
+  ) + 
+  scale_x_continuous(
+    name = "displacement (l)",
+    limits = c(1.4, 7.1),
+    breaks = 2:7
+  ) +
+  scale_y_continuous(
+    name = "fuel economy (mpg)",
+    limits = c(5.3, 37),
+    breaks = 5*(2:7),
+    expand = c(0, 0)
+  ) +
+  scale_color_manual(
+    values = c("#202020", "#E69F00", "#56B4E9"), 
+    name = "drive train",
+    breaks = c("f", "r", "4"),
+    labels = c("FWD", "RWD", "4WD")
+  ) +
+  scale_fill_manual(
+    values = c("#20202080", "#E69F0080", "#56B4E980"),
+    name = "drive train",
+    breaks = c("f", "r", "4"),
+    labels = c("FWD", "RWD", "4WD")
+  ) +
+  theme_half_open() +
+  theme(
+    legend.position = "inside",
+    legend.position.inside = c(.7, .8),
+    plot.margin = margin(3, 7, 3, 1.5)
+  )
+
+stamp_bad(p_mpg_jitter_extreme)
+```
+]
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+class: center middle
+
+## 2D density plots: Contour lines and contour bands
+
+---
+
+## Contour lines are the 2D version of density plots
+
+.center[
+```{r blue-jays-contour, echo = FALSE, out.width = "55%", fig.width = 6, fig.asp = 0.75, dev = "svg"}
+blue_jays_base <- ggplot(blue_jays, aes(body_mass_g, head_length_mm)) + 
+  scale_x_continuous(
+    limits = c(57, 82),
+    expand = c(0, 0),
+    name = "body mass (g)") +
+  scale_y_continuous(
+    limits = c(49, 61),
+    expand = c(0, 0),
+    name = "head length (mm)"
+  ) +
+  theme_minimal_grid(16) +
+  theme(
+    legend.position = "inside",
+    legend.position.inside = c(1, 0),
+    legend.justification = c(1, 0),
+    legend.text = element_text(vjust = 0.6),
+    legend.spacing.x = unit(2, "pt"),
+    legend.background = element_rect(fill = "white", color = NA),
+    axis.ticks.length = unit(0, "pt"),
+    axis.ticks = element_blank()
+  )
+
+blue_jays_base + 
+  geom_density_2d(color = "black", linewidth = 0.3, binwidth = 0.004) +
+  geom_point(color = "#202020", size = 2, alpha = 0.7)
+```
+]
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+## We can vary shading for added effect
+
+.center[
+```{r blue-jays-contour-filled, echo = FALSE, out.width = "55%", fig.width = 6, fig.asp = 0.75, dev = "svg"}
+blue_jays_base + 
+  geom_density_2d_filled(color = NA, binwidth = 0.004) +
+  geom_density_2d(color = "black", linewidth = 0.3, binwidth = 0.004) +
+  geom_point(color = "#202020", size = 2, alpha = 0.7) +
+  scale_fill_manual(
+    values = scales::colour_ramp(c("#F2F2F200", "#80808080"))((0:5)/5),
+    guide = "none"
+  )
+```
+]
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## What do we do when there are multiple groups?
+
+.center[
+```{r blue-jays-no-contour-by-sex, echo = FALSE, out.width = "55%", fig.width = 6, fig.asp = 0.75, dev = "svg"}
+blue_jays_base + 
+  aes(color = sex) +
+  geom_point(size = 2, alpha = 0.7) +
+  scale_color_manual(
+    values = c(F = "#D55E00", M = "#0072B2"),
+    breaks = c("F", "M"),
+    labels = c("female birds   ", "male birds"),
+    name = NULL,
+    guide = guide_legend(
+      direction = "horizontal",
+      override.aes = list(size = 2, linetype = 0)
+    )
+  )
+```
+]
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Colored contour lines can work for 2 to 3 groups
+
+.center[
+```{r blue-jays-contour-by-sex, echo = FALSE, out.width = "55%", fig.width = 6, fig.asp = 0.75, dev = "svg"}
+blue_jays_base + 
+  aes(color = sex) +
+  geom_density_2d(linewidth = 0.3, binwidth = 0.006) +
+  geom_point(size = 2, alpha = 0.7) +
+  scale_color_manual(
+    values = c(F = "#D55E00", M = "#0072B2"),
+    breaks = c("F", "M"),
+    labels = c("female birds   ", "male birds"),
+    name = NULL,
+    guide = guide_legend(
+      direction = "horizontal",
+      override.aes = list(size = 2, linetype = 0)
+    )
+  ) +
+  theme_minimal_grid(16) +
+  theme(
+    legend.position = "inside",
+    legend.position.inside = c(1, 0),
+    legend.justification = c(1, 0),
+    legend.text = element_text(vjust = 0.6),
+    legend.spacing.x = unit(2, "pt"),
+    legend.background = element_rect(fill = "white", color = NA),
+    axis.ticks.length = unit(0, "pt"),
+    axis.ticks = element_blank()
+  )
+```
+]
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## What if there are multiple groups intermingled?
+
+.center[
+```{r diamonds-points, echo = FALSE, out.width = "55%", fig.width = 6, fig.asp = 0.75, dev = "svg"}
+set.seed(6932)
+diamonds_small <- diamonds[sample(1:nrow(diamonds), 6000), ]
+
+diamonds_plot_base <- ggplot(diamonds_small, aes(carat, price, color = cut)) + 
+  scale_x_continuous(
+    limits = c(-.5, 5)  # set limits larger than coords to not limit contour lines
+  ) +
+  scale_y_log10(
+    name = "price (USD)",
+    breaks = c(300, 1000, 3000, 10000),
+    labels = c("$300", "$1,000", "$3,000", "$10,000"),
+    limits = c(240, 25000)
+  ) +
+  scale_color_discrete_sequential(
+    palette = "Inferno",
+    nmax = 6,
+    order = 1:5,
+    rev = FALSE,
+    breaks = c("Ideal", "Premium", "Very Good", "Good", "Fair"),
+    labels = c("ideal", "premium", "very good", "good", "fair"),
+    guide = guide_legend(
+      override.aes = list(size = 2, alpha = 1)
+    )
+  ) +
+  coord_cartesian(
+    xlim = c(-.1, 3.2),
+    ylim = c(240, 25000),
+    expand = FALSE
+  ) + 
+  theme_minimal_grid() +
+  panel_border() +
+  theme(
+    plot.margin = margin(18, 7, 1, 1.5),
+    legend.key.width = unit(6, "pt"),
+    legend.spacing.y = unit(3, "pt"),
+    legend.title = element_text(hjust = 0, margin = margin(0, 0, 0, 0)),
+    legend.position = "inside",
+    legend.position.inside = c(.97, .3),
+    legend.justification = c(1, 0.5),
+    legend.box.margin = margin(7, 7, 7, 7),
+    legend.box.background = element_rect(fill = "#FFFFFFD0", color = NA),
+    axis.ticks.length = unit(0, "pt")
+  )
+
+diamonds_plot_points <- diamonds_plot_base +
+  geom_point(size = .4, alpha = 1/5)
+  
+diamonds_plot_points
+```
+]
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Don't make plots that look like spaghetti
+
+.center[
+```{r diamonds-contours, echo = FALSE, out.width = "55%", fig.width = 6, fig.asp = 0.75, dev = "svg"}
+diamonds_plot_contours <- diamonds_plot_base +
+  geom_density2d(linewidth = 0.3, binwidth = 0.35)
+  
+stamp_bad(diamonds_plot_contours)
+```
+]
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Contour lines work well with small multiples (facets)
+
+.center[
+```{r diamonds-contour-facets, echo = FALSE, out.width = "75%", fig.width = 8, fig.asp = 0.618, dev = "svg"}
+diamonds_facet_base <- ggplot(diamonds_small, aes(carat, price)) + 
+  scale_x_continuous(
+    limits = c(-.5, 5)  # set limits larger than coords to not limit contour lines
+  ) +
+  scale_y_log10(
+    name = "price (USD)",
+    breaks = c(300, 1000, 3000, 10000),
+    labels = c("$300", "$1,000", "$3,000", "$10,000"),
+    limits = c(240, 25000)
+  ) +
+  coord_cartesian(
+    xlim = c(-.1, 3.2),
+    ylim = c(240, 25000),
+    expand = FALSE
+  ) + 
+  facet_wrap(~cut, scales = "free_x", labeller = labeller(cut = tolower)) +
+  theme_minimal_grid(12, rel_small = 1) +
+  panel_border() +
+  theme(
+    legend.title = element_text(hjust = 0.5),
+    legend.position = "inside",
+    legend.position.inside = c(.95, .05),
+    legend.justification = c(1, 0),
+    axis.ticks.length = unit(0, "pt")
+  )
+
+diamonds_facet_base +
+  geom_density2d_filled(binwidth = 0.4) +
+  geom_density2d(color = darken("#0072B2", .2), linewidth = .3, binwidth = 0.4) +
+  scale_fill_manual(
+    values = scales::colour_ramp(c("#ECF0F620", "#8498B3C0"))((0:9)/9),
+    guide = "none"
+  )
+
+#> desaturate(lighten("#0072B2", .9), .6)
+#[1] "#ECF0F6"
+#> desaturate(lighten("#0072B2", .3), .6)
+#[1] "#8498B3"
+```
+]
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Hex bins are the 2D version of histograms
+
+.center[
+```{r diamonds-hexbin2-facets, echo = FALSE, out.width = "75%", fig.width = 8, fig.asp = 0.618, dev = "svg"}
+diamonds_facet_base +
+  geom_hex(aes(colour = after_stat(count)), bins = 50) +
+  scale_color_continuous_sequential(
+    aesthetics = c("color", "fill"),
+    palette = "SunsetDark",
+    alpha = 0.7,
+    limits = c(0, 100),
+    breaks = c(0, 25, 50, 75, 100),
+    guide = guide_colourbar(
+      direction = "horizontal",
+      title.position = "top",
+      barwidth = grid::unit(1.8, "in"),
+      barheight = grid::unit(0.2, "in"),
+      ticks.colour = "black"
+    )
+  ) +
+  guides(fill = "none") +
+  theme(
+    legend.position = "inside",
+    legend.position.inside = c(0.97, .25),
+    legend.justification = c(1, 0.5)
+  )
+```
+]
+
+
 ---
 
 ## Further reading
 
+- Fundamentals of Data Visualization: [Chapter 18: Handling overlapping points](https://clauswilke.com/dataviz/overlapping-points.html)
+- Fundamentals of Data Visualization: [Chapter 20: Redundant coding](https://clauswilke.com/dataviz/redundant-coding.html)
 - Fundamentals of Data Visualization: [Chapter 21: Multi-panel figures](https://clauswilke.com/dataviz/multi-panel-figures.html)
-
