@@ -323,7 +323,7 @@ Development
 
 --
 
-**Development:** I had previously written an R package to improve figure design, but it wasn't sufficient: Good judgement cannot be automated ...
+**Development:** I had previously written an R package to improve figure design, but it wasn't sufficient: Good judgement cannot be automated . . .
 
 ---
 class: middle center
