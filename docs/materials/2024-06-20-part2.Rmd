@@ -24,6 +24,7 @@ library(colorspace)
 library(ggrepel)
 library(ggiraph)
 library(sf)
+library(patchwork)
 library(here)
 
 # ggplot2 settings so plots scale well for slide size 
@@ -63,14 +64,309 @@ tx_counties_labels <- tx_counties %>%
   )
 ```
 
-## Intro slide...
+## Topics for Part 2
 
+
+--
+
+4\. Making compound figures
+
+--
+
+5\. Making interactive plots
+
+--
+
+6\. Dealing with overplotting
 
 
 ---
 class: center middle
 
+## 4. Making compound figures
 
+
+---
+
+background-image: url("dataviz/multi-panel_figures_files/figure-html/athletes-composite-good-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Use a consistent color language among sub-plots
+
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("dataviz/multi-panel_figures_files/figure-html/athletes-composite-inconsistent-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Use a consistent color language among sub-plots
+
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("dataviz/multi-panel_figures_files/figure-html/athletes-composite-misaligned-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Pay attention to sub-plot alignment
+
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+background-image: url("dataviz/telling_a_story_files/figure-html/athletes-composite-repetitive-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Make strategic use of different plot types
+
+
+.absolute-bottom-left[
+This helps your readers to distinguish different parts of the analysis 
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+background-image: url("dataviz/multi-panel_figures_files/figure-html/athletes-composite-good-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## Make strategic use of different plot types
+
+
+.absolute-bottom-left[
+This helps your readers to distinguish different parts of the analysis 
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+---
+
+class: center middle
+
+## Making compound plots in R
+
+---
+
+## The **patchwork** package
+
+.tiny-font.pull-left.width-40[
+```{r patchwork-demo1, eval = FALSE}
+library(patchwork)
+
+# make first plot
+p1 <- ggplot(mtcars) + 
+  geom_point(aes(mpg, disp))
+
+p1
+```
+]
+
+.pull-right.width-55[
+```{r patchwork-demo1-out, ref.label="patchwork-demo1", out.width = "100%", fig.width=6., fig.asp = 0.75, echo=FALSE, dev = "svg"}
+```
+]
+
+---
+
+## The **patchwork** package
+
+.tiny-font.pull-left.width-40[
+```{r patchwork-demo2, eval = FALSE}
+library(patchwork)
+
+# make first plot
+p1 <- ggplot(mtcars) + 
+  geom_point(aes(mpg, disp))
+
+# make second plot
+p2 <- ggplot(mtcars) + 
+  aes(gear, disp, group = gear) +
+  geom_boxplot()
+
+p2
+```
+]
+
+.pull-right.width-55[
+```{r patchwork-demo2-out, ref.label="patchwork-demo2", out.width = "100%", fig.width=6., fig.asp = 0.75, echo=FALSE, dev = "svg"}
+```
+]
+
+---
+
+## The **patchwork** package
+
+.tiny-font.pull-left.width-40[
+```{r patchwork-demo3, eval = FALSE}
+library(patchwork)
+
+# make first plot
+p1 <- ggplot(mtcars) + 
+  geom_point(aes(mpg, disp))
+
+# make second plot
+p2 <- ggplot(mtcars) + 
+  aes(gear, disp, group = gear) +
+  geom_boxplot()
+
+# place plots side-by-side #<<
+p1 | p2   #<<
+```
+]
+
+.pull-right.width-55[
+```{r patchwork-demo3-out, ref.label="patchwork-demo3", out.width = "100%", fig.width=6., fig.asp = 0.5, echo=FALSE, dev = "svg"}
+```
+]
+
+---
+
+## The **patchwork** package
+
+.tiny-font.pull-left.width-40[
+```{r patchwork-demo4, eval = FALSE}
+library(patchwork)
+
+# make first plot
+p1 <- ggplot(mtcars) + 
+  geom_point(aes(mpg, disp))
+
+# make second plot
+p2 <- ggplot(mtcars) + 
+  aes(gear, disp, group = gear) +
+  geom_boxplot()
+
+# place plots on top of one-another #<<
+p1 / p2  #<<
+```
+]
+
+.pull-right.width-40.move-up-3em[
+```{r patchwork-demo4-out, ref.label="patchwork-demo4", out.width = "60%", fig.width=3., fig.asp = 2, echo=FALSE, dev = "svg"}
+```
+]
+
+---
+
+## The **patchwork** package
+
+.tiny-font.pull-left.width-35[
+```{r patchwork-demo5, eval = FALSE}
+# add a few more plots
+p3 <- ggplot(mtcars) + 
+  geom_smooth(aes(disp, qsec))
+
+p4 <- ggplot(mtcars) + 
+  geom_bar(aes(carb))
+
+# make complex arrangement #<<
+(p1 | p2 | p3) / p4  #<<
+```
+]
+
+.pull-right.width-60.move-up-1em[
+```{r patchwork-demo5-out, ref.label="patchwork-demo5", message = FALSE, out.width = "90%", fig.width=6., fig.asp = 0.9, echo=FALSE, dev = "svg"}
+```
+]
+
+---
+
+## Plot annotations
+
+.tiny-font.pull-left.width-35[
+```{r patchwork-demo6, eval = FALSE}
+(p1 | p2 | p3) / p4 +
+   plot_annotation( #<<
+     tag_levels = "A" #<<
+   ) #<<
+```
+
+Automatic labeling of plots
+]
+
+.pull-right.width-60.move-up-1em[
+```{r patchwork-demo6-out, ref.label="patchwork-demo6", message = FALSE, out.width = "90%", fig.width=6., fig.asp = 0.9, echo=FALSE, dev = "svg"}
+```
+]
+
+---
+
+## Plot annotations
+
+.tiny-font.pull-left.width-35[
+```{r patchwork-demo7, eval = FALSE}
+(p1 | p2 | p3) / p4 +
+   plot_annotation( #<<
+     tag_levels = "a" #<<
+   ) #<<
+```
+
+Automatic labeling of plots
+]
+
+.pull-right.width-60.move-up-1em[
+```{r patchwork-demo7-out, ref.label="patchwork-demo7", message = FALSE, out.width = "90%", fig.width=6., fig.asp = 0.9, echo=FALSE, dev = "svg"}
+```
+]
+
+---
+
+## Plot annotations
+
+.tiny-font.pull-left.width-35[
+```{r patchwork-demo9, eval = FALSE}
+(p1 | p2 | p3) / p4 +
+  plot_annotation(
+   tag_levels = "a",
+   title = "A plot about mtcars", #<<
+   subtitle = "With subtitle...", #<<
+   caption = "...and caption" #<<
+  ) &
+  cowplot::theme_minimal_grid()
+```
+
+Titles and captions
+
+Note the placement of plot labels with this theme
+]
+
+.pull-right.width-60.move-up-1em[
+```{r patchwork-demo9-out, ref.label="patchwork-demo9", message = FALSE, out.width = "90%", fig.width=6., fig.asp = 0.9, echo=FALSE, dev = "svg"}
+```
+]
+
+---
+
+## Consider cowplot for specific alignment problems
+
+<img src = "effective-communication_files/cowplot-logo.svg", width = 30%, style = "position:absolute; top: 15%; right: 5%;"></img>
+
+From the cowplot documentation: [Aligning plots](https://wilkelab.org/cowplot/articles/aligning_plots.html)
+
+.width-70[
+The patchwork package is the better default option, but it's good to have alternatives.
+]
 ---
 class: center middle
 
@@ -483,7 +779,7 @@ girafe(
 .tiny-font[
 ```{r TX_counties_combined-demo, eval = FALSE}
 girafe(
-  ggobj = plot_grid(texas_scatter, texas_county_map),
+  ggobj = (texas_scatter | texas_county_map), # combine plots with patchwork
   width_svg = 10, height_svg = 4.5
 )
 ```
@@ -541,7 +837,7 @@ US_states %>%
 ---
 class: center middle
 
-## 6. Avoid overplotting
+## 6. Dealing with overplotting
 
 ---
 
@@ -742,11 +1038,100 @@ stamp_bad(p_mpg_jitter_extreme)
 
 Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
 
+---
+
+## Let's go over the code of the best example
+
+.center[
+```{r mpg-cty-displ-jitter2, echo = FALSE, message = FALSE, out.width = "55%", fig.width = 6, fig.asp=.7416, dev = "svg"}
+ggplot(mpg, aes(y = cty, x = displ, color = drv, fill = drv)) +
+  geom_point(
+    size = 3, shape = 21,
+    position = position_jitter(
+      width = 0.01 * diff(range(mpg$displ)),
+      height = 0.01 * diff(range(mpg$cty)),
+      seed = 7384
+    )
+  ) + 
+  scale_x_continuous(
+    name = "displacement (l)",
+    limits = c(1.4, 7.1),
+    breaks = 2:7
+  ) +
+  scale_y_continuous(
+    name = "fuel economy (mpg)",
+    limits = c(5.3, 37),
+    breaks = 5*(2:7),
+    expand = c(0, 0)
+  ) +
+  scale_color_manual(
+    values = c("#202020", "#E69F00", "#56B4E9"), 
+    name = "drive train",
+    breaks = c("f", "r", "4"),
+    labels = c("FWD", "RWD", "4WD")
+  ) +
+  scale_fill_manual(
+    values = c("#20202080", "#E69F0080", "#56B4E980"),
+    name = "drive train",
+    breaks = c("f", "r", "4"),
+    labels = c("FWD", "RWD", "4WD")
+  ) +
+  theme_half_open() +
+  theme(
+    legend.position = "inside",
+    legend.position.inside = c(.7, .8),
+    plot.margin = margin(3, 7, 3, 1.5)
+  )
+```
+]
+
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+## Let's go over the code of the best example
+
+.xtiny-font.move-up-2em[
+```r
+ggplot(mpg, aes(y = cty, x = displ, color = drv, fill = drv)) +
+  geom_point(size = 3, shape = 21) + 
+  scale_x_continuous(
+    name = "displacement (l)", limits = c(1.4, 7.1), breaks = 2:7
+  ) +
+  scale_y_continuous(
+    name = "fuel economy (mpg)", limits = c(5.3, 37), breaks = 5*(2:7),
+    expand = c(0, 0)
+  ) +
+  scale_color_manual(
+    values = c("#202020", "#E69F00", "#56B4E9"), 
+    name = "drive train",
+    breaks = c("f", "r", "4"), labels = c("FWD", "RWD", "4WD")
+  ) +
+  scale_fill_manual(
+    values = c("#20202080", "#E69F0080", "#56B4E980"),
+    name = "drive train",
+    breaks = c("f", "r", "4"), labels = c("FWD", "RWD", "4WD")
+  ) +
+  cowplot::theme_half_open() +
+  theme(
+    legend.position = "inside",
+    legend.position.inside = c(.7, .8),
+    plot.margin = margin(3, 7, 3, 1.5)
+  )
+```
+]
+
 
 ---
 
 ## Further reading
 
 - Fundamentals of Data Visualization: [Chapter 18: Handling overlapping points](https://clauswilke.com/dataviz/overlapping-points.html)
-- Fundamentals of Data Visualization: [Chapter 20: Redundant coding](https://clauswilke.com/dataviz/redundant-coding.html)
 - Fundamentals of Data Visualization: [Chapter 21: Multi-panel figures](https://clauswilke.com/dataviz/multi-panel-figures.html)
+- **ggiraph** package: [official site](https://davidgohel.github.io/ggiraph/)
+- **patchwork** package: [official site](https://patchwork.data-imaginist.com/index.html)
+- **cowplot** package: [official site](https://wilkelab.org/cowplot/index.html)

@@ -18,9 +18,10 @@ Materials for past and present workshops. The specific slide sets may differ fro
 
 <strong class="nospace">2024-06-20</strong>
 
-Workshop in [support of Ukraine.](https://sites.google.com/view/dariia-mykhailyshyna/main/r-workshops-for-ukraine#h.95gc1ocexdze) To work through all the examples provided, you will need the following R packages: tidyverse, colorspace, cowplot, ggrepel, ggiraph, sf
+Workshop in [support of Ukraine.](https://sites.google.com/view/dariia-mykhailyshyna/main/r-workshops-for-ukraine#h.95gc1ocexdze) To work through all the examples provided, you will need the following R packages: tidyverse, cowplot, ggiraph, sf, patchwork
 
 - [Slides Part 1](materials/2024-06-20-part1.html)
+- [Slides Part 1](materials/2024-06-20-part2.html)
 
 <strong class="nospace">2024-05-28</strong>
 
