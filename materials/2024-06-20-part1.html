@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Effective Visual Communication, Part 1</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Claus O. Wilke" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="Wilke-slides-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, title-slide
+
+.title[
+# Effective Visual Communication, Part 1
+]
+.author[
+### Claus O. Wilke
+]
+.date[
+### last updated: 2024-06-11
+]
+
+---
+
+
+
+
+
+## Why Data Visualization?
+
+--
+
+&lt;br&gt;
+
+.center[
+&lt;img src = "introduction_files/Data_science_venn.svg", width = 60%&gt;&lt;/img&gt;
+]
+
+---
+
+
+## Why Data Visualization?
+
+&lt;br&gt;
+
+.center[
+&lt;img src = "introduction_files/Data_visualization_venn.svg", width = 60%&gt;&lt;/img&gt;
+]
+
+---
+
+## Why me?
+
+--
+
+&lt;img src = "dataviz/cover.png", width = 30%, style = "position:absolute; top: 18%; left: 13%; box-shadow: 3px 5px 3px 1px #00000080;"&gt;&lt;/img&gt;
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+.pull-left.small-font[
+
+.center[
+https://clauswilke.com/dataviz
+]
+
+]
+
+
+&lt;img src = "dataviz/coordinate_systems_axes_files/figure-html/worldmap-four-projections-1.png", width = 30%, style = "position:absolute; top: 12%; left: 45%; box-shadow: 3px 5px 3px 1px #00000080;"&gt;&lt;/img&gt;
+
+
+&lt;img src = "dataviz/nested_proportions_files/figure-html/US-states-treemap-1.png",  width = 30%, style = "position:absolute; top: 22%; left: 55%; box-shadow: 3px 5px 3px 1px #00000080;"&gt;&lt;/img&gt;
+
+
+&lt;img src = "dataviz/geospatial_data_files/figure-html/unemployment-geofacet-1.png",  width = 30%, style = "position:absolute; top: 32%; left: 65%; box-shadow: 3px 5px 3px 1px #00000080;"&gt;&lt;/img&gt;
+
+
+&lt;img src = "dataviz/redundant_coding_files/figure-html/temp-ridgeline-colorbar-1.png",  width = 30%, style = "position:absolute; top: 42%; left: 50%; box-shadow: 3px 5px 3px 1px #00000080;"&gt;&lt;/img&gt;
+
+
+&lt;img src = "dataviz/multi-panel_figures_files/figure-html/athletes-composite-good-1.png",  width = 30%, style = "position:absolute; top: 52%; left: 60%; box-shadow: 3px 5px 3px 1px #00000080;"&gt;&lt;/img&gt;
+
+---
+
+## How did I get here?
+
+--
+
+&lt;img src = "effective-communication_files/cowplot-logo.svg", width = 30%, style = "position:absolute; top: 22%; left: 13%;"&gt;&lt;/img&gt;
+
+--
+
+&lt;img src = "dataviz/cover.png", width = 30%, style = "position:absolute; top: 20%; left: 53%; box-shadow: 3px 5px 3px 1px #00000080;"&gt;&lt;/img&gt;
+
+---
+
+## Three key principles of effective visual communication
+
+--
+
+1. Tell a story
+
+--
+
+2. Prepare figures that make a point
+
+--
+
+3. Make your figures accessible
+
+---
+class: center middle
+
+## 1. Tell a story
+
+---
+
+## What is a story?
+
+--
+
+A story is a collection of observations, facts, or events presented in a specific order such that they create an .highlight[emotional reaction]
+
+---
+
+## Every story has an arc
+
+--
+
+.center[
+Opening
+]
+
+--
+
+.center[
+&lt;img src = "effective-communication_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"&gt;&lt;/img&gt;
+
+Challenge
+]
+
+--
+
+.center[
+&lt;img src = "effective-communication_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"&gt;&lt;/img&gt;
+
+Action
+]
+
+--
+
+.center[
+&lt;img src = "effective-communication_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"&gt;&lt;/img&gt;
+
+Resolution
+]
+
+---
+
+## Every story has an arc
+
+.center[
+Opening
+]
+
+.center[
+&lt;img src = "effective-communication_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"&gt;&lt;/img&gt;
+
+.highlight[Challenge]
+]
+
+.center[
+&lt;img src = "effective-communication_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"&gt;&lt;/img&gt;
+
+Action
+]
+
+.center[
+&lt;img src = "effective-communication_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"&gt;&lt;/img&gt;
+
+.highlight[Resolution]
+]
+
+.absolute-bottom-right[
+Challenge and resolution are&lt;br&gt;the two most important parts
+]
+
+---
+
+## Mapping my story onto this format
+
+--
+
+**Opening:** We need to make many data visualizations in my lab
+
+--
+
+**Challenge:** I end up telling my students the same things over and over
+
+--
+
+**Action:** I go and write a book about data visualization
+
+--
+
+**Resolution:** The book is written. But now I teach the material, so I still keep saying the same things over and over
+
+
+---
+
+## Other story structures
+
+--
+
+.center.move-up-1em[
+Action
+]
+
+--
+
+.center[
+&lt;img src = "effective-communication_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"&gt;&lt;/img&gt;
+
+Background
+]
+
+--
+
+.center[
+&lt;img src = "effective-communication_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"&gt;&lt;/img&gt;
+
+Development
+]
+
+--
+
+.center[
+&lt;img src = "effective-communication_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"&gt;&lt;/img&gt;
+
+Climax
+]
+
+--
+
+.center[
+&lt;img src = "effective-communication_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"&gt;&lt;/img&gt;
+
+Ending
+]
+
+--
+
+.absolute-bottom-right[
+(Better for action movies&lt;br&gt;than for scientific reports)
+]
+
+---
+
+## Mapping my story onto this format
+
+--
+
+**Action:** In May 2017, I embark on a major project: Write a book on data visualization
+
+--
+
+**Background:** I do this because we need to make many data visualizations in my lab, and I end up telling my students the same things over and over
+
+--
+
+**Development:** Writing the book takes me almost two years; along the way, I add many features to ggplot2 and become a member of the ggplot2 team
+
+--
+
+**Climax:** The book is released in April 2019
+
+--
+
+**Ending:** Now I'm a dataviz teacher
+
+
+---
+
+## Other story structures
+
+&lt;br&gt;&lt;br&gt;
+
+--
+
+.center[
+Lead
+]
+
+--
+
+.center[
+&lt;img src = "effective-communication_files/arrow.svg", width = 3%, style = "margin-top: -0.5em; margin-bottom: -1em"&gt;&lt;/img&gt;
+
+Development
+]
+
+--
+
+.absolute-bottom-right[
+(Commonly used in newspaper articles)
+]
+
+---
+
+## Mapping my story onto this format
+
+--
+
+**Lead:** Because I see the need for more education in data visualization, I have written an entire book about the topic
+
+--
+
+**Development:** I had previously written an R package to improve figure design, but it wasn't sufficient: Good judgement cannot be automated . . .
+
+---
+class: middle center
+
+## 2. Prepare figures that make a point
+
+---
+
+## How to use figures to tell a story
+
+--
+
+- Every figure needs a clear purpose within the story arc
+
+--
+
+- A complete arc will usually require at least two figures
+
+
+---
+
+## Example: Preprints in biology
+
+.center[
+&lt;img src="2024-06-20-part1_files/figure-html/preprints-part1-1.svg" width="75%" /&gt;
+]
+
+.absolute-bottom-right[
+Opening
+]
+
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+
+## Example: Preprints in biology
+
+.center[
+&lt;img src="2024-06-20-part1_files/figure-html/preprints-part1-repeat-1.svg" width="75%" /&gt;
+]
+
+
+&lt;div style = "position: absolute; top: 50%; left: 57%; width: 3.8in; background: white;"&gt;
+What happened in 2014 to curtail the growth?
+&lt;/div&gt;
+
+.absolute-bottom-right[
+Challenge
+]
+
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Example: Preprints in biology
+
+.center[
+&lt;img src="2024-06-20-part1_files/figure-html/preprints-part2-1.svg" width="75%" /&gt;
+]
+
+.absolute-bottom-right[
+Resolution
+]
+
+&lt;div style = "position: absolute; top: 65%; left: 60%; width: 3.8in; background: white;"&gt;
+bioRxiv opened in 2014
+&lt;/div&gt;
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Don't overload your figures with irrelevant detail
+
+--
+
+.center[
+&lt;img src="2024-06-20-part1_files/figure-html/arrival-delay-vs-distance-1.svg" width="75%" /&gt;
+]
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Don't overload your figures with irrelevant detail
+
+.center[
+&lt;img src="2024-06-20-part1_files/figure-html/mean-arrival-delay-nyc-1.svg" width="75%" /&gt;
+]
+
+&lt;div style = "position: absolute; top: 24%; left: 45%; background: white;"&gt;
+American and Delta&lt;br&gt;have the shortest delays
+&lt;/div&gt;
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Make your figures memorable
+
+
+
+---
+
+background-image: url("dataviz/telling_a_story_files/figure-html/petownership-bar-1.png")
+background-position: left 50% top 60%
+background-size: 65%
+
+## Make your figures memorable
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+background-image: url("dataviz/telling_a_story_files/figure-html/petownership-isotype-1.png")
+background-position: left 50% top 60%
+background-size: 65%
+
+## Make your figures memorable
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+class: middle center
+
+## 3. Make your figures accessible
+
+---
+
+## These design elements all affect accessibility 
+
+--
+
+- Font/symbol size
+
+--
+
+- Font choice
+
+--
+
+- Color choice
+
+--
+
+- Contrast
+
+---
+
+## These design elements all affect accessibility 
+
+- .highlight[Font/symbol size]
+
+- Font choice
+
+- .highlight[Color choice]
+
+- Contrast
+
+
+---
+
+## Don't use tiny fonts!
+
+.center[
+&lt;img src = "dataviz/small_axis_labels_files/figure-html/Aus-athletes-small-1.png", width = 60%&gt;&lt;/img&gt;
+]
+
+.tiny[
+Both text and symbols are way too small
+]
+
+---
+
+## Don't use tiny fonts!
+
+.center[
+&lt;img src = "dataviz/small_axis_labels_files/figure-html/Aus-athletes-good-1.png", width = 60%&gt;&lt;/img&gt;
+]
+
+.tiny[
+Text and symbols are reasonable but could be bigger
+]
+
+
+---
+
+## Don't use tiny fonts!
+
+.center[
+&lt;img src = "dataviz/small_axis_labels_files/figure-html/Aus-athletes-big-ugly-1.png", width = 60%&gt;&lt;/img&gt;
+]
+
+.tiny[
+Symbols too small compared to text
+]
+
+
+---
+
+## Don't use tiny fonts!
+
+.center[
+&lt;img src = "dataviz/small_axis_labels_files/figure-html/Aus-athletes-big-good-1.png", width = 60%&gt;&lt;/img&gt;
+]
+
+.tiny[
+Make fonts bigger than you feel comfortable
+]
+
+---
+
+## Don't use tiny fonts!
+
+.center[
+&lt;img src = "dataviz/small_axis_labels_files/figure-html/Aus-athletes-big-good-1.png", width = 40.8%&gt;&lt;/img&gt;
+]
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+.tiny[
+Make fonts bigger than you feel comfortable
+]
+
+---
+class: middle
+
+## Rule of thumb:&lt;br&gt;Keep ratio of largest and smallest font size &lt; 2
+
+
+---
+
+## Design for color-vision deficiency
+
+--
+
+5%–8% of men are color blind!
+
+--
+
+&lt;img src = "dataviz/pitfalls_of_color_use_files/figure-html/red-green-cvd-sim-1.png", width = 100%&gt;&lt;/img&gt;
+
+Red-green color-vision deficiency is the most common
+
+---
+
+## Design for color-vision deficiency
+
+5%–8% of men are color blind!
+
+&lt;img src = "dataviz/pitfalls_of_color_use_files/figure-html/blue-green-cvd-sim-1.png", width = 100%&gt;&lt;/img&gt;
+
+Blue-green color-vision deficiency is rare but does occur
+
+---
+
+## Design for color-vision deficiency
+
+Choose colors that can be distinguished by people with CVD
+
+&lt;img src = "dataviz/pitfalls_of_color_use_files/figure-html/PiYG-cvd-sim-1.png", width = 100%&gt;&lt;/img&gt;
+
+---
+
+## Consider using the Okabe-Ito palette
+
+.center[
+&lt;img src = "dataviz/pitfalls_of_color_use_files/figure-html/palette-Okabe-Ito-1.png", width = 100%&gt;&lt;/img&gt;
+]
+
+.tiny-font[
+Name           | Hex code &amp;nbsp;&amp;nbsp; | R, G, B (0-255)
+:----------    | :-------  | :--------
+orange         | #E69F00   | 230, 159, 0
+sky blue	     | #56B4E9   | 86, 180, 233
+bluish green   | #009E73   | 0, 158, 115
+yellow	       | #F0E442   | 240, 228, 66
+blue	         | #0072B2   | 0, 114, 178
+vermilion	     | #D55E00   | 213, 94, 0
+reddish purple | #CC79A7   | 204, 121, 167
+black	         | #000000   | 0, 0, 0
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+## CVD is worse for thin lines and tiny dots
+
+.move-up-1em.center[
+&lt;img src = "dataviz/pitfalls_of_color_use_files/figure-html/colors-thin-lines-1.png", width = 65%&gt;&lt;/img&gt;
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Color encoding alone is not always sufficient
+
+.move-up-1em.center[
+&lt;img src = "dataviz/redundant_coding_files/figure-html/iris-scatter-one-shape-1.png", width = 75%&gt;&lt;/img&gt;
+]
+
+Iris virginica and Iris versicolor are difficult to tell apart
+
+---
+
+## Rearranging colors and using different shapes helps
+
+.move-up-1em.center[
+&lt;img src = "dataviz/redundant_coding_files/figure-html/iris-scatter-three-shapes-1.png", width = 75%&gt;&lt;/img&gt;
+]
+
+
+---
+
+## When in doubt, run CVD simulations
+
+&lt;div class = "move-up-1em" style = "width: 50%; box-shadow: 3px 5px 3px 1px #00000080; padding: 8px;"&gt;
+.small-font[Original]&lt;br&gt;
+&lt;img src = "effective-communication_files/iris-scatter-one-shape-edited.png", width = 100%&gt;&lt;/img&gt;
+&lt;/div&gt;
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## When in doubt, run CVD simulations
+
+&lt;div class = "move-up-1em" style = "width: 50%; box-shadow: 3px 5px 3px 1px #00000080; padding: 8px;"&gt;
+.small-font[Original]&lt;br&gt;
+&lt;img src = "dataviz/redundant_coding_files/figure-html/iris-scatter-one-shape-1.png", width = 100%&gt;&lt;/img&gt;
+&lt;/div&gt;
+
+&lt;img src = "dataviz/redundant_coding_files/figure-html/iris-scatter-one-shape-cvd-1.png", width = 60% style = "position: absolute; top: 22%; left: 30%; box-shadow: 3px 5px 3px 1px #00000080; padding: 16px 8px 8px 16px; background: white"&gt;&lt;/img&gt;
+
+???
+
+Figures from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## When in doubt, run CVD simulations
+
+&lt;div class = "move-up-1em" style = "width: 50%; box-shadow: 3px 5px 3px 1px #00000080; padding: 8px;"&gt;
+.small-font[Original]&lt;br&gt;
+&lt;img src = "dataviz/redundant_coding_files/figure-html/iris-scatter-three-shapes-1.png", width = 100%&gt;&lt;/img&gt;
+&lt;/div&gt;
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## When in doubt, run CVD simulations
+
+&lt;div class = "move-up-1em" style = "width: 50%; box-shadow: 3px 5px 3px 1px #00000080; padding: 8px;"&gt;
+.small-font[Original]&lt;br&gt;
+&lt;img src = "dataviz/redundant_coding_files/figure-html/iris-scatter-three-shapes-1.png", width = 100%&gt;&lt;/img&gt;
+&lt;/div&gt;
+
+&lt;img src = "dataviz/redundant_coding_files/figure-html/iris-scatter-three-shapes-cvd-1.png", width = 60% style = "position: absolute; top: 22%; left: 30%; box-shadow: 3px 5px 3px 1px #00000080; padding: 16px 8px 8px 16px; background: white"&gt;&lt;/img&gt;
+
+???
+
+Figures from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+## Pay attention to legend order
+
+.center[
+&lt;img src="2024-06-20-part1_files/figure-html/tech-stocks-bad-legend-1.svg" width="60%" /&gt;
+]
+
+Legend order **does not** match visual order of the lines
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Pay attention to legend order
+
+.center[
+&lt;img src="2024-06-20-part1_files/figure-html/tech-stocks-good-legend-1.svg" width="60%" /&gt;
+]
+
+Legend order **does** match visual order of the lines
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+## Even better: Don't use a legend at all
+
+.center[
+&lt;img src="2024-06-20-part1_files/figure-html/tech-stocks-good-no-legend-1.svg" width="60%" /&gt;
+]
+
+This technique is called "direct labeling"
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+## Additional materials, examples with R code
+
+.center.move-up-1em[
+&lt;img src = "introduction_files/SDS375_screenshot.png", width = 60%&gt;&lt;/img&gt;
+]
+
+.small-font.move-up-2em[
+https://wilkelab.org/SDS375
+]
+
+
+---
+
+## Further reading
+
+- Fundamentals of Data Visualization: [Chapter 29: Telling a story and making a point](https://clauswilke.com/dataviz/telling-a-story.html)
+
+- Joshua Schimel (2011) Writing Science: How to Write Papers That Get Cited and Proposals That Get Funded.
+
+- Zeileis et al. (2020) [colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes.](https://www.jstatsoft.org/article/view/v096i01) Journal of Statistical Software 96:1–49.
+
+- Fundamentals of Data Visualization: [Chapter 19: Common pitfalls of color use](https://clauswilke.com/dataviz/color-pitfalls.html)
+
+- Fundamentals of Data Visualization: [Chapter 20: Redundant coding](https://clauswilke.com/dataviz/redundant-coding.html)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"slideNumberFormat": ""
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

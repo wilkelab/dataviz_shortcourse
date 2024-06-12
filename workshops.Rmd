@@ -16,6 +16,12 @@ knitr::opts_chunk$set(echo = FALSE)
 
 Materials for past and present workshops. The specific slide sets may differ from the four main lessons. All materials are primarily based on material from my semester-long [data visualization course at UT Austin.](https://wilkelab.org/SDS375/)
 
+<strong class="nospace">2024-06-20</strong>
+
+Workshop in [support of Ukraine.](https://sites.google.com/view/dariia-mykhailyshyna/main/r-workshops-for-ukraine#h.95gc1ocexdze) To work through all the examples provided, you will need the following R packages: tidyverse, colorspace, cowplot, ggrepel, ggiraph, sf
+
+- [Slides Part 1](materials/2024-06-20-part1.html)
+
 <strong class="nospace">2024-05-28</strong>
 
 - [Slides Part 1](materials/2024-05-28-part1.html) (telling a story, making a point, making figures accessible)
