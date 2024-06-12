@@ -1040,7 +1040,7 @@ Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reill
 
 ---
 
-## Let's go over the code of the best example
+## Let's go over the code of the example with jitter
 
 .center[
 ```{r mpg-cty-displ-jitter2, echo = FALSE, message = FALSE, out.width = "55%", fig.width = 6, fig.asp=.7416, dev = "svg"}
@@ -1093,18 +1093,22 @@ Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reill
 
 ---
 
-## Let's go over the code of the best example
+## Let's go over the code of the example with jitter
 
-.xtiny-font.move-up-2em[
+.xxtiny-font.move-up-2em[
 ```r
 ggplot(mpg, aes(y = cty, x = displ, color = drv, fill = drv)) +
-  geom_point(size = 3, shape = 21) + 
+  geom_point(
+    size = 3, shape = 21,
+    position = position_jitter(
+      width = 0.01 * diff(range(mpg$displ)), height = 0.01 * diff(range(mpg$cty)), seed = 7384
+    )
+  ) + 
   scale_x_continuous(
     name = "displacement (l)", limits = c(1.4, 7.1), breaks = 2:7
   ) +
   scale_y_continuous(
-    name = "fuel economy (mpg)", limits = c(5.3, 37), breaks = 5*(2:7),
-    expand = c(0, 0)
+    name = "fuel economy (mpg)", limits = c(5.3, 37), breaks = 5*(2:7), expand = c(0, 0)
   ) +
   scale_color_manual(
     values = c("#202020", "#E69F00", "#56B4E9"), 
