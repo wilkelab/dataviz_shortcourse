@@ -12,6 +12,8 @@ output:
       highlightLines: true
       slideNumberFormat: ''
       titleSlideClass: [center, middle]
+params:
+  interactive: TRUE
 ---
 
 ```{r setup, include=FALSE, echo=FALSE, message = FALSE}
@@ -556,7 +558,7 @@ girafe(                        #<<
 ]
 
 .pull-right[
-```{r iris-girafe-demo-out, ref.label="iris-girafe-demo", echo=FALSE, warning=FALSE}
+```{r iris-girafe-demo-out, ref.label="iris-girafe-demo", echo=FALSE, warning=FALSE, eval=params$interactive}
 ```
 
 .small-font[
@@ -596,7 +598,7 @@ css = "background: #F5F5F5; color: #191970;" #<<
 ]
 
 .pull-right[
-```{r iris-girafe-demo2-out, ref.label="iris-girafe-demo2", echo=FALSE, warning=FALSE}
+```{r iris-girafe-demo2-out, ref.label="iris-girafe-demo2", echo=FALSE, warning=FALSE, eval=params$interactive}
 ```
 
 .small-font[
@@ -633,7 +635,7 @@ girafe(
 ]
 
 .pull-right[
-```{r iris-girafe-demo3-out, ref.label="iris-girafe-demo3", echo=FALSE, warning=FALSE}
+```{r iris-girafe-demo3-out, ref.label="iris-girafe-demo3", echo=FALSE, warning=FALSE, eval=params$interactive}
 ```
 ]
 
@@ -669,7 +671,7 @@ girafe(
 ]
 
 .pull-right[
-```{r iris-girafe-demo4-out, ref.label="iris-girafe-demo4", echo=FALSE, warning=FALSE}
+```{r iris-girafe-demo4-out, ref.label="iris-girafe-demo4", echo=FALSE, warning=FALSE, eval=params$interactive}
 ```
 
 Again, styling via CSS
@@ -736,7 +738,7 @@ girafe(
 ]
 
 .pull-right.width-45[
-```{r TX_counties_scatter-demo-out, ref.label="TX_counties_scatter-demo", echo=FALSE, warning=FALSE}
+```{r TX_counties_scatter-demo-out, ref.label="TX_counties_scatter-demo", echo=FALSE, warning=FALSE, eval=params$interactive}
 ```
 ]
 
@@ -768,7 +770,7 @@ girafe(
 ]
 
 .pull-right.width-50[
-```{r TX_counties_map-demo-out, ref.label="TX_counties_map-demo", echo=FALSE, warning=FALSE}
+```{r TX_counties_map-demo-out, ref.label="TX_counties_map-demo", echo=FALSE, warning=FALSE, eval=params$interactive}
 ```
 ]
 
@@ -786,7 +788,7 @@ girafe(
 ]
 
 .width-80[
-```{r TX_counties_combined-demo-out, ref.label="TX_counties_combined-demo", echo=FALSE, warning=FALSE}
+```{r TX_counties_combined-demo-out, ref.label="TX_counties_combined-demo", echo=FALSE, warning=FALSE, eval=params$interactive}
 ```
 ]
 
@@ -1112,18 +1114,15 @@ ggplot(mpg, aes(y = cty, x = displ, color = drv, fill = drv)) +
   ) +
   scale_color_manual(
     values = c("#202020", "#E69F00", "#56B4E9"), 
-    name = "drive train",
-    breaks = c("f", "r", "4"), labels = c("FWD", "RWD", "4WD")
+    name = "drive train", breaks = c("f", "r", "4"), labels = c("FWD", "RWD", "4WD")
   ) +
   scale_fill_manual(
     values = c("#20202080", "#E69F0080", "#56B4E980"),
-    name = "drive train",
-    breaks = c("f", "r", "4"), labels = c("FWD", "RWD", "4WD")
+    name = "drive train", breaks = c("f", "r", "4"), labels = c("FWD", "RWD", "4WD")
   ) +
   cowplot::theme_half_open() +
   theme(
-    legend.position = "inside",
-    legend.position.inside = c(.7, .8),
+    legend.position = "inside", legend.position.inside = c(.7, .8),
     plot.margin = margin(3, 7, 3, 1.5)
   )
 ```
