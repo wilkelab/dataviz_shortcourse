@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Visualizing Uncertainty and Trends</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Claus O. Wilke" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="Wilke-slides-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, title-slide
+
+.title[
+# Visualizing Uncertainty and Trends
+]
+.author[
+### Claus O. Wilke
+]
+.date[
+### last updated: 2024-06-21
+]
+
+---
+
+
+
+
+
+## We all know how to visualize uncertainty, right?
+
+---
+
+background-image: url("dataviz/visualizing_uncertainty_files/figure-html/butterfat-bars-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## We all know how to visualize uncertainty, right?
+
+.absolute-bottom-right.tiny-font[
+Milk butterfat contents by cattle breed. 
+Source: Canadian Record of Performance for Purebred Dairy Cattle
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("dataviz/visualizing_uncertainty_files/figure-html/median-age-income-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## We all know how to visualize uncertainty, right?
+
+.absolute-bottom-right.tiny-font[
+Income versus age for 67 counties in Pennsylvania. 
+Source: 2015 Five-Year American Community Survey
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("dataviz/visualizing_uncertainty_files/figure-html/blue-jays-male-conf-band-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## We all know how to visualize uncertainty, right?
+
+.absolute-bottom-right.tiny-font[
+Head length versus body mass for male blue jays. Data source: Keith Tarvin, Oberlin College
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Two problems
+
+--
+
+1. It's often not clear what the visualizations represent
+
+--
+
+2. Even if we know, we can have difficulty interpreting them
+
+---
+
+
+## 1. It's often not clear what the visualizations represent
+
+In particular, error bars can represent many different quantities
+
+---
+
+background-image: url("dataviz/visualizing_uncertainty_files/figure-html/cocoa-data-vs-CI-1.png")
+background-position: left 50% top 65%
+background-size: 80%
+
+## Error bars can represent many different quantities
+
+.absolute-bottom-right.tiny-font[
+Chocolate bar ratings. Source: Manhattan Chocolate Society
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## 2. We can have difficulty interpreting the visualizations
+
+
+.absolute-bottom-right.tiny-font[Lace Padilla, Matthew Kay, and Jessica Hullman (2022): [Uncertainty Visualization](
+https://osf.io/preprints/psyarxiv/ebd6r)
+]
+
+
+--
+
+- People are not good at reasoning about probabilities
+
+--
+
+- People will substitute uncertainty with simpler concepts  
+(Deterministic Construal Error)
+
+
+---
+
+## 2. We can have difficulty interpreting the visualizations
+
+- People are not good at reasoning about probabilities
+
+- People will substitute uncertainty with simpler concepts  
+(Deterministic Construal Error)
+
+- People will interpret ranges as boundaries
+
+.absolute-bottom-right.tiny-font[Lace Padilla, Matthew Kay, and Jessica Hullman (2022): [Uncertainty Visualization](
+https://osf.io/preprints/psyarxiv/ebd6r)
+]
+
+
+---
+
+background-image: url("uncertainty_files/confidence-visualizations-3.png")
+background-position: left 50% top 65%
+background-size: 60%
+
+## Uncertainty shown as 95% CI error bars with caps
+
+.absolute-bottom-right.tiny-font[
+Relative rankings compared to US chocolate bars. Source: Manhattan Chocolate Society
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("uncertainty_files/confidence-visualizations-3.png")
+background-position: left 50% top 65%
+background-size: 60%
+
+## Uncertainty shown as 95% CI error bars with caps
+
+Determinstic Construal Error: Error bars are interpreted as min/max values
+
+.absolute-bottom-right.tiny-font[
+Relative rankings compared to US chocolate bars. Source: Manhattan Chocolate Society
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+background-image: url("uncertainty_files/confidence-visualizations-3.png")
+background-position: left 50% top 65%
+background-size: 60%
+
+## Uncertainty shown as 95% CI error bars with caps
+
+Categorical thinking: Areas outside and inside the error bars are categorically different
+
+.absolute-bottom-right.tiny-font[
+Relative rankings compared to US chocolate bars. Source: Manhattan Chocolate Society
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+background-image: url("uncertainty_files/confidence-visualizations-4.png")
+background-position: left 50% top 65%
+background-size: 60%
+
+## Uncertainty shown as 95% CI error bars without caps
+
+You can remove caps to make the boundary visually less severe
+
+.absolute-bottom-right.tiny-font[
+Relative rankings compared to US chocolate bars. Source: Manhattan Chocolate Society
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("uncertainty_files/confidence-visualizations-2.png")
+background-position: left 50% top 65%
+background-size: 60%
+
+## Uncertainty shown as graded error bars
+
+You can show multiple confidence levels to de-emphasize existence of boundary
+
+.absolute-bottom-right.tiny-font[
+Relative rankings compared to US chocolate bars. Source: Manhattan Chocolate Society
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+background-image: url("uncertainty_files/confidence-visualizations-5.png")
+background-position: left 50% top 65%
+background-size: 60%
+
+## Uncertainty shown as confidence strips
+
+You can use faded strips (but hard to read/interpret)
+
+.absolute-bottom-right.tiny-font[
+Relative rankings compared to US chocolate bars. Source: Manhattan Chocolate Society
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("uncertainty_files/confidence-visualizations-6.png")
+background-position: left 50% top 75%
+background-size: 60%
+
+## Uncertainty shown as distributions
+
+You can show actual distributions  
+Popular in Bayesian inference, but still difficult to interpret
+
+.absolute-bottom-right.tiny-font[
+Relative rankings compared to US chocolate bars. Source: Manhattan Chocolate Society
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Hypothetical Outcome Plots
+
+What would you experience comparing two random chocolate bars?
+
+.absolute-bottom-right.tiny-font[
+[Hullman et al., PLOS ONE 2015](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142444)
+]
+
+---
+
+background-image: url("dataviz/visualizing_uncertainty_files/figure-html/chocolate-HOP-animated-1.gif")
+background-position: left 50% top 70%
+background-size: 60%
+
+## Hypothetical Outcome Plots
+
+What would you experience comparing two random chocolate bars?
+
+.absolute-bottom-right.tiny-font[
+[Hullman et al., PLOS ONE 2015](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142444)
+]
+
+---
+
+## Further reading
+
+- Fundamentals of Data Visualization: [Chapter 16: Visualizing uncertainty](https://clauswilke.com/dataviz/visualizing-uncertainty.html)
+- L. Padilla, M. Kay, and J. Hullman (2022). [Uncertainty Visualization](
+https://osf.io/preprints/psyarxiv/ebd6r)
+- J. Hullman, P. Resnick, and E. Adar (2015). [Hypothetical Outcome Plots Outperform Error Bars and Violin Plots for Inferences about Reliability of Variable Ordering](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142444)
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"slideNumberFormat": ""
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

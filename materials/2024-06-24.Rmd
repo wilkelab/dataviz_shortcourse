@@ -1,0 +1,315 @@
+---
+title: "Visualizing Uncertainty and Trends"
+author: "Claus O. Wilke"
+date: "last updated: `r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: [default, "Wilke-slides-theme.css"]
+    lib_dir: libs
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      slideNumberFormat: ''
+      titleSlideClass: [center, middle]
+---
+
+```{r setup, include=FALSE, echo=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(comment = "")
+
+library(tidyverse)
+library(here)
+#library(colorspace)
+#library(cowplot)
+#library(emmeans)
+#library(broom)
+#library(gapminder)
+```
+
+
+## We all know how to visualize uncertainty, right?
+
+---
+
+background-image: url("dataviz/visualizing_uncertainty_files/figure-html/butterfat-bars-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## We all know how to visualize uncertainty, right?
+
+.absolute-bottom-right.tiny-font[
+Milk butterfat contents by cattle breed. 
+Source: Canadian Record of Performance for Purebred Dairy Cattle
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("dataviz/visualizing_uncertainty_files/figure-html/median-age-income-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## We all know how to visualize uncertainty, right?
+
+.absolute-bottom-right.tiny-font[
+Income versus age for 67 counties in Pennsylvania. 
+Source: 2015 Five-Year American Community Survey
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("dataviz/visualizing_uncertainty_files/figure-html/blue-jays-male-conf-band-1.png")
+background-position: left 50% top 65%
+background-size: 50%
+
+## We all know how to visualize uncertainty, right?
+
+.absolute-bottom-right.tiny-font[
+Head length versus body mass for male blue jays. Data source: Keith Tarvin, Oberlin College
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Two problems
+
+--
+
+1. It's often not clear what the visualizations represent
+
+--
+
+2. Even if we know, we can have difficulty interpreting them
+
+---
+
+
+## 1. It's often not clear what the visualizations represent
+
+In particular, error bars can represent many different quantities
+
+---
+
+background-image: url("dataviz/visualizing_uncertainty_files/figure-html/cocoa-data-vs-CI-1.png")
+background-position: left 50% top 65%
+background-size: 80%
+
+## Error bars can represent many different quantities
+
+.absolute-bottom-right.tiny-font[
+Chocolate bar ratings. Source: Manhattan Chocolate Society
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## 2. We can have difficulty interpreting the visualizations
+
+
+.absolute-bottom-right.tiny-font[Lace Padilla, Matthew Kay, and Jessica Hullman (2022): [Uncertainty Visualization](
+https://osf.io/preprints/psyarxiv/ebd6r)
+]
+
+
+--
+
+- People are not good at reasoning about probabilities
+
+--
+
+- People will substitute uncertainty with simpler concepts  
+(Deterministic Construal Error)
+
+
+---
+
+## 2. We can have difficulty interpreting the visualizations
+
+- People are not good at reasoning about probabilities
+
+- People will substitute uncertainty with simpler concepts  
+(Deterministic Construal Error)
+
+- People will interpret ranges as boundaries
+
+.absolute-bottom-right.tiny-font[Lace Padilla, Matthew Kay, and Jessica Hullman (2022): [Uncertainty Visualization](
+https://osf.io/preprints/psyarxiv/ebd6r)
+]
+
+
+---
+
+background-image: url("uncertainty_files/confidence-visualizations-3.png")
+background-position: left 50% top 65%
+background-size: 60%
+
+## Uncertainty shown as 95% CI error bars with caps
+
+.absolute-bottom-right.tiny-font[
+Relative rankings compared to US chocolate bars. Source: Manhattan Chocolate Society
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("uncertainty_files/confidence-visualizations-3.png")
+background-position: left 50% top 65%
+background-size: 60%
+
+## Uncertainty shown as 95% CI error bars with caps
+
+Determinstic Construal Error: Error bars are interpreted as min/max values
+
+.absolute-bottom-right.tiny-font[
+Relative rankings compared to US chocolate bars. Source: Manhattan Chocolate Society
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+background-image: url("uncertainty_files/confidence-visualizations-3.png")
+background-position: left 50% top 65%
+background-size: 60%
+
+## Uncertainty shown as 95% CI error bars with caps
+
+Categorical thinking: Areas outside and inside the error bars are categorically different
+
+.absolute-bottom-right.tiny-font[
+Relative rankings compared to US chocolate bars. Source: Manhattan Chocolate Society
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+background-image: url("uncertainty_files/confidence-visualizations-4.png")
+background-position: left 50% top 65%
+background-size: 60%
+
+## Uncertainty shown as 95% CI error bars without caps
+
+You can remove caps to make the boundary visually less severe
+
+.absolute-bottom-right.tiny-font[
+Relative rankings compared to US chocolate bars. Source: Manhattan Chocolate Society
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("uncertainty_files/confidence-visualizations-2.png")
+background-position: left 50% top 65%
+background-size: 60%
+
+## Uncertainty shown as graded error bars
+
+You can show multiple confidence levels to de-emphasize existence of boundary
+
+.absolute-bottom-right.tiny-font[
+Relative rankings compared to US chocolate bars. Source: Manhattan Chocolate Society
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+background-image: url("uncertainty_files/confidence-visualizations-5.png")
+background-position: left 50% top 65%
+background-size: 60%
+
+## Uncertainty shown as confidence strips
+
+You can use faded strips (but hard to read/interpret)
+
+.absolute-bottom-right.tiny-font[
+Relative rankings compared to US chocolate bars. Source: Manhattan Chocolate Society
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+background-image: url("uncertainty_files/confidence-visualizations-6.png")
+background-position: left 50% top 75%
+background-size: 60%
+
+## Uncertainty shown as distributions
+
+You can show actual distributions  
+Popular in Bayesian inference, but still difficult to interpret
+
+.absolute-bottom-right.tiny-font[
+Relative rankings compared to US chocolate bars. Source: Manhattan Chocolate Society
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## Hypothetical Outcome Plots
+
+What would you experience comparing two random chocolate bars?
+
+.absolute-bottom-right.tiny-font[
+[Hullman et al., PLOS ONE 2015](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142444)
+]
+
+---
+
+background-image: url("dataviz/visualizing_uncertainty_files/figure-html/chocolate-HOP-animated-1.gif")
+background-position: left 50% top 70%
+background-size: 60%
+
+## Hypothetical Outcome Plots
+
+What would you experience comparing two random chocolate bars?
+
+.absolute-bottom-right.tiny-font[
+[Hullman et al., PLOS ONE 2015](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142444)
+]
+
+---
+
+## Further reading
+
+- Fundamentals of Data Visualization: [Chapter 16: Visualizing uncertainty](https://clauswilke.com/dataviz/visualizing-uncertainty.html)
+- L. Padilla, M. Kay, and J. Hullman (2022). [Uncertainty Visualization](
+https://osf.io/preprints/psyarxiv/ebd6r)
+- J. Hullman, P. Resnick, and E. Adar (2015). [Hypothetical Outcome Plots Outperform Error Bars and Violin Plots for Inferences about Reliability of Variable Ordering](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142444)
+
+
