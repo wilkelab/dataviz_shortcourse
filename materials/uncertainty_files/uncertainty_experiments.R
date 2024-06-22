@@ -1,5 +1,6 @@
 install.packages("mgcv")
 install.packages("gratia")
+install.packages("gifski")
 
 library(tidyverse)
 library(mgcv)
@@ -15,7 +16,7 @@ df <- blue_jays |>
 fit <- gam(head_length_mm ~ body_mass_g, data = df, method = "REML")
 
 new_df <- tibble(
-    body_mass_g = seq(from = 55, to = 85, length.out = 10)
+    body_mass_g = seq(from = 59, to = 82, length.out = 10)
   ) |>
   mutate(.row = row_number()) # needed to join in fitted samples
 
@@ -47,6 +48,58 @@ p <- ggplot(df, aes(body_mass_g)) +
 p
 
 p +
+  transition_states(.draw)
+
+blue_jays_male <- blue_jays |>
+  filter(sex == "M")
+
+ggplot(blue_jays_male, aes(body_mass_g)) + 
+  geom_ribbon(
+    data = fv, aes(ymin = .lower_ci, ymax = .upper_ci),
+    fill="grey70", color = NA, alpha = 1/2
+  ) +
+  geom_point(aes(y = head_length_mm), color = "grey60", size = 1.5) +
+  #geom_line(data = sample_df, aes(group = .draw), color = "#0072B2", linewidth = 0.3) +
+  geom_line(
+    data = fv, aes(y = .fitted),
+    color = "#0072B2", linewidth = 1
+  ) +
+  scale_x_continuous(
+    limits = c(59, 82),
+    expand = c(0, 0),
+    name = "body mass (g)") +
+  scale_y_continuous(
+    limits = c(52, 61),
+    expand = c(0, 0),
+    name = "head length (mm)"
+  ) +
+  theme_half_open()
+
+ggplot(blue_jays_male, aes(body_mass_g)) + 
+  geom_ribbon(
+    data = fv, aes(ymin = .lower_ci, ymax = .upper_ci),
+    fill="grey70", color = NA, alpha = 1/2
+  ) +
+  geom_point(aes(y = head_length_mm), color = "grey60", size = 1.5) +
+  geom_line(
+    data = fv, aes(y = .fitted),
+    color = "grey70", linewidth = 1
+  ) +
+  geom_line(
+    data = fs,
+    aes(y = .fitted, group = .draw),
+    color = "#0072B2", linewidth = 0.6
+  ) +
+  scale_x_continuous(
+    limits = c(59, 82),
+    expand = c(0, 0),
+    name = "body mass (g)") +
+  scale_y_continuous(
+    limits = c(52, 61),
+    expand = c(0, 0),
+    name = "head length (mm)"
+  ) +
+  theme_half_open() +
   transition_states(.draw)
 
 cars93 <- read_csv("https://wilkelab.org/SDS375/datasets/cars93.csv") |>
@@ -90,3 +143,22 @@ p
 
 p +
   transition_states(.draw)
+
+
+animate(
+  p + transition_states(.draw),
+  nframes = 60,
+  fps = 5,
+  width = 600, height = 450,
+  res = 100
+)
+
+anim_save(
+  "~/Desktop/test.gif",
+  p + transition_states(.draw),
+  nframes = 60,
+  fps = 5,
+  width = 600, height = 450,
+  res = 100
+)
+

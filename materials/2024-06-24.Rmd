@@ -20,11 +20,10 @@ knitr::opts_chunk$set(comment = "")
 
 library(tidyverse)
 library(here)
-#library(colorspace)
-#library(cowplot)
-#library(emmeans)
-#library(broom)
-#library(gapminder)
+library(colorspace)
+library(cowplot)
+
+hpi_trends <- read_csv(here("datasets", "hpi_trends.csv"))
 ```
 
 
@@ -66,8 +65,8 @@ Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.
 
 ---
 
-background-image: url("dataviz/visualizing_uncertainty_files/figure-html/blue-jays-male-conf-band-1.png")
-background-position: left 50% top 65%
+background-image: url("uncertainty_files/blue-jays-static.png")
+background-position: left 50% top 75%
 background-size: 50%
 
 ## We all know how to visualize uncertainty, right?
@@ -78,7 +77,8 @@ Head length versus body mass for male blue jays. Data source: Keith Tarvin, Ober
 
 ???
 
-Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
 
 ---
 
@@ -501,9 +501,10 @@ data %>% filter(ratio == .1) %>%
 
 ---
 
-background-image: url("dataviz/visualizing_uncertainty_files/figure-html/blue-jays-male-conf-band-1.png")
+background-image: url("uncertainty_files/blue-jays-static.png")
 background-position: left 50% top 75%
 background-size: 50%
+
 
 ## Let's consider uncertainty of trend lines
 
@@ -521,7 +522,7 @@ Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.
 
 ---
 
-background-image: url("dataviz/visualizing_uncertainty_files/figure-html/blue-jays-male-fitted-draws-1.png")
+background-image: url("uncertainty_files/blue-jays-HOP.gif")
 background-position: left 50% top 75%
 background-size: 50%
 
@@ -598,6 +599,135 @@ Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.
 
 
 
+
+---
+
+## Detrending: Removing the underlying trend
+
+.center[
+```{r hpi-no-trendline, echo = FALSE, warning = FALSE, out.width = "55%", fig.width = 6, fig.asp = 0.618, dev = "svg"}
+
+hpi_trends %>%
+  filter(state %in% c("California", "Nevada", "West Virginia", "Texas")) %>%
+  ggplot(aes(date, hpi)) +
+  geom_line(color = "#0072B2", linewidth = 0.75) +
+  scale_x_date(name = NULL) +
+  scale_y_log10(name = "House Price Index (Dec. 2000 = 100)") +
+  facet_wrap(~state, scales = "free_x") +
+  theme_minimal_hgrid() +
+  theme(
+    strip.text = element_text(size = 12),
+    strip.background = element_rect(fill = "grey85"),
+    axis.line.x = element_line(color = "grey50"),
+    axis.ticks.x = element_line(color = "grey50"),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_text(margin = margin(0, 0, 0, 0))
+  )
+
+```
+]
+
+--
+
+.small-font[
+Did housing prices in California decline substantially from 1990 to 1998?
+]
+
+--
+
+.small-font[
+Did housing prices in West Virginia recover by 2017?
+]
+
+???
+
+Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+## Detrending: Removing the underlying trend
+
+.center[
+```{r hpi-trends, echo = FALSE, warning = FALSE, out.width = "55%", fig.width = 6, fig.asp = 0.618, dev = "svg"}
+
+hpi_trends %>%
+  filter(state %in% c("California", "Nevada", "West Virginia", "Texas")) %>%
+  ggplot(aes(date, hpi)) +
+  geom_line(aes(y = hpi_trend), color = "grey50", linewidth = 0.4) +
+  geom_line(color = "#0072B2", linewidth = 0.75) +
+  scale_x_date(name = NULL) +
+  scale_y_log10(name = "House Price Index (Dec. 2000 = 100)") +
+  facet_wrap(~state, scales = "free_x") +
+  theme_minimal_hgrid() +
+  theme(
+    strip.text = element_text(size = 12),
+    strip.background = element_rect(fill = "grey85"),
+    axis.line.x = element_line(color = "grey50"),
+    axis.ticks.x = element_line(color = "grey50"),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_text(margin = margin(0, 0, 0, 0))
+  )
+
+```
+]
+
+.small-font[
+Did housing prices in California decline substantially from 1990 to 1998?
+]
+
+.small-font[
+Did housing prices in West Virginia recover by 2017?
+]
+
+???
+
+Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+## Detrending: Removing the underlying trend
+
+.center[
+```{r hpi-detrended, echo = FALSE, warning = FALSE, out.width = "55%", fig.width = 6, fig.asp = 0.618, dev = "svg"}
+
+hpi_trends %>%
+  filter(state %in% c("California", "Nevada", "West Virginia", "Texas")) %>%
+  ggplot(aes(date, hpi_detrended)) +
+  geom_hline(yintercept = 1, color = "grey50", linewidth = 0.4) +
+  geom_line(color = "#0072B2", linewidth = 0.75) +
+  scale_x_date(name = NULL) +
+  scale_y_log10(
+    name = "House Price Index (detrended)",
+    breaks = c(0.752, 1, 1.33, 1.77),
+    labels = c("0.75", "1.00", "1.33", "1.77")
+  ) +
+  facet_wrap(~state, scales = "free_x") +
+  theme_minimal_hgrid() +
+  theme(
+    strip.text = element_text(size = 12),
+    strip.background = element_rect(fill = "grey85"),
+    axis.line.x = element_line(color = "grey50"),
+    axis.ticks.x = element_line(color = "grey50"),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_text(margin = margin(0, 0, 0, 0))
+  )
+
+```
+]
+
+.small-font[
+Did housing prices in California decline substantially from 1990 to 1998? — yes
+]
+
+.small-font[
+Did housing prices in West Virginia recover by 2017?  — no
+]
+
+???
+
+Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
 
 
 ---

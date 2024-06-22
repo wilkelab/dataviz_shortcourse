@@ -19,7 +19,7 @@ class: center, middle, title-slide
 ### Claus O. Wilke
 ]
 .date[
-### last updated: 2024-06-21
+### last updated: 2024-06-22
 ]
 
 ---
@@ -66,8 +66,8 @@ Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.
 
 ---
 
-background-image: url("dataviz/visualizing_uncertainty_files/figure-html/blue-jays-male-conf-band-1.png")
-background-position: left 50% top 65%
+background-image: url("uncertainty_files/blue-jays-static.png")
+background-position: left 50% top 75%
 background-size: 50%
 
 ## We all know how to visualize uncertainty, right?
@@ -78,7 +78,8 @@ Head length versus body mass for male blue jays. Data source: Keith Tarvin, Ober
 
 ???
 
-Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
 
 ---
 
@@ -345,9 +346,10 @@ What would you experience comparing two random chocolate bars?
 
 ---
 
-background-image: url("dataviz/visualizing_uncertainty_files/figure-html/blue-jays-male-conf-band-1.png")
+background-image: url("uncertainty_files/blue-jays-static.png")
 background-position: left 50% top 75%
 background-size: 50%
+
 
 ## Let's consider uncertainty of trend lines
 
@@ -365,7 +367,7 @@ Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.
 
 ---
 
-background-image: url("dataviz/visualizing_uncertainty_files/figure-html/blue-jays-male-fitted-draws-1.png")
+background-image: url("uncertainty_files/blue-jays-HOP.gif")
 background-position: left 50% top 75%
 background-size: 50%
 
@@ -442,6 +444,72 @@ Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.
 
 
 
+
+---
+
+## Detrending: Removing the underlying trend
+
+.center[
+&lt;img src="2024-06-24_files/figure-html/hpi-no-trendline-1.svg" width="55%" /&gt;
+]
+
+--
+
+.small-font[
+Did housing prices in California decline substantially from 1990 to 1998?
+]
+
+--
+
+.small-font[
+Did housing prices in West Virginia recover by 2017?
+]
+
+???
+
+Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+## Detrending: Removing the underlying trend
+
+.center[
+&lt;img src="2024-06-24_files/figure-html/hpi-trends-1.svg" width="55%" /&gt;
+]
+
+.small-font[
+Did housing prices in California decline substantially from 1990 to 1998?
+]
+
+.small-font[
+Did housing prices in West Virginia recover by 2017?
+]
+
+???
+
+Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+## Detrending: Removing the underlying trend
+
+.center[
+&lt;img src="2024-06-24_files/figure-html/hpi-detrended-1.svg" width="55%" /&gt;
+]
+
+.small-font[
+Did housing prices in California decline substantially from 1990 to 1998? — yes
+]
+
+.small-font[
+Did housing prices in West Virginia recover by 2017?  — no
+]
+
+???
+
+Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
 
 
 ---
