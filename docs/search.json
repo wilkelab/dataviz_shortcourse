@@ -6,7 +6,7 @@
       "description": "A bootcamp-style course on data visualization",
       "author": [],
       "contents": "\nThis is the home page for a dataviz shortcourse by Claus O. Wilke. The course is an abbreviated version of a semester-long course taught at The University of Texas at Austin. Many of the materials presented are taken from the book Fundamentals of Data Visualization.\n\nReuse\nText and figures are licensed under Creative Commons Attribution CC BY 4.0. Any computer code (R, HTML, CSS, etc.) in slides and worksheets, including in slide and worksheet sources, is also licensed under MIT. Note that figures in slides may be pulled in from external sources and may be licensed under different terms. For such images, image credits are available in the slide notes, accessible via pressing the letter ‘p’.\n\n\n\n",
-      "last_modified": "2024-06-19T22:11:01-05:00"
+      "last_modified": "2024-06-22T18:34:33-05:00"
     },
     {
       "path": "lessons.html",
@@ -14,7 +14,7 @@
       "description": "",
       "author": [],
       "contents": "\n\nContents\nEffective Visual Communication\nFrom Data to Visualisation 1\nFrom Data to Visualisation 2\nPrinciples of Figure Design\nReuse\n\nEffective Visual Communication\nThis lecture covers three core concepts of visual communication. First, I will discuss how to engage your audience by telling a story. Second, I will provide high-level guidance for designing visualizations that make a clear point. Third, I will describe key design principles that ensure your figures will be readable by people with vision impairments, and specifically impairments of color perception.\n\nMaterials:\n\nSlides\nFrom Data to Visualisation 1\nVisualizing amounts; visualizing distributions; visualizing associations and trends\n\nMaterials:\n\nSlides\nFrom Data to Visualisation 2\nVisualizing uncertainty; visualizing geospatial data\n\nMaterials:\n\nSlides\nPrinciples of Figure Design\nColors; compound figures; infographics\n\nMaterials:\n\nSlides\nReuse\nText and figures are licensed under Creative Commons Attribution CC BY 4.0. Any computer code (R, HTML, CSS, etc.) in slides and worksheets, including in slide and worksheet sources, is also licensed under MIT. Note that figures in slides may be pulled in from external sources and may be licensed under different terms. For such images, image credits are available in the slide notes, accessible via pressing the letter ‘p’.\n\n\n\n",
-      "last_modified": "2024-06-19T22:11:01-05:00"
+      "last_modified": "2024-06-22T18:34:33-05:00"
     },
     {
       "path": "workshops.html",
@@ -22,7 +22,7 @@
       "description": "",
       "author": [],
       "contents": "\n\nContents\nPast and present workshops\nReuse\n\nPast and present workshops\nMaterials for past and present workshops. The specific slide sets may differ from the four main lessons. All materials are primarily based on material from my semester-long data visualization course at UT Austin.\n2024-06-20\nWorkshop in support of Ukraine. To work through all the examples provided, you will need the following R packages: tidyverse, cowplot, ggiraph, sf, patchwork\nSlides Part 1\nSlides Part 2\nSlides Part 2, without interactivity (Some browsers crash when there are too many interactive examples in one slide set.)\n2024-05-28\nSlides Part 1 (telling a story, making a point, making figures accessible)\nSlides Part 2 (figure composition and context, text annotations, overplotting)\nReuse\nText and figures are licensed under Creative Commons Attribution CC BY 4.0. Any computer code (R, HTML, CSS, etc.) in slides and worksheets, including in slide and worksheet sources, is also licensed under MIT. Note that figures in slides may be pulled in from external sources and may be licensed under different terms. For such images, image credits are available in the slide notes, accessible via pressing the letter ‘p’.\n\n\n\n",
-      "last_modified": "2024-06-19T22:11:02-05:00"
+      "last_modified": "2024-06-22T18:34:34-05:00"
     }
   ],
   "collections": []
