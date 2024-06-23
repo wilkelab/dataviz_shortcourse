@@ -34,7 +34,7 @@ class: center, middle, title-slide
 
 background-image: url("dataviz/visualizing_uncertainty_files/figure-html/butterfat-bars-1.png")
 background-position: left 50% top 65%
-background-size: 50%
+background-size: 60%
 
 ## We all know how to visualize uncertainty, right?
 
@@ -83,20 +83,20 @@ Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reil
 
 ---
 
-## Two problems
+## These commonly used visualizations have problems
 
 --
 
-1. It's often not clear what the visualizations represent
+- It's often not clear what exactly the visualizations represent
 
 --
 
-2. Even if we know, we can have difficulty interpreting them
+- Even if we know, we can have difficulty interpreting what we see
 
 ---
 
 
-## 1. It's often not clear what the visualizations represent
+## It's often not clear what the visualizations represent
 
 In particular, error bars can represent many different quantities
 
@@ -106,7 +106,7 @@ background-image: url("dataviz/visualizing_uncertainty_files/figure-html/cocoa-d
 background-position: left 50% top 65%
 background-size: 80%
 
-## Error bars can represent many different quantities
+## It's often not clear what the visualizations represent
 
 .absolute-bottom-right.tiny-font[
 Chocolate bar ratings. Source: Manhattan Chocolate Society
@@ -118,7 +118,7 @@ Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.
 
 ---
 
-## 2. We can have difficulty interpreting the visualizations
+## We can have difficulty interpreting what we see
 
 
 .absolute-bottom-right.tiny-font[Lace Padilla, Matthew Kay, and Jessica Hullman (2022): [Uncertainty Visualization](
@@ -138,14 +138,14 @@ https://osf.io/preprints/psyarxiv/ebd6r)
 
 ---
 
-## 2. We can have difficulty interpreting the visualizations
+## We can have difficulty interpreting what we see
 
 - People are not good at reasoning about probabilities
 
 - People will substitute uncertainty with simpler concepts  
 (Deterministic Construal Error)
 
-- People will interpret ranges as boundaries
+- People will interpret intervals as hard boundaries
 
 .absolute-bottom-right.tiny-font[Lace Padilla, Matthew Kay, and Jessica Hullman (2022): [Uncertainty Visualization](
 https://osf.io/preprints/psyarxiv/ebd6r)
@@ -159,6 +159,8 @@ background-position: left 50% top 65%
 background-size: 60%
 
 ## Uncertainty shown as 95% CI error bars with caps
+
+Chocolate bars from four countries compared to bars from the US
 
 .absolute-bottom-right.tiny-font[
 Relative rankings compared to US chocolate bars. Source: Manhattan Chocolate Society
@@ -282,9 +284,65 @@ Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.
 
 ---
 
-## Hypothetical Outcome Plots
+## Consider the actual experience of a customer
 
-What would you experience comparing two random chocolate bars?
+--
+
+If I can buy either a Canadian or a US bar, what is the probability that the Canadian bar will be better?
+
+--
+
+Answer&amp;colon; The Canadian bar has a 53% chance of being better
+
+--
+
+How can we communicate this?
+
+---
+
+## Use frequency framing to communicate probabilities
+
+.center.move-up-1em[
+&lt;img src="2024-06-24_files/figure-html/freq-waffle-1.svg" width="50%" /&gt;
+]
+
+---
+
+## Use frequency framing to communicate probabilities
+
+.center.move-up-1em[
+&lt;img src="2024-06-24_files/figure-html/freq-waffle2-1.svg" width="50%" /&gt;
+]
+
+---
+
+## Use frequency framing to communicate probabilities
+
+.center.move-up-1em[
+&lt;img src="2024-06-24_files/figure-html/freq-waffle3-1.svg" width="50%" /&gt;
+]
+
+---
+
+## Use frequency framing to communicate probabilities
+
+.center.move-up-1em[
+&lt;img src="2024-06-24_files/figure-html/freq-waffle4-1.svg" width="50%" /&gt;
+]
+
+---
+
+## Use frequency framing to communicate probabilities
+
+.center.move-up-1em[
+&lt;img src="2024-06-24_files/figure-html/freq-waffle5-1.svg" width="50%" /&gt;
+]
+
+---
+
+## Alternatively: Use Hypothetical Outcome Plots
+
+Hypothetical Outcome Plots use animation to let viewers experience uncertainty
 
 .absolute-bottom-right.tiny-font[
 [Hullman et al., PLOS ONE 2015](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142444)
@@ -296,53 +354,19 @@ background-image: url("dataviz/visualizing_uncertainty_files/figure-html/chocola
 background-position: left 50% top 70%
 background-size: 60%
 
-## Hypothetical Outcome Plots
+## Alternatively: Use Hypothetical Outcome Plots
 
-What would you experience comparing two random chocolate bars?
+Hypothetical Outcome Plots use animation to let viewers experience uncertainty
 
 .absolute-bottom-right.tiny-font[
 [Hullman et al., PLOS ONE 2015](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142444)
 ]
 
 ---
+class: middle center
 
-## Use frequency framing to reason about probabilities
+## Moving on to trend lines
 
-.center[
-&lt;img src="2024-06-24_files/figure-html/freq-waffle-1.svg" width="40%" /&gt;
-]
-
----
-
-## Use frequency framing to reason about probabilities
-
-.center[
-&lt;img src="2024-06-24_files/figure-html/freq-waffle2-1.svg" width="40%" /&gt;
-]
-
----
-
-## Use frequency framing to reason about probabilities
-
-.center[
-&lt;img src="2024-06-24_files/figure-html/freq-waffle3-1.svg" width="40%" /&gt;
-]
-
----
-
-## Use frequency framing to reason about probabilities
-
-.center[
-&lt;img src="2024-06-24_files/figure-html/freq-waffle4-1.svg" width="40%" /&gt;
-]
-
----
-
-## Use frequency framing to reason about probabilities
-
-.center[
-&lt;img src="2024-06-24_files/figure-html/freq-waffle5-1.svg" width="40%" /&gt;
-]
 
 ---
 
@@ -351,7 +375,7 @@ background-position: left 50% top 75%
 background-size: 50%
 
 
-## Let's consider uncertainty of trend lines
+## Let's consider the uncertainty of trend lines
 
 .move-up-1em[
 What does the confidence band show?
@@ -371,7 +395,7 @@ background-image: url("uncertainty_files/blue-jays-HOP.gif")
 background-position: left 50% top 75%
 background-size: 50%
 
-## Let's consider uncertainty of trend lines
+## Let's consider the uncertainty of trend lines
 
 .move-up-1em[
 Both the intercept and the slope have uncertainty
@@ -394,7 +418,7 @@ background-size: 80%
 ## It gets even more confusing for non-linear trend lines
 
 .move-up-1em[
-Individual posterior samples tend to be more wiggly than the mean
+Individual sample fits tend to be more wiggly than the mean
 ]
 
 .absolute-bottom-right.tiny-font[
@@ -414,7 +438,7 @@ background-size: 75%
 ## It gets even more confusing for non-linear trend lines
 
 .move-up-1em[
-Individual posterior samples tend to be more wiggly than the mean
+Individual sample fits tend to be more wiggly than the mean
 ]
 
 .absolute-bottom-right.tiny-font[
@@ -432,7 +456,7 @@ background-image: url("dataviz/visualizing_uncertainty_files/figure-html/mpg-unc
 background-position: left 50% top 70%
 background-size: 50%
 
-## Hypothetical Outcome Plots help develop intuition
+## Hypothetical Outcome Plots again help develop intuition
 
 .absolute-bottom-right.tiny-font[
 Fuel efficiency versus displacement, for 32 cars (1973–74 models). Source: Motor Trend, 1974.
@@ -443,9 +467,16 @@ Fuel efficiency versus displacement, for 32 cars (1973–74 models). Source: Mot
 Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
 
 ---
+class: middle center
 
-## Detrending: Removing the underlying trend
+## De-trending: Removing the underlying trend
 
+
+---
+
+## Time series often show long-term persistent trends
+
+--
 
 .small-font[
 Housing prices follow long-term trend of exponential growth, overlaid with boom/bust cycles
@@ -467,13 +498,9 @@ California House Price Index (HPI). Source: Freddie Mac.
 &lt;img src="2024-06-24_files/figure-html/hpi-no-trendline-1.svg" width="55%" /&gt;
 ]
 
---
-
 .small-font[
 Did housing prices in California decline substantially from 1990 to 1998?
 ]
-
---
 
 .small-font[
 Did housing prices in West Virginia recover by 2020?
@@ -525,7 +552,7 @@ US States House Price Index (HPI). Source: Freddie Mac.
 
 ---
 
-## Exponential versus linear detrending
+## Exponential versus linear de-trending
 
 Two choices:
 
@@ -543,11 +570,11 @@ It is critical to make the correct choice for the dataset at hand
 
 --
 
-Any type of growth process (increase is proportional to present value) **must** be analyzed in log space
+Any type of growth or decay process (change is proportional to present value) **must** be analyzed in log space
 
 ---
 
-## Example: HPI analysis in linear space does looks off
+## Housing-price analysis in linear space looks wrong
 
 .center[
 &lt;img src="2024-06-24_files/figure-html/hpi-trends-linear-1.svg" width="75%" /&gt;
@@ -559,7 +586,7 @@ US States House Price Index (HPI). Source: Freddie Mac.
 
 ---
 
-## Detrending in linear space creates systematic deviations
+## Linear de-trending creates systematic deviations
 
 .center[
 &lt;img src="2024-06-24_files/figure-html/hpi-trends-linear-detrended-1.svg" width="75%" /&gt;
@@ -571,7 +598,7 @@ US States House Price Index (HPI). Source: Freddie Mac.
 
 ---
 
-## Detrended in log-space one more time for comparison
+## Log-space de-trending one more time for comparison
 
 .center[
 &lt;img src="2024-06-24_files/figure-html/hpi-detrended2-1.svg" width="75%" /&gt;
@@ -591,7 +618,7 @@ class: center middle
 ## Many time series show regular seasonal fluctuations
 
 .center[
-&lt;img src="2024-06-24_files/figure-html/keeling-curve-1.svg" width="65%" /&gt;
+&lt;img src="2024-06-24_files/figure-html/keeling-curve-1.svg" width="70%" /&gt;
 ]
 
 .absolute-bottom-right.tiny-font[
@@ -603,7 +630,7 @@ CO&lt;sub&gt;2&lt;/sub&gt; abundance in the atmosphere over time. Source: NOAA G
 ## Many time series show regular seasonal fluctuations
 
 .center[
-&lt;img src="2024-06-24_files/figure-html/keeling-curve-zoomed-1.svg" width="65%" /&gt;
+&lt;img src="2024-06-24_files/figure-html/keeling-curve-zoomed-1.svg" width="70%" /&gt;
 ]
 
 ---
@@ -615,25 +642,26 @@ class: middle
 ---
 
 .center[
-&lt;img src="2024-06-24_files/figure-html/keeling-curve-decomposition-1.svg" width="85%" /&gt;
+&lt;img src="2024-06-24_files/figure-html/keeling-curve-decomposition-1.svg" width="90%" /&gt;
 ]
 
 --
 
 .small-font[
-Magnitude of remainder should be small compared to that of seasonal fluctuations
+Magnitude of remainder should be small compared to magnitude of seasonal fluctuations
 ]
 
 
 ---
 
 .center[
-&lt;img src="2024-06-24_files/figure-html/keeling-curve-decomposition-zoomed-1.svg" width="85%" /&gt;
+&lt;img src="2024-06-24_files/figure-html/keeling-curve-decomposition-zoomed-1.svg" width="90%" /&gt;
 ]
 
 .small-font[
-Magnitude of remainder should be small compared to that of seasonal fluctuations
+Magnitude of remainder should be small compared to magnitude of seasonal fluctuations
 ]
+
 
 ---
 

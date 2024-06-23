@@ -16,12 +16,15 @@ Topics to cover:
 
 -   uncertainty visualizations
 
-## Running Code
+## Required packages
 
-Install required packages
+Install the required packages:
 
 ```{r}
-# run this only once
+#| eval = FALSE
+
+# Run this command to install the required packages.
+# You need to do this only once.
 install.packages(
   c(
     "tidyverse", "broom", "ggdist", "distributional", "gapminder",
@@ -30,25 +33,11 @@ install.packages(
 )
 ```
 
-Required libraries
-
-```{r}
-library(tidyverse)
-library(broom)
-#library(mgcv)
-#library(gratia)
-#library(gganimate)
-library(ggdist)
-library(distributional)
-library(gapminder)
-
-# also needed but don't have to be loaded:
-# gifski
-```
-
 ## 1. Error bars and other uncertainty visualizations
 
 ```{r}
+#| message = FALSE
+
 library(tidyverse)
 library(broom)       # for extracting regression parameters
 library(gapminder)   # for dataset
@@ -197,8 +186,8 @@ ggplot(lm_data_1952, aes(x = estimate, y = continent)) +
     )),
     point_size = 4,
     fill = "skyblue",
-    #.width = c(.66, .95, .99),   # 1, 2, 3 SD
-    .width = .66                # 1 SD only
+    #.width = c(.68, .95, .997),   # 1, 2, 3 SD
+    .width = .68                # 1 SD only
   )
 ```
 
@@ -222,6 +211,8 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
 Step 1: Extract samples from fitted model.
 
 ```{r}
+#| message = FALSE
+
 library(mgcv)       # to fit generalized additive models with gam()
 library(gratia)     # to generate samples from fitted model
 
@@ -304,6 +295,8 @@ anim_obj
 In practice we may want to customize how exactly the animation is rendered, such as the exact width/height, number of frames, frames per seconds shown, etc.
 
 ```{r}
+#| eval = FALSE
+
 animate(
   anim_obj,
   fps = 5,         # frames per second
@@ -316,6 +309,8 @@ animate(
 We can save as gif or mp4 with `anim_save()`.
 
 ```{r}
+#| eval = FALSE
+
 anim_save(
   "blue-jays-HOP.gif",
   anim_obj,
@@ -339,4 +334,93 @@ ggplot(mtcars, aes(x = disp, y = mpg)) +
 # your code here
 ```
 
-## 3. Trendlines and detrending
+## 3. Trendlines and de-trending
+
+The first example will be trends in the US housing market by state.
+
+```{r}
+# Freddie Mac House Price Index data
+# from: https://www.freddiemac.com/research/indices/house-price-index
+
+fmhpi <- read_csv(
+  "https://wilkelab.org/dataviz_shortcourse/datasets/fmhpi.csv",
+  show_col_types = FALSE
+) |>
+  filter(year >= 1980) # trends are weird before 1980
+
+# plot house price index (HPI) for a few states
+fmhpi |>
+  filter(state %in% c("California", "Nevada", "West Virginia", "Texas")) |>
+  ggplot(aes(date_dec, hpi)) +
+  geom_line() +
+  xlab("Year") +
+  scale_y_log10(name = "House Price Index") +
+  facet_wrap(~state)
+```
+
+As housing prices are growing exponentially, we need to fit a trend line in log space. Let's do this and plot.
+
+```{r}
+# we fit trendlines separately for all states
+fmhpi_trends <- fmhpi |>
+  nest(data = -state) |>
+  mutate(
+    # fit in log space (never fit exponentials in linear space!)
+    fit_log = map(data, ~lm(log(hpi) ~ date_dec, data = .x)),
+    # predict long-term trend from fitted model
+    hpi_trend_log = map2(fit_log, data, ~exp(predict(.x, .y)))
+  ) |>
+  select(-fit_log) |>
+  unnest(cols = c(data, hpi_trend_log))
+
+fmhpi_trends |>
+  filter(state %in% c("California", "Nevada", "West Virginia", "Texas")) |>
+  ggplot(aes(date_dec, hpi)) +
+  geom_line(aes(color = "Raw HPI")) +
+  geom_line(aes(y = hpi_trend_log, color = "trendline")) +
+  xlab("Year") +
+  scale_y_log10(name = "House Price Index (HPI)") +
+  scale_color_manual(
+    name = NULL,
+    values = c("Raw HPI" = "#0072B2", trendline = "#D55E00")
+  ) +
+  facet_wrap(~state) +
+  theme(legend.position = "bottom")
+```
+
+Now we can de-trend by dividing the raw value by the trendline.
+
+```{r}
+fmhpi_trends |>
+  filter(state %in% c("California", "Nevada", "West Virginia", "Texas")) |>
+  ggplot(aes(date_dec, hpi/hpi_trend_log)) +
+  geom_line(color = "#0072B2") +
+  xlab("Year") +
+  scale_y_log10( # important, still need to use log scale
+    name = "HPI de-trended",
+    limits = c(0.5, 2)
+  ) +
+  facet_wrap(~state)
+```
+
+### Exercises
+
+Exercises for the HPI data:
+
+-   Make plots of raw and de-trended HPI data for other US states. Can you find interesting patterns?
+
+-   Perform a linear (as opposed to logarithmic) de-trending and see how the results differ.
+
+```{r}
+# your code here
+```
+
+Exercises for seasonal decomposition:
+
+-   ***Exercise 1***
+
+-   ***Exercise 2***
+
+```{r}
+# your code here
+```

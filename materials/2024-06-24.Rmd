@@ -49,7 +49,7 @@ co2 <- read_csv(here("datasets", "co2.csv")) |>
 
 background-image: url("dataviz/visualizing_uncertainty_files/figure-html/butterfat-bars-1.png")
 background-position: left 50% top 65%
-background-size: 50%
+background-size: 60%
 
 ## We all know how to visualize uncertainty, right?
 
@@ -98,20 +98,20 @@ Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reil
 
 ---
 
-## Two problems
+## These commonly used visualizations have problems
 
 --
 
-1. It's often not clear what the visualizations represent
+- It's often not clear what exactly the visualizations represent
 
 --
 
-2. Even if we know, we can have difficulty interpreting them
+- Even if we know, we can have difficulty interpreting what we see
 
 ---
 
 
-## 1. It's often not clear what the visualizations represent
+## It's often not clear what the visualizations represent
 
 In particular, error bars can represent many different quantities
 
@@ -121,7 +121,7 @@ background-image: url("dataviz/visualizing_uncertainty_files/figure-html/cocoa-d
 background-position: left 50% top 65%
 background-size: 80%
 
-## Error bars can represent many different quantities
+## It's often not clear what the visualizations represent
 
 .absolute-bottom-right.tiny-font[
 Chocolate bar ratings. Source: Manhattan Chocolate Society
@@ -133,7 +133,7 @@ Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.
 
 ---
 
-## 2. We can have difficulty interpreting the visualizations
+## We can have difficulty interpreting what we see
 
 
 .absolute-bottom-right.tiny-font[Lace Padilla, Matthew Kay, and Jessica Hullman (2022): [Uncertainty Visualization](
@@ -153,14 +153,14 @@ https://osf.io/preprints/psyarxiv/ebd6r)
 
 ---
 
-## 2. We can have difficulty interpreting the visualizations
+## We can have difficulty interpreting what we see
 
 - People are not good at reasoning about probabilities
 
 - People will substitute uncertainty with simpler concepts  
 (Deterministic Construal Error)
 
-- People will interpret ranges as boundaries
+- People will interpret intervals as hard boundaries
 
 .absolute-bottom-right.tiny-font[Lace Padilla, Matthew Kay, and Jessica Hullman (2022): [Uncertainty Visualization](
 https://osf.io/preprints/psyarxiv/ebd6r)
@@ -174,6 +174,8 @@ background-position: left 50% top 65%
 background-size: 60%
 
 ## Uncertainty shown as 95% CI error bars with caps
+
+Chocolate bars from four countries compared to bars from the US
 
 .absolute-bottom-right.tiny-font[
 Relative rankings compared to US chocolate bars. Source: Manhattan Chocolate Society
@@ -297,38 +299,30 @@ Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.
 
 ---
 
-## Hypothetical Outcome Plots
+## Consider the actual experience of a customer
 
-What would you experience comparing two random chocolate bars?
+--
 
-.absolute-bottom-right.tiny-font[
-[Hullman et al., PLOS ONE 2015](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142444)
-]
+If I can buy either a Canadian or a US bar, what is the probability that the Canadian bar will be better?
 
----
+--
 
-background-image: url("dataviz/visualizing_uncertainty_files/figure-html/chocolate-HOP-animated-1.gif")
-background-position: left 50% top 70%
-background-size: 60%
+Answer&colon; The Canadian bar has a 53% chance of being better
 
-## Hypothetical Outcome Plots
+--
 
-What would you experience comparing two random chocolate bars?
-
-.absolute-bottom-right.tiny-font[
-[Hullman et al., PLOS ONE 2015](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142444)
-]
+How can we communicate this?
 
 ---
 
-## Use frequency framing to reason about probabilities
+## Use frequency framing to communicate probabilities
 
-.center[
-```{r freq-waffle, out.width = "40%", fig.width = 4.5, fig.asp = 1, echo = FALSE, dev = "svg"}
+.center.move-up-1em[
+```{r freq-waffle, out.width = "50%", fig.width = 4.5, fig.asp = 1, echo = FALSE, dev = "svg"}
 g <- expand.grid(x = 1:10, y = 1:10)
 
 set.seed(84520)
-data <- data.frame(ratio = c(0.99, 0.9, 0.7, 0.3, 0.1)) %>%
+data <- data.frame(ratio = c(0.99, 0.9, 0.7, 0.47, 0.3, 0.1)) %>%
   mutate(
     out = purrr::map(
       ratio,
@@ -346,7 +340,7 @@ data <- data.frame(ratio = c(0.99, 0.9, 0.7, 0.3, 0.1)) %>%
     label = paste0(round(100*(1-ratio)), "% chance")
   )
 
-data %>% filter(ratio == .99) %>%
+data %>% filter(ratio == .47) %>%
   ggplot(aes(x, y, fill = value)) +
   geom_tile(color = "white", linewidth = 2) +
   coord_fixed(expand = FALSE, clip = "off") +
@@ -377,115 +371,10 @@ data %>% filter(ratio == .99) %>%
 
 ---
 
-## Use frequency framing to reason about probabilities
+## Use frequency framing to communicate probabilities
 
-.center[
-```{r freq-waffle2, out.width = "40%", fig.width = 4.5, fig.asp = 1, echo = FALSE, dev = "svg"}
-data %>% filter(ratio == .9) %>%
-  ggplot(aes(x, y, fill = value)) +
-  geom_tile(color = "white", linewidth = 2) +
-  coord_fixed(expand = FALSE, clip = "off") +
-  scale_x_continuous(name = NULL, breaks = NULL) +
-  scale_y_continuous(name = NULL, breaks = NULL) +
-  scale_fill_manual(
-    name = NULL,
-    breaks = c("W", "L"),
-    labels = c("loss   ", "win"),
-    values = c(
-      "L" = desaturate(darken("#0072B2", .4), .5),
-      "W" = desaturate(lighten("#0072B2", .7), .5)
-    ),
-    guide = guide_legend(override.aes = list(size = 0))
-  ) +
-  facet_wrap(~label) +
-  theme_minimal_grid(20) +
-  theme(
-    legend.position = "bottom",
-    legend.direction = "horizontal",
-    legend.justification = "right",
-    legend.box.spacing = unit(12, "pt"),
-    legend.spacing.x = unit(3, "pt"),
-    legend.key.size = unit(18, "pt")
-  )
-```
-]
-
----
-
-## Use frequency framing to reason about probabilities
-
-.center[
-```{r freq-waffle3, out.width = "40%", fig.width = 4.5, fig.asp = 1, echo = FALSE, dev = "svg"}
-data %>% filter(ratio == .7) %>%
-  ggplot(aes(x, y, fill = value)) +
-  geom_tile(color = "white", linewidth = 2) +
-  coord_fixed(expand = FALSE, clip = "off") +
-  scale_x_continuous(name = NULL, breaks = NULL) +
-  scale_y_continuous(name = NULL, breaks = NULL) +
-  scale_fill_manual(
-    name = NULL,
-    breaks = c("W", "L"),
-    labels = c("loss   ", "win"),
-    values = c(
-      "L" = desaturate(darken("#0072B2", .4), .5),
-      "W" = desaturate(lighten("#0072B2", .7), .5)
-    ),
-    guide = guide_legend(override.aes = list(size = 0))
-  ) +
-  facet_wrap(~label) +
-  theme_minimal_grid(20) +
-  theme(
-    legend.position = "bottom",
-    legend.direction = "horizontal",
-    legend.justification = "right",
-    legend.box.spacing = unit(12, "pt"),
-    legend.spacing.x = unit(3, "pt"),
-    legend.key.size = unit(18, "pt")
-  )
-```
-]
-
----
-
-## Use frequency framing to reason about probabilities
-
-.center[
-```{r freq-waffle4, out.width = "40%", fig.width = 4.5, fig.asp = 1, echo = FALSE, dev = "svg"}
-data %>% filter(ratio == .3) %>%
-  ggplot(aes(x, y, fill = value)) +
-  geom_tile(color = "white", linewidth = 2) +
-  coord_fixed(expand = FALSE, clip = "off") +
-  scale_x_continuous(name = NULL, breaks = NULL) +
-  scale_y_continuous(name = NULL, breaks = NULL) +
-  scale_fill_manual(
-    name = NULL,
-    breaks = c("W", "L"),
-    labels = c("loss   ", "win"),
-    values = c(
-      "L" = desaturate(darken("#0072B2", .4), .5),
-      "W" = desaturate(lighten("#0072B2", .7), .5)
-    ),
-    guide = guide_legend(override.aes = list(size = 0))
-  ) +
-  facet_wrap(~label) +
-  theme_minimal_grid(20) +
-  theme(
-    legend.position = "bottom",
-    legend.direction = "horizontal",
-    legend.justification = "right",
-    legend.box.spacing = unit(12, "pt"),
-    legend.spacing.x = unit(3, "pt"),
-    legend.key.size = unit(18, "pt")
-  )
-```
-]
-
----
-
-## Use frequency framing to reason about probabilities
-
-.center[
-```{r freq-waffle5, out.width = "40%", fig.width = 4.5, fig.asp = 1, echo = FALSE, dev = "svg"}
+.center.move-up-1em[
+```{r freq-waffle2, out.width = "50%", fig.width = 4.5, fig.asp = 1, echo = FALSE, dev = "svg"}
 data %>% filter(ratio == .1) %>%
   ggplot(aes(x, y, fill = value)) +
   geom_tile(color = "white", linewidth = 2) +
@@ -517,12 +406,147 @@ data %>% filter(ratio == .1) %>%
 
 ---
 
+## Use frequency framing to communicate probabilities
+
+.center.move-up-1em[
+```{r freq-waffle3, out.width = "50%", fig.width = 4.5, fig.asp = 1, echo = FALSE, dev = "svg"}
+data %>% filter(ratio == .3) %>%
+  ggplot(aes(x, y, fill = value)) +
+  geom_tile(color = "white", linewidth = 2) +
+  coord_fixed(expand = FALSE, clip = "off") +
+  scale_x_continuous(name = NULL, breaks = NULL) +
+  scale_y_continuous(name = NULL, breaks = NULL) +
+  scale_fill_manual(
+    name = NULL,
+    breaks = c("W", "L"),
+    labels = c("loss   ", "win"),
+    values = c(
+      "L" = desaturate(darken("#0072B2", .4), .5),
+      "W" = desaturate(lighten("#0072B2", .7), .5)
+    ),
+    guide = guide_legend(override.aes = list(size = 0))
+  ) +
+  facet_wrap(~label) +
+  theme_minimal_grid(20) +
+  theme(
+    legend.position = "bottom",
+    legend.direction = "horizontal",
+    legend.justification = "right",
+    legend.box.spacing = unit(12, "pt"),
+    legend.spacing.x = unit(3, "pt"),
+    legend.key.size = unit(18, "pt")
+  )
+```
+]
+
+---
+
+## Use frequency framing to communicate probabilities
+
+.center.move-up-1em[
+```{r freq-waffle4, out.width = "50%", fig.width = 4.5, fig.asp = 1, echo = FALSE, dev = "svg"}
+data %>% filter(ratio == .7) %>%
+  ggplot(aes(x, y, fill = value)) +
+  geom_tile(color = "white", linewidth = 2) +
+  coord_fixed(expand = FALSE, clip = "off") +
+  scale_x_continuous(name = NULL, breaks = NULL) +
+  scale_y_continuous(name = NULL, breaks = NULL) +
+  scale_fill_manual(
+    name = NULL,
+    breaks = c("W", "L"),
+    labels = c("loss   ", "win"),
+    values = c(
+      "L" = desaturate(darken("#0072B2", .4), .5),
+      "W" = desaturate(lighten("#0072B2", .7), .5)
+    ),
+    guide = guide_legend(override.aes = list(size = 0))
+  ) +
+  facet_wrap(~label) +
+  theme_minimal_grid(20) +
+  theme(
+    legend.position = "bottom",
+    legend.direction = "horizontal",
+    legend.justification = "right",
+    legend.box.spacing = unit(12, "pt"),
+    legend.spacing.x = unit(3, "pt"),
+    legend.key.size = unit(18, "pt")
+  )
+```
+]
+
+---
+
+## Use frequency framing to communicate probabilities
+
+.center.move-up-1em[
+```{r freq-waffle5, out.width = "50%", fig.width = 4.5, fig.asp = 1, echo = FALSE, dev = "svg"}
+data %>% filter(ratio == .9) %>%
+  ggplot(aes(x, y, fill = value)) +
+  geom_tile(color = "white", linewidth = 2) +
+  coord_fixed(expand = FALSE, clip = "off") +
+  scale_x_continuous(name = NULL, breaks = NULL) +
+  scale_y_continuous(name = NULL, breaks = NULL) +
+  scale_fill_manual(
+    name = NULL,
+    breaks = c("W", "L"),
+    labels = c("loss   ", "win"),
+    values = c(
+      "L" = desaturate(darken("#0072B2", .4), .5),
+      "W" = desaturate(lighten("#0072B2", .7), .5)
+    ),
+    guide = guide_legend(override.aes = list(size = 0))
+  ) +
+  facet_wrap(~label) +
+  theme_minimal_grid(20) +
+  theme(
+    legend.position = "bottom",
+    legend.direction = "horizontal",
+    legend.justification = "right",
+    legend.box.spacing = unit(12, "pt"),
+    legend.spacing.x = unit(3, "pt"),
+    legend.key.size = unit(18, "pt")
+  )
+```
+]
+
+---
+
+## Alternatively: Use Hypothetical Outcome Plots
+
+Hypothetical Outcome Plots use animation to let viewers experience uncertainty
+
+.absolute-bottom-right.tiny-font[
+[Hullman et al., PLOS ONE 2015](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142444)
+]
+
+---
+
+background-image: url("dataviz/visualizing_uncertainty_files/figure-html/chocolate-HOP-animated-1.gif")
+background-position: left 50% top 70%
+background-size: 60%
+
+## Alternatively: Use Hypothetical Outcome Plots
+
+Hypothetical Outcome Plots use animation to let viewers experience uncertainty
+
+.absolute-bottom-right.tiny-font[
+[Hullman et al., PLOS ONE 2015](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142444)
+]
+
+---
+class: middle center
+
+## Moving on to trend lines
+
+
+---
+
 background-image: url("uncertainty_files/blue-jays-static.png")
 background-position: left 50% top 75%
 background-size: 50%
 
 
-## Let's consider uncertainty of trend lines
+## Let's consider the uncertainty of trend lines
 
 .move-up-1em[
 What does the confidence band show?
@@ -542,7 +566,7 @@ background-image: url("uncertainty_files/blue-jays-HOP.gif")
 background-position: left 50% top 75%
 background-size: 50%
 
-## Let's consider uncertainty of trend lines
+## Let's consider the uncertainty of trend lines
 
 .move-up-1em[
 Both the intercept and the slope have uncertainty
@@ -565,7 +589,7 @@ background-size: 80%
 ## It gets even more confusing for non-linear trend lines
 
 .move-up-1em[
-Individual posterior samples tend to be more wiggly than the mean
+Individual sample fits tend to be more wiggly than the mean
 ]
 
 .absolute-bottom-right.tiny-font[
@@ -585,7 +609,7 @@ background-size: 75%
 ## It gets even more confusing for non-linear trend lines
 
 .move-up-1em[
-Individual posterior samples tend to be more wiggly than the mean
+Individual sample fits tend to be more wiggly than the mean
 ]
 
 .absolute-bottom-right.tiny-font[
@@ -603,7 +627,7 @@ background-image: url("dataviz/visualizing_uncertainty_files/figure-html/mpg-unc
 background-position: left 50% top 70%
 background-size: 50%
 
-## Hypothetical Outcome Plots help develop intuition
+## Hypothetical Outcome Plots again help develop intuition
 
 .absolute-bottom-right.tiny-font[
 Fuel efficiency versus displacement, for 32 cars (1973–74 models). Source: Motor Trend, 1974.
@@ -614,9 +638,16 @@ Fuel efficiency versus displacement, for 32 cars (1973–74 models). Source: Mot
 Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
 
 ---
+class: middle center
 
-## Detrending: Removing the underlying trend
+## De-trending: Removing the underlying trend
 
+
+---
+
+## Time series often show long-term persistent trends
+
+--
 
 .small-font[
 Housing prices follow long-term trend of exponential growth, overlaid with boom/bust cycles
@@ -682,13 +713,9 @@ hpi_trends %>%
 ```
 ]
 
---
-
 .small-font[
 Did housing prices in California decline substantially from 1990 to 1998?
 ]
-
---
 
 .small-font[
 Did housing prices in West Virginia recover by 2020?
@@ -788,7 +815,7 @@ US States House Price Index (HPI). Source: Freddie Mac.
 
 ---
 
-## Exponential versus linear detrending
+## Exponential versus linear de-trending
 
 Two choices:
 
@@ -806,11 +833,11 @@ It is critical to make the correct choice for the dataset at hand
 
 --
 
-Any type of growth process (increase is proportional to present value) **must** be analyzed in log space
+Any type of growth or decay process (change is proportional to present value) **must** be analyzed in log space
 
 ---
 
-## Example: HPI analysis in linear space does looks off
+## Housing-price analysis in linear space looks wrong
 
 .center[
 ```{r hpi-trends-linear, echo = FALSE, warning = FALSE, out.width = "75%", fig.width = 6, fig.asp = 0.618, dev = "svg"}
@@ -846,7 +873,7 @@ US States House Price Index (HPI). Source: Freddie Mac.
 
 ---
 
-## Detrending in linear space creates systematic deviations
+## Linear de-trending creates systematic deviations
 
 .center[
 ```{r hpi-trends-linear-detrended, echo = FALSE, warning = FALSE, out.width = "75%", fig.width = 6, fig.asp = 0.618, dev = "svg"}
@@ -880,7 +907,7 @@ US States House Price Index (HPI). Source: Freddie Mac.
 
 ---
 
-## Detrended in log-space one more time for comparison
+## Log-space de-trending one more time for comparison
 
 .center[
 ```{r hpi-detrended2, echo = FALSE, warning = FALSE, out.width = "75%", fig.width = 6, fig.asp = 0.618, dev = "svg"}
@@ -924,7 +951,7 @@ class: center middle
 ## Many time series show regular seasonal fluctuations
 
 .center[
-```{r keeling-curve, echo = FALSE, warning = FALSE, out.width = "65%", fig.width = 6, fig.asp = 0.618, dev = "svg"}
+```{r keeling-curve, echo = FALSE, warning = FALSE, out.width = "70%", fig.width = 6, fig.asp = 0.618, dev = "svg"}
 # convert to time series object
 co2_ts <- ts(
   data = co2$co2_ave,
@@ -993,7 +1020,7 @@ CO<sub>2</sub> abundance in the atmosphere over time. Source: NOAA Global Monito
 ## Many time series show regular seasonal fluctuations
 
 .center[
-```{r keeling-curve-zoomed, echo = FALSE, warning = FALSE, out.width = "65%", fig.width = 6, fig.asp = 0.618, dev = "svg"}
+```{r keeling-curve-zoomed, echo = FALSE, warning = FALSE, out.width = "70%", fig.width = 6, fig.asp = 0.618, dev = "svg"}
 ggplot(co2_detrended, aes(date_dec, co2_ave)) +
   geom_line(aes(color = "monthly"), linewidth = 1) +
   geom_line(aes(y = trend, color = "trend"), linewidth = 1) +
@@ -1035,7 +1062,7 @@ class: middle
 ---
 
 .center[
-```{r keeling-curve-decomposition, echo = FALSE, warning = FALSE, out.width = "85%", fig.width = 9, fig.asp = 0.618, dev = "svg"}
+```{r keeling-curve-decomposition, echo = FALSE, warning = FALSE, out.width = "90%", fig.width = 9, fig.asp = 0.618, dev = "svg"}
 facet_labels <- c("monthly average", "long-term trend", "seasonal fluctuations", "remainder")
 
 co2_detrended |>
@@ -1086,14 +1113,14 @@ co2_detrended |>
 --
 
 .small-font[
-Magnitude of remainder should be small compared to that of seasonal fluctuations
+Magnitude of remainder should be small compared to magnitude of seasonal fluctuations
 ]
 
 
 ---
 
 .center[
-```{r keeling-curve-decomposition-zoomed, echo = FALSE, warning = FALSE, out.width = "85%", fig.width = 9, fig.asp = 0.618, dev = "svg"}
+```{r keeling-curve-decomposition-zoomed, echo = FALSE, warning = FALSE, out.width = "90%", fig.width = 9, fig.asp = 0.618, dev = "svg"}
 facet_labels <- c("monthly average", "long-term trend", "seasonal fluctuations", "remainder")
 
 co2_detrended |>
@@ -1141,8 +1168,9 @@ co2_detrended |>
 ]
 
 .small-font[
-Magnitude of remainder should be small compared to that of seasonal fluctuations
+Magnitude of remainder should be small compared to magnitude of seasonal fluctuations
 ]
+
 
 ---
 

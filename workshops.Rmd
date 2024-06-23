@@ -16,6 +16,11 @@ knitr::opts_chunk$set(echo = FALSE)
 
 Materials for past and present workshops. The specific slide sets may differ from the four main lessons. All materials are primarily based on material from my semester-long [data visualization course at UT Austin.](https://wilkelab.org/SDS375/)
 
+<strong class="nospace">Visualizing Uncertainty and Trends</strong>
+
+- Keynote, June 24 2024: [slides](materials/2024-06-24.html)
+- Workshop, June 27 2024: coming soon
+
 <strong class="nospace">2024-06-20</strong>
 
 Workshop in [support of Ukraine.](https://sites.google.com/view/dariia-mykhailyshyna/main/r-workshops-for-ukraine#h.95gc1ocexdze) To work through all the examples provided, you will need the following R packages: tidyverse, cowplot, ggiraph, sf, patchwork
