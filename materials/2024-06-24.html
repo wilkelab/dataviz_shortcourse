@@ -19,7 +19,7 @@ class: center, middle, title-slide
 ### Claus O. Wilke
 ]
 .date[
-### last updated: 2024-06-22
+### last updated: 2024-06-23
 ]
 
 ---
@@ -442,12 +442,26 @@ Fuel efficiency versus displacement, for 32 cars (1973–74 models). Source: Mot
 
 Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
 
-
-
-
 ---
 
 ## Detrending: Removing the underlying trend
+
+
+.small-font[
+Housing prices follow long-term trend of exponential growth, overlaid with boom/bust cycles
+]
+
+.center[
+&lt;img src="2024-06-24_files/figure-html/hpi-trends-CA-1.svg" width="65%" /&gt;
+]
+
+.absolute-bottom-right.tiny-font[
+California House Price Index (HPI). Source: Freddie Mac.
+]
+
+---
+
+## Raw time series can be misleading
 
 .center[
 &lt;img src="2024-06-24_files/figure-html/hpi-no-trendline-1.svg" width="55%" /&gt;
@@ -462,17 +476,16 @@ Did housing prices in California decline substantially from 1990 to 1998?
 --
 
 .small-font[
-Did housing prices in West Virginia recover by 2017?
+Did housing prices in West Virginia recover by 2020?
 ]
 
-???
-
-Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
-
+.absolute-bottom-right.tiny-font[
+US States House Price Index (HPI). Source: Freddie Mac.
+]
 
 ---
 
-## Detrending: Removing the underlying trend
+## Comparing the raw time series to the trendline helps
 
 .center[
 &lt;img src="2024-06-24_files/figure-html/hpi-trends-1.svg" width="55%" /&gt;
@@ -483,17 +496,16 @@ Did housing prices in California decline substantially from 1990 to 1998?
 ]
 
 .small-font[
-Did housing prices in West Virginia recover by 2017?
+Did housing prices in West Virginia recover by 2020?
 ]
 
-???
-
-Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
-
+.absolute-bottom-right.tiny-font[
+US States House Price Index (HPI). Source: Freddie Mac.
+]
 
 ---
 
-## Detrending: Removing the underlying trend
+## Even better: Remove underlying trend
 
 .center[
 &lt;img src="2024-06-24_files/figure-html/hpi-detrended-1.svg" width="55%" /&gt;
@@ -504,30 +516,101 @@ Did housing prices in California decline substantially from 1990 to 1998? — ye
 ]
 
 .small-font[
-Did housing prices in West Virginia recover by 2017?  — no
+Did housing prices in West Virginia recover by 2020?  — no
 ]
 
-???
-
-Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
-
+.absolute-bottom-right.tiny-font[
+US States House Price Index (HPI). Source: Freddie Mac.
+]
 
 ---
 
-## Title
+## Exponential versus linear detrending
+
+Two choices:
+
+--
+
+- Fit linear trendline, remove by subtraction
+
+--
+
+- Fit exponential trendline (linear in log space), remove by division
+
+--
+
+It is critical to make the correct choice for the dataset at hand
+
+--
+
+Any type of growth process (increase is proportional to present value) **must** be analyzed in log space
+
+---
+
+## Example: HPI analysis in linear space does looks off
+
+.center[
+&lt;img src="2024-06-24_files/figure-html/hpi-trends-linear-1.svg" width="75%" /&gt;
+]
+
+.absolute-bottom-right.tiny-font[
+US States House Price Index (HPI). Source: Freddie Mac.
+]
+
+---
+
+## Detrending in linear space creates systematic deviations
+
+.center[
+&lt;img src="2024-06-24_files/figure-html/hpi-trends-linear-detrended-1.svg" width="75%" /&gt;
+]
+
+.absolute-bottom-right.tiny-font[
+US States House Price Index (HPI). Source: Freddie Mac.
+]
+
+---
+
+## Detrended in log-space one more time for comparison
+
+.center[
+&lt;img src="2024-06-24_files/figure-html/hpi-detrended2-1.svg" width="75%" /&gt;
+]
+
+.absolute-bottom-right.tiny-font[
+US States House Price Index (HPI). Source: Freddie Mac.
+]
+
+---
+class: center middle
+
+## Accounting for seasonal fluctuations
+
+---
+
+## Many time series show regular seasonal fluctuations
 
 .center[
 &lt;img src="2024-06-24_files/figure-html/keeling-curve-1.svg" width="65%" /&gt;
 ]
 
+.absolute-bottom-right.tiny-font[
+CO&lt;sub&gt;2&lt;/sub&gt; abundance in the atmosphere over time. Source: NOAA Global Monitoring Laboratory
+]
 
 ---
 
-## Title
+## Many time series show regular seasonal fluctuations
 
 .center[
 &lt;img src="2024-06-24_files/figure-html/keeling-curve-zoomed-1.svg" width="65%" /&gt;
 ]
+
+---
+class: middle
+
+## We can decompose into:&lt;br&gt; long-term trend, seasonal effect, remainder (noise)
+
 
 ---
 
@@ -535,20 +618,54 @@ Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reil
 &lt;img src="2024-06-24_files/figure-html/keeling-curve-decomposition-1.svg" width="85%" /&gt;
 ]
 
+--
+
+.small-font[
+Magnitude of remainder should be small compared to that of seasonal fluctuations
+]
+
+
 ---
 
 .center[
 &lt;img src="2024-06-24_files/figure-html/keeling-curve-decomposition-zoomed-1.svg" width="85%" /&gt;
 ]
 
+.small-font[
+Magnitude of remainder should be small compared to that of seasonal fluctuations
+]
+
+---
+
+## Take-home messages
+
+--
+
+1. Specify what your error bars show, and ask others to do the same
+
+--
+
+2. Consider frequency framing and Hypothetical Outcome Plots 
+
+--
+
+3. De-trend your data
+
+--
+
+4. Pay attention to linear vs. logarithmic processes
 
 ---
 
 ## Further reading
 
+- Fundamentals of Data Visualization: [Chapter 14: Visualizing trends](https://clauswilke.com/dataviz/visualizing-trends.html)
+
 - Fundamentals of Data Visualization: [Chapter 16: Visualizing uncertainty](https://clauswilke.com/dataviz/visualizing-uncertainty.html)
+
 - L. Padilla, M. Kay, and J. Hullman (2022). [Uncertainty Visualization](
 https://osf.io/preprints/psyarxiv/ebd6r)
+
 - J. Hullman, P. Resnick, and E. Adar (2015). [Hypothetical Outcome Plots Outperform Error Bars and Violin Plots for Inferences about Reliability of Variable Ordering](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142444)
 
 

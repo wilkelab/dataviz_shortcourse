@@ -23,7 +23,21 @@ library(here)
 library(colorspace)
 library(cowplot)
 
-hpi_trends <- read_csv(here("datasets", "hpi_trends.csv"))
+hpi_trends <- read_csv(here("datasets", "fmhpi.csv")) |>
+  filter(year >= 1980) |> # trends are weird before 1980
+  nest(data = -state) |>
+  mutate(
+    # linear trend
+    fit_lin = map(data, ~lm(hpi ~ date_dec, data = .x)),
+    hpi_trend_lin = map2(fit_lin, data, ~predict(.x, .y)),
+    # log trend
+    fit_log = map(data, ~lm(log(hpi) ~ date_dec, data = .x)),
+    hpi_trend_log = map2(fit_log, data, ~exp(predict(.x, .y)))
+  ) |>
+  select(-fit_lin, -fit_log) |>
+  unnest(cols = c(data, hpi_trend_lin, hpi_trend_log))
+
+
 co2 <- read_csv(here("datasets", "co2.csv")) |>
   filter(year >= 1959, year < 2024) # use complete years only
 ```
@@ -599,22 +613,61 @@ Fuel efficiency versus displacement, for 32 cars (1973–74 models). Source: Mot
 
 Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
 
-
-
-
 ---
 
 ## Detrending: Removing the underlying trend
+
+
+.small-font[
+Housing prices follow long-term trend of exponential growth, overlaid with boom/bust cycles
+]
+
+.center[
+```{r hpi-trends-CA, echo = FALSE, warning = FALSE, out.width = "65%", fig.width = 6, fig.asp = 0.618, dev = "svg"}
+
+hpi_trends %>%
+  filter(state == "California") %>%
+  ggplot(aes(date_dec, hpi)) +
+  geom_line(aes(y = hpi_trend_log), color = "grey50", linewidth = 0.4) +
+  geom_line(color = "#0072B2", linewidth = 0.75) +
+  scale_x_continuous(name = NULL) +
+  scale_y_log10(
+    name = "House Price Index (Dec. 2000 = 100)",
+    breaks = c(30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400),
+    labels = c("", "", "50", "", "", "", "", "100", "", "300", "")
+  ) +
+  theme_minimal_hgrid() +
+  theme(
+    axis.line.x = element_line(color = "grey50"),
+    axis.ticks.x = element_line(color = "grey50"),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_text(margin = margin(0, 0, 0, 0))
+  )
+
+```
+]
+
+.absolute-bottom-right.tiny-font[
+California House Price Index (HPI). Source: Freddie Mac.
+]
+
+---
+
+## Raw time series can be misleading
 
 .center[
 ```{r hpi-no-trendline, echo = FALSE, warning = FALSE, out.width = "55%", fig.width = 6, fig.asp = 0.618, dev = "svg"}
 
 hpi_trends %>%
   filter(state %in% c("California", "Nevada", "West Virginia", "Texas")) %>%
-  ggplot(aes(date, hpi)) +
+  ggplot(aes(date_dec, hpi)) +
   geom_line(color = "#0072B2", linewidth = 0.75) +
-  scale_x_date(name = NULL) +
-  scale_y_log10(name = "House Price Index (Dec. 2000 = 100)") +
+  scale_x_continuous(name = NULL) +
+  scale_y_log10(
+    name = "House Price Index (Dec. 2000 = 100)",
+    breaks = c(30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400),
+    labels = c("", "", "50", "", "", "", "", "100", "", "300", "")
+  ) +
   facet_wrap(~state, scales = "free_x") +
   theme_minimal_hgrid() +
   theme(
@@ -638,28 +691,31 @@ Did housing prices in California decline substantially from 1990 to 1998?
 --
 
 .small-font[
-Did housing prices in West Virginia recover by 2017?
+Did housing prices in West Virginia recover by 2020?
 ]
 
-???
-
-Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
-
+.absolute-bottom-right.tiny-font[
+US States House Price Index (HPI). Source: Freddie Mac.
+]
 
 ---
 
-## Detrending: Removing the underlying trend
+## Comparing the raw time series to the trendline helps
 
 .center[
 ```{r hpi-trends, echo = FALSE, warning = FALSE, out.width = "55%", fig.width = 6, fig.asp = 0.618, dev = "svg"}
 
 hpi_trends %>%
   filter(state %in% c("California", "Nevada", "West Virginia", "Texas")) %>%
-  ggplot(aes(date, hpi)) +
-  geom_line(aes(y = hpi_trend), color = "grey50", linewidth = 0.4) +
+  ggplot(aes(date_dec, hpi)) +
+  geom_line(aes(y = hpi_trend_log), color = "grey50", linewidth = 0.4) +
   geom_line(color = "#0072B2", linewidth = 0.75) +
-  scale_x_date(name = NULL) +
-  scale_y_log10(name = "House Price Index (Dec. 2000 = 100)") +
+  scale_x_continuous(name = NULL) +
+  scale_y_log10(
+    name = "House Price Index (Dec. 2000 = 100)",
+    breaks = c(30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400),
+    labels = c("", "", "50", "", "", "", "", "100", "", "300", "")
+  ) +
   facet_wrap(~state, scales = "free_x") +
   theme_minimal_hgrid() +
   theme(
@@ -679,31 +735,30 @@ Did housing prices in California decline substantially from 1990 to 1998?
 ]
 
 .small-font[
-Did housing prices in West Virginia recover by 2017?
+Did housing prices in West Virginia recover by 2020?
 ]
 
-???
-
-Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
-
+.absolute-bottom-right.tiny-font[
+US States House Price Index (HPI). Source: Freddie Mac.
+]
 
 ---
 
-## Detrending: Removing the underlying trend
+## Even better: Remove underlying trend
 
 .center[
 ```{r hpi-detrended, echo = FALSE, warning = FALSE, out.width = "55%", fig.width = 6, fig.asp = 0.618, dev = "svg"}
 
 hpi_trends %>%
   filter(state %in% c("California", "Nevada", "West Virginia", "Texas")) %>%
-  ggplot(aes(date, hpi_detrended)) +
+  ggplot(aes(date_dec, hpi/hpi_trend_log)) +
   geom_hline(yintercept = 1, color = "grey50", linewidth = 0.4) +
   geom_line(color = "#0072B2", linewidth = 0.75) +
-  scale_x_date(name = NULL) +
+  scale_x_continuous(name = NULL) +
   scale_y_log10(
     name = "House Price Index (detrended)",
-    breaks = c(0.752, 1, 1.33, 1.77),
-    labels = c("0.75", "1.00", "1.33", "1.77")
+    limits = c(0.5, 2),
+    breaks = c(0.5, 0.7, 1, 1.5, 2)
   ) +
   facet_wrap(~state, scales = "free_x") +
   theme_minimal_hgrid() +
@@ -724,17 +779,149 @@ Did housing prices in California decline substantially from 1990 to 1998? — ye
 ]
 
 .small-font[
-Did housing prices in West Virginia recover by 2017?  — no
+Did housing prices in West Virginia recover by 2020?  — no
 ]
 
-???
-
-Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
-
+.absolute-bottom-right.tiny-font[
+US States House Price Index (HPI). Source: Freddie Mac.
+]
 
 ---
 
-## Title
+## Exponential versus linear detrending
+
+Two choices:
+
+--
+
+- Fit linear trendline, remove by subtraction
+
+--
+
+- Fit exponential trendline (linear in log space), remove by division
+
+--
+
+It is critical to make the correct choice for the dataset at hand
+
+--
+
+Any type of growth process (increase is proportional to present value) **must** be analyzed in log space
+
+---
+
+## Example: HPI analysis in linear space does looks off
+
+.center[
+```{r hpi-trends-linear, echo = FALSE, warning = FALSE, out.width = "75%", fig.width = 6, fig.asp = 0.618, dev = "svg"}
+
+hpi_trends %>%
+  filter(state %in% c("California", "Nevada", "West Virginia", "Texas")) %>%
+  ggplot(aes(date_dec, hpi)) +
+  geom_line(aes(y = hpi_trend_lin), color = "grey50", linewidth = 0.4) +
+  geom_line(color = "#0072B2", linewidth = 0.75) +
+  scale_x_continuous(name = NULL) +
+  scale_y_continuous(
+    name = "House Price Index (Dec. 2000 = 100)",
+    breaks = c(50, 100, 150, 200, 250, 300, 350),
+    labels = c("", "100", "", "200", "", "300", "")
+  ) +
+  facet_wrap(~state, scales = "free_x") +
+  theme_minimal_hgrid() +
+  theme(
+    strip.text = element_text(size = 12),
+    strip.background = element_rect(fill = "grey85"),
+    axis.line.x = element_line(color = "grey50"),
+    axis.ticks.x = element_line(color = "grey50"),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_text(margin = margin(0, 0, 0, 0))
+  )
+
+```
+]
+
+.absolute-bottom-right.tiny-font[
+US States House Price Index (HPI). Source: Freddie Mac.
+]
+
+---
+
+## Detrending in linear space creates systematic deviations
+
+.center[
+```{r hpi-trends-linear-detrended, echo = FALSE, warning = FALSE, out.width = "75%", fig.width = 6, fig.asp = 0.618, dev = "svg"}
+
+hpi_trends %>%
+  filter(state %in% c("California", "Nevada", "West Virginia", "Texas")) %>%
+  ggplot(aes(date_dec, hpi - hpi_trend_lin)) +
+  geom_hline(yintercept = 1, color = "grey50", linewidth = 0.4) +
+  geom_line(color = "#0072B2", linewidth = 0.75) +
+  scale_x_continuous(name = NULL) +
+  scale_y_continuous(
+    name = "House Price Index (detrended)",
+  ) +
+  facet_wrap(~state, scales = "free_x") +
+  theme_minimal_hgrid() +
+  theme(
+    strip.text = element_text(size = 12),
+    strip.background = element_rect(fill = "grey85"),
+    axis.line.x = element_line(color = "grey50"),
+    axis.ticks.x = element_line(color = "grey50"),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_text(margin = margin(0, 0, 0, 0))
+  )
+
+```
+]
+
+.absolute-bottom-right.tiny-font[
+US States House Price Index (HPI). Source: Freddie Mac.
+]
+
+---
+
+## Detrended in log-space one more time for comparison
+
+.center[
+```{r hpi-detrended2, echo = FALSE, warning = FALSE, out.width = "75%", fig.width = 6, fig.asp = 0.618, dev = "svg"}
+
+hpi_trends %>%
+  filter(state %in% c("California", "Nevada", "West Virginia", "Texas")) %>%
+  ggplot(aes(date_dec, hpi/hpi_trend_log)) +
+  geom_hline(yintercept = 1, color = "grey50", linewidth = 0.4) +
+  geom_line(color = "#0072B2", linewidth = 0.75) +
+  scale_x_continuous(name = NULL) +
+  scale_y_log10(
+    name = "House Price Index (detrended)",
+    limits = c(0.5, 2),
+    breaks = c(0.5, 0.7, 1, 1.5, 2)
+  ) +
+  facet_wrap(~state, scales = "free_x") +
+  theme_minimal_hgrid() +
+  theme(
+    strip.text = element_text(size = 12),
+    strip.background = element_rect(fill = "grey85"),
+    axis.line.x = element_line(color = "grey50"),
+    axis.ticks.x = element_line(color = "grey50"),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_text(margin = margin(0, 0, 0, 0))
+  )
+
+```
+]
+
+.absolute-bottom-right.tiny-font[
+US States House Price Index (HPI). Source: Freddie Mac.
+]
+
+---
+class: center middle
+
+## Accounting for seasonal fluctuations
+
+---
+
+## Many time series show regular seasonal fluctuations
 
 .center[
 ```{r keeling-curve, echo = FALSE, warning = FALSE, out.width = "65%", fig.width = 6, fig.asp = 0.618, dev = "svg"}
@@ -797,10 +984,13 @@ ggplot(co2_detrended, aes(date_dec, co2_ave)) +
 ```
 ]
 
+.absolute-bottom-right.tiny-font[
+CO<sub>2</sub> abundance in the atmosphere over time. Source: NOAA Global Monitoring Laboratory
+]
 
 ---
 
-## Title
+## Many time series show regular seasonal fluctuations
 
 .center[
 ```{r keeling-curve-zoomed, echo = FALSE, warning = FALSE, out.width = "65%", fig.width = 6, fig.asp = 0.618, dev = "svg"}
@@ -837,6 +1027,12 @@ ggplot(co2_detrended, aes(date_dec, co2_ave)) +
 ]
 
 ---
+class: middle
+
+## We can decompose into:<br> long-term trend, seasonal effect, remainder (noise)
+
+
+---
 
 .center[
 ```{r keeling-curve-decomposition, echo = FALSE, warning = FALSE, out.width = "85%", fig.width = 9, fig.asp = 0.618, dev = "svg"}
@@ -861,7 +1057,7 @@ co2_detrended |>
         levels = facet_labels
       ),
       x = 1990,
-      y = c(324, 419, 324, 419, -4.1, 4.3, -.81, .85)
+      y = c(324, 419, 324, 419, -5, 5, -1, 1)
     ),
     aes(x, y),
     color = NA,
@@ -886,6 +1082,13 @@ co2_detrended |>
   )
 ```
 ]
+
+--
+
+.small-font[
+Magnitude of remainder should be small compared to that of seasonal fluctuations
+]
+
 
 ---
 
@@ -937,14 +1140,41 @@ co2_detrended |>
 ```
 ]
 
+.small-font[
+Magnitude of remainder should be small compared to that of seasonal fluctuations
+]
+
+---
+
+## Take-home messages
+
+--
+
+1. Specify what your error bars show, and ask others to do the same
+
+--
+
+2. Consider frequency framing and Hypothetical Outcome Plots 
+
+--
+
+3. De-trend your data
+
+--
+
+4. Pay attention to linear vs. logarithmic processes
 
 ---
 
 ## Further reading
 
+- Fundamentals of Data Visualization: [Chapter 14: Visualizing trends](https://clauswilke.com/dataviz/visualizing-trends.html)
+
 - Fundamentals of Data Visualization: [Chapter 16: Visualizing uncertainty](https://clauswilke.com/dataviz/visualizing-uncertainty.html)
+
 - L. Padilla, M. Kay, and J. Hullman (2022). [Uncertainty Visualization](
 https://osf.io/preprints/psyarxiv/ebd6r)
+
 - J. Hullman, P. Resnick, and E. Adar (2015). [Hypothetical Outcome Plots Outperform Error Bars and Violin Plots for Inferences about Reliability of Variable Ordering](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142444)
 
 
