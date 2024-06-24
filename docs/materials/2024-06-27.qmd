@@ -162,8 +162,7 @@ ggplot(lm_data_1952, aes(x = estimate, y = continent)) +
     aes(dist = dist_normal(
       mu = estimate, sigma = std.error
     )),
-    point_size = 4,
-    fill = "skyblue"
+    point_size = 4
   )
 ```
 
@@ -175,7 +174,6 @@ ggplot(lm_data_1952, aes(x = estimate, y = continent)) +
       mu = estimate, sigma = std.error
     )),
     point_size = 4,
-    fill = "skyblue",
     #.width = c(.68, .95, .997)   # 1, 2, 3 SD
     .width = .68                # 1 SD only
   )
@@ -223,7 +221,7 @@ fit <- gam(head_length_mm ~ body_mass_g, data = blue_jays_male, method = "REML")
 
 # new data table with x values only, for model prediction
 blue_jays_new <- tibble(
-  body_mass_g = seq(from = 59, to = 82, length.out = 10)
+  body_mass_g = seq(from = 59, to = 82, length.out = 100)
 ) |>
   mutate(.row = row_number()) # needed to join in fitted samples
 
@@ -386,6 +384,7 @@ Now we can de-trend by dividing the raw value by the trendline.
 fmhpi_trends |>
   filter(state %in% c("California", "Nevada", "West Virginia", "Texas")) |>
   ggplot(aes(date_dec, hpi/hpi_trend_log)) +
+  geom_hline(yintercept = 1, linewidth = 0.2) +
   geom_line(color = "#0072B2") +
   xlab("Year") +
   scale_y_log10( # important, still need to use log scale
@@ -463,15 +462,111 @@ atx_temps <- read_csv(
   show_col_types = FALSE
 )
 
-# pick a range of years to analyze; the earliest complete year is 1939 and the latest
-# complete year is 2023.
-start <- 1970
-end <- 2010
-temps_reduced <- filter(atx_temps, year >= start & year <= end)
+# pick a range of years to analyze; the earliest complete year is 1939
+# and the latest complete year is 2023.
+start_year <- 1970
+end_year <- 2010
+temps_reduced <- filter(atx_temps, year >= start_year & year <= end_year)
 
 # perform the analysis both for average temperature and for precipitation
 response <- temps_reduced$temp_ave
 # response <- temps_reduced$precip
+```
 
-# continue from here ...
+```{r}
+# continue here ...
+```
+
+## 4. Fitting different types of smoothers
+
+When fitting non-linear smoothers to data via `geom_smooth()`, there are extensive options to customize the smoother and as a result to get quite different fits. Most people just use the geom defaults, but you should be aware that there are customization options and that they substantially affect what you get.
+
+Let's start with the default options. For small datasets (\<1000 data points), `geom_smooth()` uses LOESS.
+
+```{r}
+ggplot(mtcars) +
+  aes(disp, mpg) +
+  geom_point() +
+  # default for small datasets: loess smoothing
+  geom_smooth()
+```
+
+LOESS has a parameter `span` that determines how smooth the fit will be. Default in `geom_smooth()` is `span = 0.75`. This may not be the best choice for your specific dataset.
+
+```{r}
+# smaller span values make the fit more wiggly, larger span values make it more smooth.
+ggplot(mtcars) +
+  aes(disp, mpg) +
+  geom_point() +
+  geom_smooth(span = 0.25)
+
+ggplot(mtcars) +
+  aes(disp, mpg) +
+  geom_point() +
+  geom_smooth(span = 1)
+
+ggplot(mtcars) +
+  aes(disp, mpg) +
+  geom_point() +
+  geom_smooth(span = 2)
+```
+
+For datasets with more than 1000 points, `geom_smooth()` uses a generalized additive model (GAM) with formula `y ~ s(x, bs = "cs")`. We can choose these settings manually by specifying the `method` and `formula` parameters:
+
+```{r}
+ggplot(mtcars) +
+  aes(disp, mpg) +
+  geom_point() +
+  geom_smooth(method = "gam", formula = y ~ s(x, bs = "cs"))
+```
+
+GAMs fit splines to the data, and there is a wide array of different types of splines and spline settings (such as number of knots) that you can explore. For example, `bs = "cs"` specifies cubic regression splines with shrinkage. In the following, I will show a few more examples. Enter `?mgcv::smooth.terms` in your R console to see the full documentation of available options.
+
+```{r}
+ggplot(mtcars) +
+  aes(disp, mpg) +
+  geom_point() +
+  geom_smooth(
+    method = "gam",
+    # cubic spline with five knots
+    formula = y ~ s(x, k = 5, bs = 'cr')
+  )
+
+ggplot(mtcars) +
+  aes(disp, mpg) +
+  geom_point() +
+  geom_smooth(
+    method = "gam",
+    # thin plate spline, three knots
+    formula = y ~ s(x, k = 3)
+  )
+
+ggplot(mtcars) +
+  aes(disp, mpg) +
+  geom_point() +
+  geom_smooth(
+    method = "gam",
+    # Gaussian process spline, six knots
+    formula = y ~ s(x, k = 6, bs = 'gp')
+  )
+```
+
+### Exercises
+
+Explore the different smoothing options for the `cars93` dataset. Pay particular attention to the behavior of the smoothing line on the right end of the data range, where the number of available points is sparse.
+
+```{r}
+cars93 <- read_csv(
+  "https://wilkelab.org/SDS375/datasets/cars93.csv",
+  show_col_types = FALSE
+)
+
+ggplot(cars93) +
+  aes(x = Price, y = Fuel.tank.capacity) +
+  geom_point() + theme_bw(14) +
+  geom_smooth()
+```
+
+```{r}
+# your code here
 ```
