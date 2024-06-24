@@ -19,7 +19,7 @@ Materials for past and present workshops. The specific slide sets may differ fro
 <strong class="nospace">Visualizing Uncertainty and Trends</strong>
 
 - Keynote, June 24 2024: [slides](materials/2024-06-24.html)
-- Workshop, June 27 2024: coming soon
+- Workshop, June 27 2024: [Quarto notebook](materials/2024-06-27.qmd) [HTML](materials/2024-06-27.html)
 
 <strong class="nospace">2024-06-20</strong>
 

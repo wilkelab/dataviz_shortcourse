@@ -4,18 +4,6 @@ format: html
 editor: visual
 ---
 
-## Outline
-
-Topics to cover:
-
--   `geom_smooth()`, different types of smoothing formulas, showing/hiding the confidence band
-
--   detrending, both linear and seasonal
-
--   Hypothetical Outcome Plots / animations
-
--   uncertainty visualizations
-
 ## Required packages
 
 Install the required packages:
@@ -34,6 +22,8 @@ install.packages(
 ```
 
 ## 1. Error bars and other uncertainty visualizations
+
+We'll be working with the gapminder dataset that contains information about life expectancy and GDP per capita for hundreds of countries around the globe.
 
 ```{r}
 #| message = FALSE
@@ -94,7 +84,7 @@ ggplot(lm_data) +
 ```
 
 ```{r}
-# alternative version with error bars instead of 
+# alternative version with error bars with caps 
 ggplot(lm_data) +
   aes(
     x = year, y = estimate,
@@ -186,7 +176,7 @@ ggplot(lm_data_1952, aes(x = estimate, y = continent)) +
     )),
     point_size = 4,
     fill = "skyblue",
-    #.width = c(.68, .95, .997),   # 1, 2, 3 SD
+    #.width = c(.68, .95, .997)   # 1, 2, 3 SD
     .width = .68                # 1 SD only
   )
 ```
@@ -208,7 +198,9 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
 
 ## 2. Hypothetical Outcome Plots
 
-Step 1: Extract samples from fitted model.
+We'll be working with the blue jays dataset which contains various body size measurements of blue jays birds. Specifically we'll be looking at the relationship between the head length and the body mass, which we can model with a linear regression. We want to display the uncertainty in this regression line with an animated hypothetical outcomes plot.
+
+Step 1: Fit a linear model and extract samples from the fitted model.
 
 ```{r}
 #| message = FALSE
@@ -403,6 +395,53 @@ fmhpi_trends |>
   facet_wrap(~state)
 ```
 
+In the second example we will be decomposing monthly CO2 readings into the long-term trend, seasonal fluctuations, and the remainder.
+
+```{r}
+# read in the data
+co2 <- read_csv(
+  "https://wilkelab.org/dataviz_shortcourse/datasets/co2.csv",
+  show_col_types = FALSE
+)
+
+# use complete years only
+start_year <- 1959
+end_year <- 2023
+co2_reduced <- filter(co2, year >= start_year & year <= end_year)
+
+# convert data to time series object
+response <- co2_reduced$co2_ave
+co2_ts <- ts(
+  data = response,
+  start = start_year,
+  end = c(end_year, 12),
+  frequency = 12      # we have 12 time points per year
+)
+
+# perform STL analysis (Seasonal Decomposition of Time Series by Loess)
+co2_stl <- stl(co2_ts, s.window = 7)
+# extract components and put together into one table
+co2_detrended <- tibble(
+  date_dec = co2_reduced$date_dec,
+  response,
+  seasonal = t(co2_stl$time.series)[1, ],
+  trend = t(co2_stl$time.series)[2, ],
+  remainder = t(co2_stl$time.series)[3, ]
+)
+
+# plot
+co2_detrended |>
+  rename("monthly average" = response) |>
+  pivot_longer(-date_dec, names_to = "component", values_to = "co2") |>
+  mutate(
+    component = fct_relevel(component, "monthly average", "trend", "seasonal", "remainder")
+  ) |>
+  ggplot(aes(date_dec, co2)) +
+  geom_line() +
+  facet_wrap(~component, scales = "free_y", ncol = 1)
+
+```
+
 ### Exercises
 
 Exercises for the HPI data:
@@ -415,12 +454,24 @@ Exercises for the HPI data:
 # your code here
 ```
 
-Exercises for seasonal decomposition:
-
--   ***Exercise 1***
-
--   ***Exercise 2***
+Exercise for seasonal decomposition: Perform STL analysis on both temperature and precipitation data for Austin, TX. Explore different time ranges for your analysis. What trends are you seeing? Do you think the decomposition works for precipitation data?
 
 ```{r}
-# your code here
+# monthly temperature and precipitation data for Austin, TX
+atx_temps <- read_csv(
+  "https://wilkelab.org/dataviz_shortcourse/datasets/atx_temps.csv",
+  show_col_types = FALSE
+)
+
+# pick a range of years to analyze; the earliest complete year is 1939 and the latest
+# complete year is 2023.
+start <- 1970
+end <- 2010
+temps_reduced <- filter(atx_temps, year >= start & year <= end)
+
+# perform the analysis both for average temperature and for precipitation
+response <- temps_reduced$temp_ave
+# response <- temps_reduced$precip
+
+# continue from here ...
 ```
