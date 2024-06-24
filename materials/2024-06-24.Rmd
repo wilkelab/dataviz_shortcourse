@@ -1,7 +1,7 @@
 ---
 title: "Visualizing Uncertainty and Trends"
 author: "Claus O. Wilke"
-date: "last updated: `r Sys.Date()`"
+date: "The University of Texas at Austin"
 output:
   xaringan::moon_reader:
     css: [default, "Wilke-slides-theme.css"]
@@ -112,6 +112,8 @@ Figure redrawn after [Claus O. Wilke. Fundamentals of Data Visualization. O'Reil
 
 
 ## It's often not clear what the visualizations represent
+
+--
 
 In particular, error bars can represent many different quantities
 
@@ -593,7 +595,7 @@ Individual sample fits tend to be more wiggly than the mean
 ]
 
 .absolute-bottom-right.tiny-font[
-Fuel efficiency versus displacement, for 32 cars (1973–74 models). Source: Motor Trend, 1974.
+Fuel efficiency versus displacement, for 32 cars (1973–74 models). Source: Motor Trend, 1974
 ]
 
 ???
@@ -613,7 +615,7 @@ Individual sample fits tend to be more wiggly than the mean
 ]
 
 .absolute-bottom-right.tiny-font[
-Fuel efficiency versus displacement, for 32 cars (1973–74 models). Source: Motor Trend, 1974.
+Fuel efficiency versus displacement, for 32 cars (1973–74 models). Source: Motor Trend, 1974
 ]
 
 ???
@@ -630,7 +632,7 @@ background-size: 50%
 ## Hypothetical Outcome Plots again help develop intuition
 
 .absolute-bottom-right.tiny-font[
-Fuel efficiency versus displacement, for 32 cars (1973–74 models). Source: Motor Trend, 1974.
+Fuel efficiency versus displacement, for 32 cars (1973–74 models). Source: Motor Trend, 1974
 ]
 
 ???
@@ -679,7 +681,7 @@ hpi_trends %>%
 ]
 
 .absolute-bottom-right.tiny-font[
-California House Price Index (HPI). Source: Freddie Mac.
+House Price Index (HPI) for California. Source: Freddie Mac
 ]
 
 ---
@@ -722,7 +724,7 @@ Did housing prices in West Virginia recover by 2020?
 ]
 
 .absolute-bottom-right.tiny-font[
-US States House Price Index (HPI). Source: Freddie Mac.
+US States House Price Index (HPI). Source: Freddie Mac
 ]
 
 ---
@@ -766,7 +768,7 @@ Did housing prices in West Virginia recover by 2020?
 ]
 
 .absolute-bottom-right.tiny-font[
-US States House Price Index (HPI). Source: Freddie Mac.
+US States House Price Index (HPI). Source: Freddie Mac
 ]
 
 ---
@@ -810,7 +812,7 @@ Did housing prices in West Virginia recover by 2020?  — no
 ]
 
 .absolute-bottom-right.tiny-font[
-US States House Price Index (HPI). Source: Freddie Mac.
+US States House Price Index (HPI). Source: Freddie Mac
 ]
 
 ---
@@ -868,7 +870,7 @@ hpi_trends %>%
 ]
 
 .absolute-bottom-right.tiny-font[
-US States House Price Index (HPI). Source: Freddie Mac.
+US States House Price Index (HPI). Source: Freddie Mac
 ]
 
 ---
@@ -902,7 +904,7 @@ hpi_trends %>%
 ]
 
 .absolute-bottom-right.tiny-font[
-US States House Price Index (HPI). Source: Freddie Mac.
+US States House Price Index (HPI). Source: Freddie Mac
 ]
 
 ---
@@ -938,7 +940,7 @@ hpi_trends %>%
 ]
 
 .absolute-bottom-right.tiny-font[
-US States House Price Index (HPI). Source: Freddie Mac.
+US States House Price Index (HPI). Source: Freddie Mac
 ]
 
 ---
@@ -1054,9 +1056,16 @@ ggplot(co2_detrended, aes(date_dec, co2_ave)) +
 ]
 
 ---
-class: middle
 
-## We can decompose into:<br> long-term trend, seasonal effect, remainder (noise)
+## Seasonal Decomposition of Time Series by Loess (STL)
+
+We can use STL to decompose a time series into:
+
+1. long-term trend
+
+2. seasonal effect
+
+3. remainder (noise)
 
 
 ---
@@ -1171,6 +1180,21 @@ co2_detrended |>
 Magnitude of remainder should be small compared to magnitude of seasonal fluctuations
 ]
 
+---
+
+## Other strategies for adjusting for seasonality
+
+--
+
+Simpler approaches:
+
+- Fit model with fixed or random effects for specific seasons
+
+--
+
+More complex approaches:
+
+- Perform Fourier or wavelet decomposition
 
 ---
 
@@ -1196,13 +1220,20 @@ Magnitude of remainder should be small compared to magnitude of seasonal fluctua
 
 ## Further reading
 
+Materials by me:
+
+.move-up-1em[
+- Book: [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/)
+- UT Austin class: [Data Visualization in R](https://wilkelab.org/SDS375/)
 - Fundamentals of Data Visualization: [Chapter 14: Visualizing trends](https://clauswilke.com/dataviz/visualizing-trends.html)
-
 - Fundamentals of Data Visualization: [Chapter 16: Visualizing uncertainty](https://clauswilke.com/dataviz/visualizing-uncertainty.html)
+]
 
+Research literature on uncertainty visualization:
+
+.move-up-1em[
+- J. Hullman, P. Resnick, and E. Adar (2015). [Hypothetical Outcome Plots Outperform Error Bars and Violin Plots for Inferences about Reliability of Variable Ordering](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142444)
+- S. Joslyn, S. Savelli (2021) [Visualizing Uncertainty for Non-Expert End Users: The Challenge of the Deterministic Construal Error](https://www.frontiersin.org/articles/10.3389/fcomp.2020.590232/full)
 - L. Padilla, M. Kay, and J. Hullman (2022). [Uncertainty Visualization](
 https://osf.io/preprints/psyarxiv/ebd6r)
-
-- J. Hullman, P. Resnick, and E. Adar (2015). [Hypothetical Outcome Plots Outperform Error Bars and Violin Plots for Inferences about Reliability of Variable Ordering](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142444)
-
-
+]
