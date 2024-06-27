@@ -16,12 +16,12 @@ knitr::opts_chunk$set(echo = FALSE)
 
 Materials for past and present workshops. The specific slide sets may differ from the four main lessons. All materials are primarily based on material from my semester-long [data visualization course at UT Austin.](https://wilkelab.org/SDS375/)
 
-<strong class="nospace">Visualizing Uncertainty and Trends</strong>
+<strong class="nospace" id="2024-06-24">Visualizing Uncertainty and Trends</strong>
 
 - Keynote, June 24 2024: [slides](materials/2024-06-24.html)
-- Workshop, June 27 2024: [Quarto notebook](materials/2024-06-27.qmd) [HTML](materials/2024-06-27.html)
+- Workshop, June 27 2024: [Quarto notebook](materials/2024-06-27.qmd) [HTML](materials/2024-06-27.html)[HTML with solutions](materials/2024-06-27-solutions.html)
 
-<strong class="nospace">2024-06-20</strong>
+<strong class="nospace"  id="2024-06-20">2024-06-20</strong>
 
 Workshop in [support of Ukraine.](https://sites.google.com/view/dariia-mykhailyshyna/main/r-workshops-for-ukraine#h.95gc1ocexdze) To work through all the examples provided, you will need the following R packages: tidyverse, cowplot, ggiraph, sf, patchwork
 
@@ -29,7 +29,7 @@ Workshop in [support of Ukraine.](https://sites.google.com/view/dariia-mykhailys
 - [Slides Part 2](materials/2024-06-20-part2.html)
 - [Slides Part 2, without interactivity](materials/2024-06-20-part2-minimal.html) (Some browsers crash when there are too many interactive examples in one slide set.)
 
-<strong class="nospace">2024-05-28</strong>
+<strong class="nospace"  id="2024-05-28">2024-05-28</strong>
 
 - [Slides Part 1](materials/2024-05-28-part1.html) (telling a story, making a point, making figures accessible)
 - [Slides Part 2](materials/2024-05-28-part2.html) (figure composition and context, text annotations, overplotting)
