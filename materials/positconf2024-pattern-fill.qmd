@@ -1,0 +1,382 @@
+---
+title: "Effective Data Visualization with ggplot2"
+subtitle: "Gradient and pattern fills"
+format: html
+editor: visual
+knitr:
+    opts_chunk: 
+      dev: "ragg_png"
+---
+
+## Required packages
+
+Install the required packages:
+
+```{r}
+#| eval = FALSE
+
+# Run this command to install the required packages.
+# You need to do this only once.
+install.packages(
+  c(
+    "tidyverse", "cowplot", "sf", "ragg",
+    "palmerpenguins"
+  )
+)
+```
+
+For all applications of gradient and pattern fills you need to use a graphics device that supports these features. In Quarto, you can do this by adding the following to the YAML section of the document:
+
+```         
+knitr:
+    opts_chunk: 
+      dev: "ragg_png"
+```
+
+## 1. Basics of gradient and pattern fills
+
+With the release of ggplot 3.5.0, we now have the ability to fill areas with gradients or patterns. This is a native feature supported by the R graphics engine, and it is quite powerful. However, the various features only work to the extent they are supported by the graphics device. We recommend the ragg device for maximum feature support.
+
+Let's start with some basic gradient and pattern fills. First we load the required packages.
+
+```{r}
+#| message = FALSE
+
+library(tidyverse)
+library(grid)        # for pattern creation
+library(cowplot)     # for theme functions
+library(palmerpenguins) # for `penguins` dataset
+```
+
+Gradients and patterns are defined via functions from the grid package, specifically `grid::linearGradient()`, `grid::radialGradient()`, and `grid::pattern()`. Once defined, these objects can then be used instead of colors wherever a fill color is specified.
+
+So let's define a simple gradient and use in a plot:
+
+```{r}
+# define a linear gradient object
+orange_gradient <- linearGradient(
+  # gradient colors, orange to white
+  colours = c("orange", "white"),
+  # gradient runs vertically
+  x1 = 0, y1 = 1.5,  
+  x2 = 0, y2 = 0,
+  # gradient is applied to each polygon separately
+  group = FALSE 
+)
+
+ggplot(economics, aes(date, unemploy)) +
+  # use gradient object like a fill color in geom
+  geom_area(fill = orange_gradient, alpha = 0.5) +
+  geom_line() +
+  scale_x_date(
+    name = NULL,
+    expand = expansion(mult = c(0, 0))
+  ) +
+  scale_y_continuous(
+    name = "unemployed (thousands)",
+    expand = expansion(mult = c(0, 0.05))
+  ) +
+  theme_minimal_hgrid()
+```
+
+Let's move on to a more complex example. Let's make three separate fill patterns and use them to define a fill scale. The patterns are a checkerboard, polkadots, and a cross hatch. Defining these patterns requires some knowledge of the grid graphics engine, which can be quite arcane, but it is very powerful and you can basically make up any fill pattern you want.
+
+```{r}
+# checkerboard
+checkerboard <- pattern(
+  rectGrob(
+    x = c(0, 0.5, 0, 0.5),
+    y = c(0, 0.5, 0.5, 0),
+    width = 0.5, height = 0.5,
+    just = c(0, 0),
+    gp = gpar(
+      fill = c("#F0F0F0C0", "#F0F0F0C0", "#7593BCC0", "#7593BCC0"),
+      col = NA
+    )
+  ),
+  width = unit(10, "mm"), height = unit(10, "mm"),
+  extend = "repeat"
+)
+
+# polkadots
+polkadots <- pattern(
+  grobTree(
+    rectGrob(gp = gpar(fill = "#FEFAF0C0", col = NA)),
+    circleGrob(
+      x = c(.2, .7), y = c(0.2, .7),
+      r = 0.15,
+      gp = gpar(
+        fill = c("#E4343DC0"),
+        col = NA
+      )
+    ),
+    vp = viewport(width = unit(8, "mm"), height = unit(8, "mm"))
+  ),
+  width = unit(8, "mm"), height = unit(8, "mm"),
+  extend = "repeat"
+)
+
+# crosshatch
+crosshatch <- pattern(
+  grobTree(
+    rectGrob(gp = gpar(fill = "#F0FAFEC0", col = NA)),
+    segmentsGrob(
+      x0 = c(0, 0), y0 = c(0, 1),
+      x1 = c(1, 1), y1 = c(1, 0),
+      gp = gpar(col = "#182124", lwd = 1.5)
+    ),
+    vp = viewport(width = unit(5, "mm"), height = unit(5, "mm"))
+  ),
+  width = unit(5, "mm"), height = unit(5, "mm"),
+  extend = "repeat"
+)
+```
+
+The patterns are defined, so we put them into a list for easy use later on.
+
+```{r}
+patterns <- list(
+  checkerboard, polkadots, crosshatch
+)
+```
+
+Now we can use this list of patterns just like we would use colors when defining a manual fill scale.
+
+```{r}
+penguins |>
+  count(species) |>
+  mutate(species = fct_reorder(species, n)) |>
+  ggplot(aes(n, species, fill = species)) + 
+  geom_col(color = "gray30", linewidth = 0.3) +
+  scale_fill_manual(
+    name = NULL,
+    # here we're using patterns instead of colors
+    values = patterns,
+    guide = guide_legend(
+      position = "bottom",
+      reverse = TRUE
+    )
+  ) +
+  scale_x_continuous(
+    name = "count",
+    expand = expansion(mult = c(0, 0.05))
+  ) +
+  scale_y_discrete(
+    name = NULL
+  ) +
+  theme_minimal_vgrid(
+    color = "gray30",
+    line_size = 0.3
+  )
+  
+```
+
+We see that the patterns are also applied to the legend. I would not normally want a legend in this type of plot, as it is not necessary, but this demonstrates how powerful and general the approach is.
+
+## Exercises
+
+1.  Make your own gradient for a plot with gradient fill. Try both a linear gradient (made with `grid::linearGradient()`) and a radial gradient (made with `grid::radialGradient()`). Try different colors, gradient directions, and other modifications these functions allow you to make.
+
+2.  Make your own patterns for the bar plot with pattern fill.
+
+## 2. Isotype plots
+
+text here
+
+## Exercises
+
+1.  Some exercise here...
+
+## 3. Plots overlaid on a map
+
+We'll be visualizing state-level election results from the 2016 US presidential election. Let's begin with loading the required packages and main data. The data table provides us with the election results for the democratic, republican, and other candidates for each county in the US. Counties are identified by their fips codes.
+
+```{r}
+#| message = FALSE
+
+library(sf)          # for manipulating geospatial data
+
+# data taken from: https://github.com/john-guerra/US_Elections_Results/tree/master
+votes_2016 <- read_csv("https://wilkelab.org/dataviz_shortcourse/datasets/2016_US_County_Level_Presidential_Results.csv") |>
+  mutate(
+    fips = str_pad(combined_fips, 5, pad = "0"),
+    state = state_abbr
+  )
+  
+votes_long <- votes_2016 |>
+  mutate(
+    other = total_votes - votes_dem - votes_gop
+  ) |>
+  select(
+    state, fips, democratic = votes_dem, republican = votes_gop, other
+  ) |>
+  pivot_longer(c(-state, -fips), names_to = "party", values_to = "votes")
+
+votes_long
+```
+
+We will display the results for each county as a pie chart. Let's write a function to generate those plots.
+
+```{r}
+make_pie_plot <- function(data) {
+  ggplot(data) +
+    aes(votes, "", fill = party) +
+    geom_col(color = "black", linewidth = 0.2) +
+    coord_polar() +
+    scale_fill_manual(
+      values = c(democratic = '#4B77D0', republican = '#DB4940', other = "gray70"),
+      guide = "none"
+    ) +
+    theme_void()
+}
+
+votes_long |>
+  # filter for Laramie county, Wyoming
+  filter(fips == "56021") |>
+  make_pie_plot()
+```
+
+Our goal is to overlay the pie charts for each county onto a map. So next we load the geometry data for the map. Note that the trick we will be using here (using pattern fills to overlay plots on top of a map) works best if the map data is provided in projected coordinates. This is the case in the data set I am using. If you have data that has not been projected yet, look into `sf::st_transform()` on how to project your data.
+
+```{r}
+# load geometry data
+counties <- readRDS(url("https://wilkelab.org/dataviz_shortcourse/datasets/US_counties.rds")) |>
+  mutate(
+    fips = as.character(GEOID),
+    state = state_code
+  )
+
+# make plot of Wyoming
+counties |>
+  filter(state == "WY") |>
+  ggplot() +
+  geom_sf() +
+  theme_void()
+```
+
+We need to turn the pie chart for each county into a fill pattern. Let's write a function that creates a pattern for one county and apply to all counties in Wyoming.
+
+```{r}
+make_pie_pattern <- function(data) {
+  p <- make_pie_plot(data)
+  pattern(
+    ggplotGrob(p),
+    extend = "none",
+    group = FALSE
+  )
+}
+
+vote_pies <- votes_long |>
+  filter(state == "WY") |>
+  select(-state) |>
+  nest(data = -fips) |>
+  mutate(
+    pie_pattern = map(data, make_pie_pattern),
+    vote_total = map_dbl(data, ~sum(.x$votes))
+  ) |>
+  select(-data)
+```
+
+Now we are ready to make the plot.
+
+```{r}
+counties |>
+  filter(state == "WY") |>
+  mutate( # calculate reference point for each county
+    points = st_point_on_surface(st_zm(geometry)),
+    county_x = st_coordinates(points)[, "X"],
+    county_y = st_coordinates(points)[, "Y"]
+  ) |>
+  left_join(vote_pies, by = "fips") |>
+  mutate( # calculate plot scale
+    scale = 250 * sqrt(vote_total), # 250 was chosen by trial and error
+  ) |>
+  ggplot() +
+  geom_sf(color = "gray40", fill = "gray95", linewidth = 0.2) +
+  geom_rect(
+    aes(
+      geometry = geometry,
+      xmin = county_x - scale,
+      xmax = county_x + scale,
+      ymin = county_y - scale,
+      ymax = county_y + scale,
+      fill = pie_pattern
+    ),
+    stat = "sf_coordinates"
+  ) +
+  theme_void()
+```
+
+### Exercises
+
+Use side-by-side bar plots instead of pie charts.
+
+Solution: First we generate the patterns.
+
+```{r}
+make_bar_plot <- function(data) {
+  data |>
+    mutate(
+      party = fct_relevel(party, 'republican', 'democratic', 'other')
+    ) |>
+    ggplot() +
+    aes("", votes, fill = party) +
+    geom_col(color = "black", linewidth = 0.2, position = "dodge") +
+    scale_fill_manual(
+      values = c(democratic = '#4B77D0', republican = '#DB4940', other = "gray70"),
+      guide = "none"
+    ) +
+    theme_void()
+}
+
+make_bar_pattern <- function(data) {
+  p <- make_bar_plot(data)
+  pattern(
+    ggplotGrob(p),
+    extend = "none",
+    group = FALSE
+  )
+}
+
+vote_bars <- votes_long |>
+  filter(state == "WY") |>
+  select(-state) |>
+  nest(data = -fips) |>
+  mutate(
+    bar_pattern = map(data, make_bar_pattern),
+    vote_total = map_dbl(data, ~sum(.x$votes))
+  ) |>
+  select(-data)
+
+
+```
+
+Then we make the plot.
+
+```{r}
+counties |>
+  filter(state == "WY") |>
+  mutate( # calculate reference point for each county
+    points = st_point_on_surface(st_zm(geometry)),
+    county_x = st_coordinates(points)[, "X"],
+    county_y = st_coordinates(points)[, "Y"]
+  ) |>
+  left_join(vote_bars, by = "fips") |>
+  mutate( # calculate plot scale
+    scale = 1.2 * vote_total,
+  ) |>
+  ggplot() +
+  geom_sf(color = "gray40", fill = "gray95", linewidth = 0.2) +
+  geom_rect(
+    aes(
+      geometry = geometry,
+      xmin = county_x - 25000,
+      xmax = county_x + 25000,
+      ymin = county_y - .5 * scale,
+      ymax = county_y + 1.5 * scale,
+      fill = bar_pattern
+    ),
+    stat = "sf_coordinates"
+  ) +
+  theme_void()
+```
