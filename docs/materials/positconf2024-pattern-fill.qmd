@@ -20,7 +20,7 @@ Install the required packages:
 install.packages(
   c(
     "tidyverse", "cowplot", "sf", "ragg",
-    "palmerpenguins", "magick"
+    "palmerpenguins", "magick", "ggpattern"
   )
 )
 ```
@@ -462,6 +462,6 @@ Unfortunately this is not quite what we wanted. The images are centered within t
 
 ## Exercises
 
-1.  Some exercise here...
+1.  Create a version of the pet ownership isotype plot where bars run vertical instead of horizontal.
 
 ## 

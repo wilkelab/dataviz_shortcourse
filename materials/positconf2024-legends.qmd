@@ -1,0 +1,108 @@
+---
+title: "Effective Data Visualization with ggplot2"
+subtitle: "Sprucing up your legends"
+format: html
+editor: visual
+---
+
+## Required packages
+
+Install the required packages:
+
+```{r}
+#| eval = FALSE
+
+# Run this command to install the required packages.
+# You need to do this only once.
+install.packages(
+  c(
+    "tidyverse", 
+  )
+)
+```
+
+## 1. Legend order
+
+By default, ggplot places legend entries in alphabetical order, and that is rarely what we want. See this example:
+
+```{r}
+#| message = FALSE,
+#| warning = FALSE
+
+library(tidyverse)
+
+tech_stocks <- read_csv("https://wilkelab.org/dataviz_shortcourse/datasets/tech_stocks.csv") |>
+  mutate(date = ymd(date)) |>
+  select(company, date, price_indexed)
+
+ggplot(tech_stocks) +
+  aes(x = date, y = price_indexed) +
+  geom_line(aes(color = company), na.rm = TRUE) +
+  scale_x_date(
+    limits = c(
+      ymd("2012-06-01"),
+      ymd("2017-05-31")
+    ),
+    expand = c(0, 0)
+  ) + 
+  scale_y_continuous(
+    limits = c(0, 560),
+    expand = c(0, 0)
+  )
+```
+
+The visual order of the lines is Facebook, Alphabet, Microsoft, Apple, and we should match it by reodering the categorical variable.
+
+```{r}
+tech_stocks |>
+  mutate(
+    company = fct_relevel(
+      company,
+      "Facebook",  "Alphabet", "Microsoft", "Apple"
+    )
+  ) |>
+  ggplot() +
+  aes(x = date, y = price_indexed) +
+  geom_line(aes(color = company), na.rm = TRUE) +
+  scale_x_date(
+    limits = c(
+      ymd("2012-06-01"),
+      ymd("2017-05-31")
+    ),
+    expand = c(0, 0)
+  ) + 
+  scale_y_continuous(
+    limits = c(0, 560),
+    expand = c(0, 0)
+  )
+```
+
+This is improved, but we can do better. We can get rid of the legend entirely, by adding a secondary axis.
+
+```{r}
+tech_stocks_last <- tech_stocks |>
+  filter(date == max(date))
+
+ggplot(tech_stocks) +
+  aes(x = date, y = price_indexed) +
+  geom_line(aes(color = company), na.rm = TRUE) +
+  scale_x_date(
+    limits = c(
+      ymd("2012-06-01"),
+      ymd("2017-05-31")
+    ),
+    expand = c(0, 0)
+  ) + 
+  scale_y_continuous(
+    limits = c(0, 560),
+    expand = c(0, 0),
+    sec.axis = dup_axis(
+      breaks = tech_stocks_last$price_indexed,
+      labels = tech_stocks_last$company,
+      name = NULL
+    )
+  ) +
+  guides(color = "none")
+```
+
+## 2. Legend placement
