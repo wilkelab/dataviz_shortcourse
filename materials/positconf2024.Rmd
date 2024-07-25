@@ -13,6 +13,15 @@ knitr::opts_chunk$set(echo = FALSE)
 
 Materials for posit::conf(2024) workshop, [Monday, Aug. 12, 9am](https://reg.conf.posit.co/flow/posit/positconf24/publiccatalog/page/publiccatalog/session/1707334048207001SOYr)
 
+### 1. Color scales and color spaces
+
+- Slides: [[html]](positconf2024-slides-colors.html)
+- Exercises: [[html]](positconf2024-colors.html) [[qmd]](positconf2024-colors.qmd)
+
+### 2. Gradient and pattern fills
+
+- Worksheet: [[html]](positconf2024-pattern-fill.html) [[qmd]](positconf2024-pattern-fill.qmd)
+
 
 ## Reuse {.appendix}
 

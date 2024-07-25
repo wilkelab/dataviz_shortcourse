@@ -1,0 +1,1227 @@
+---
+title: "Color scales, color spaces,<br>color-vision deficiency"
+author: "Claus O. Wilke"
+date: "last updated: `r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: [default, "Wilke-slides-theme.css"]
+    lib_dir: libs
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      slideNumberFormat: ''
+      titleSlideClass: [center, middle]
+params:
+  cache: FALSE
+---
+
+```{r setup, include=FALSE, echo=FALSE, message = FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(comment = "")
+
+library(tidyverse)
+library(colorspace)
+library(cowplot)
+library(ggrepel)
+library(here)
+
+# ggplot2 settings so plots scale well for slide size 
+theme_set(theme_gray(16)) # 16 for full width, 18 for half width 
+update_geom_defaults("point", list(size = 2.0)) # 2 for full width, 2.5 for half width
+
+# color space plot theme
+theme_colorspace <- function(size = 12) {
+  theme_minimal_grid(size, line_size = 0.2) +
+  panel_border(color = "black", size = 0.4) +
+  theme(
+    axis.ticks.length = grid::unit(0, "pt"),
+    axis.ticks = element_line(linewidth = 0.2, color = "black"),
+    strip.text = element_text(size = size)
+  )
+}
+```
+
+# Uses of color in data visualization
+
+--
+
+<table style = "border: none; line-height: 2.5;">
+<tr style = "background: white;">
+<td style = "text-align: left; width: 50%;">
+1. Distinguish categories (qualitative)
+</td>
+<td>
+<img src = "color-scales_files/qualitative.png" width = 100% style = "text-align: right; vertical-align: middle"></img>
+</td>
+</tr>
+</table>
+
+---
+
+# Qualitative scale example
+
+.center.nogap[
+```{r popgrowth-vs-popsize-colored, echo = FALSE, message = FALSE, out.width = "65%", fig.width = 7.5, fig.asp = 0.618, dev = "svg"}
+US_census <- read_csv(here("datasets", "US_census.csv"))
+US_regions <- read_csv(here("datasets", "US_regions.csv"))
+
+popgrowth <- left_join(US_census, US_regions) %>%
+    group_by(region, division, state) %>%
+    summarize(
+      pop2000 = sum(pop2000, na.rm = TRUE),
+      pop2010 = sum(pop2010, na.rm = TRUE),
+      popgrowth = (pop2010-pop2000)/pop2000
+    ) %>%
+    arrange(popgrowth) %>%
+    ungroup() %>%
+    mutate(
+      #state = factor(state, levels = state),
+      region = factor(region, levels = c("West", "South", "Midwest", "Northeast"))
+    )
+
+region_colors <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442")
+
+labeled_states <- c(
+  "Alaska", "Arizona", "California", "Florida", "Wisconsin", 
+  "Louisiana", "Nevada", "Michigan", "Montana", "New Mexico",
+  "Pennsylvania", "New York", "Oregon", "Rhode Island",
+  "Tennessee", "Texas", "Utah", "Vermont"
+)
+
+df_repel <- select(popgrowth, x = pop2000, y = popgrowth, state) %>%
+  mutate(label = ifelse(state %in% labeled_states, as.character(state), ""))
+
+p <- ggplot(popgrowth, aes(x = pop2000, y = popgrowth, color = region, fill = region)) +
+  geom_text_repel(
+    data = df_repel,
+    aes(x, y, label = label),
+    segment.alpha = 0.5, point.padding = 0.25,
+    box.padding = .8,
+    force = 1,
+    min.segment.length = 0.1,
+    max.overlaps = 1000,
+    size = 10/.pt,
+    seed = 7586,
+    inherit.aes = FALSE
+  ) +
+  geom_point(size = 4, color = "white") +
+  geom_point(size = 3, shape = 21) +
+  scale_x_log10(
+    breaks = c(1e6, 3e6, 1e7, 3e7),
+    labels = expression(10^6, 3 %*% 10^6, 10^7, 3 %*% 10^7)
+  ) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  xlab("population size in 2000") +
+  ylab("population growth, 2000 to 2010") +
+  theme_minimal_grid(14)
+
+p +  
+  scale_fill_manual(values = region_colors) +
+  scale_color_manual(values = darken(region_colors, .3))
+
+```
+]
+
+Palette name: Okabe-Ito
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+# Qualitative scale example
+
+.center.nogap[
+```{r popgrowth-vs-popsize-colored2, echo = FALSE, message = FALSE, out.width = "65%", fig.width = 7.5, fig.asp = 0.618, dev = "svg"}
+
+region_colors <- RColorBrewer::brewer.pal(4, "Set1")
+
+p +  
+  scale_fill_manual(values = region_colors) +
+  scale_color_manual(values = darken(region_colors, .3))
+
+```
+]
+
+Palette name: ColorBrewer Set1
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+# Qualitative scale example
+
+.center.nogap[
+```{r popgrowth-vs-popsize-colored3, echo = FALSE, message = FALSE, out.width = "65%", fig.width = 7.5, fig.asp = 0.618, dev = "svg"}
+
+region_colors <- RColorBrewer::brewer.pal(4, "Set3")
+
+p +  
+  scale_fill_manual(values = region_colors) +
+  scale_color_manual(values = darken(region_colors, .3))
+
+```
+]
+
+Palette name: ColorBrewer Set3
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+# Uses of color in data visualization
+
+<table style = "border: none; line-height: 2.5;">
+<tr style = "background: white;">
+<td style = "text-align: left; width: 50%;">
+1. Distinguish categories (qualitative)
+</td>
+<td>
+<img src = "color-scales_files/qualitative.png" width = 100% style = "text-align: right; vertical-align: middle"></img>
+</td>
+</tr>
+
+<tr style = "background: white;">
+<td style = "text-align: left;">
+2. Represent numeric values (sequential)
+</td>
+<td>
+<img src = "color-scales_files/sequential.png" width = 100% style = "text-align: right; vertical-align: middle"></img>
+</td>
+</tr>
+</table>
+
+
+---
+
+# Sequential scale example
+
+<br>
+
+.center[
+```{r four-locations-temps-by-month, echo = FALSE, message = FALSE, out.width = "90%", fig.width = 9, fig.asp = .3, dev = "svg"}
+temps_months <- read_csv(here("datasets", "tempnormals.csv")) %>%
+  group_by(location, month_name) %>%
+  summarize(mean = mean(temperature)) %>%
+  mutate(
+    month = factor(
+      month_name,
+      levels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+    ),
+    location = factor(
+      location, levels = c("Death Valley", "Houston", "San Diego", "Chicago")
+    )
+  ) %>%
+  select(-month_name)
+
+p <- ggplot(temps_months, aes(x = month, y = location, fill = mean)) + 
+  geom_tile(width = .95, height = 0.95) + 
+  scale_y_discrete(name = NULL) +
+  coord_fixed(expand = FALSE) +
+  theme_half_open() +
+  theme(
+    axis.line = element_blank(),
+    axis.ticks = element_blank(),
+    legend.title = element_text(size = 12)
+  )
+
+p + scale_fill_viridis_c(
+    option = "D",
+    name = "temperature (°F)"
+  )
+```
+]
+
+Palette name: Viridis
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+# Sequential scale example
+
+<br>
+
+.center[
+```{r four-locations-temps-by-month2, echo = FALSE, message = FALSE, out.width = "90%", fig.width = 9, fig.asp = .3, dev = "svg"}
+p + scale_fill_viridis_c(
+    option = "B", begin = 0.15, end = 0.98,
+    name = "temperature (°F)"
+  )
+```
+]
+
+Palette name: Inferno
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+# Sequential scale example
+
+<br>
+
+.center[
+```{r four-locations-temps-by-month3, echo = FALSE, message = FALSE, out.width = "90%", fig.width = 9, fig.asp = .3, dev = "svg"}
+p + scale_fill_viridis_c(
+    option = "E",
+    name = "temperature (°F)"
+  )
+```
+]
+
+Palette name: Cividis
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+# Uses of color in data visualization
+
+<table style = "border: none; line-height: 2.5;">
+<tr style = "background: white;">
+<td style = "text-align: left; width: 50%;">
+1. Distinguish categories (qualitative)
+</td>
+<td>
+<img src = "color-scales_files/qualitative.png" width = 100% style = "text-align: right; vertical-align: middle"></img>
+</td>
+</tr>
+
+<tr style = "background: white;">
+<td style = "text-align: left;">
+2. Represent numeric values (sequential)
+</td>
+<td>
+<img src = "color-scales_files/sequential.png" width = 100% style = "text-align: right; vertical-align: middle"></img>
+</td>
+</tr>
+
+<tr style = "background: white;">
+<td style = "text-align: left;">
+3. Represent numeric values (diverging)
+</td>
+<td>
+<img src = "color-scales_files/diverging.png" width = 100% style = "text-align: right; vertical-align: middle"></img>
+</td>
+</tr>
+</table>
+
+---
+
+# Diverging scale example
+
+.center.nogap[
+```{r forensic-correlations1, echo = FALSE, message = FALSE, out.width = "35%", fig.width = 4., fig.asp = 1, dev = "svg"}
+forensic_glass <- read_csv(here("datasets", "forensic_glass.csv"))
+
+cm <- cor(select(forensic_glass, -type, -RI, -Si))
+df_wide <- as.data.frame(cm)
+df_long <- stack(df_wide)
+names(df_long) <- c("cor", "var1")
+df_long <- cbind(df_long, var2 = rep(rownames(cm), length(rownames(cm))))
+clust <- hclust(as.dist(1-cm), method="average") 
+levels <- clust$labels[clust$order]
+df_long$var1 <- factor(df_long$var1, levels = levels)
+df_long$var2 <- factor(df_long$var2, levels = levels)
+
+p <- ggplot(filter(df_long, as.integer(var1) < as.integer(var2)),
+       aes(var1, var2, fill=cor)) + 
+  geom_tile(color = "white", linewidth = 1) + 
+  scale_x_discrete(position = "top", name = NULL, expand = c(0, 0)) +
+  scale_y_discrete(name = NULL, expand = c(0, 0)) +
+  guides(
+    fill = guide_colorbar(
+      direction = "horizontal",
+      label.position = "bottom",
+      title.position = "top",
+      barwidth = grid::unit(140, "pt"),
+      barheight = grid::unit(17.5, "pt"),
+      ticks.linewidth = 1
+    )
+  ) +
+  coord_fixed() +
+  theme_half_open(rel_small = 1) +
+  theme(
+    axis.line = element_blank(),
+    axis.ticks = element_blank(),
+    axis.ticks.length = grid::unit(3, "pt"),
+    legend.position = "inside",
+    legend.position.inside = c(.97, .0),
+    legend.justification = c(1, 0),
+    legend.title = element_text(hjust = 0.5)
+  )
+p + scale_fill_distiller(
+  name = "correlation",
+  limits = c(-.5, .5),
+  breaks = c(-.5, 0, .5),
+  labels = c("–0.5", "0.0", "0.5"),
+  type = "div",
+  palette = "PiYG",
+  direction = 1
+)
+```
+]
+
+Palette name: ColorBrewer PiYG
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+# Diverging scale example
+
+.center.nogap[
+```{r forensic-correlations2, echo = FALSE, message = FALSE, out.width = "35%", fig.width = 4., fig.asp = 1, dev = "svg"}
+p + scale_fill_continuous_divergingx(
+  name = "correlation",
+  limits = c(-.5, .5),
+  breaks = c(-.5, 0, .5),
+  labels = c("–0.5", "0.0", "0.5"),
+  palette = "Earth",
+  rev = FALSE
+)
+```
+]
+
+Palette name: Carto Earth
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+# Diverging scale example
+
+.center.nogap[
+```{r forensic-correlations3, echo = FALSE, message = FALSE, out.width = "35%", fig.width = 4., fig.asp = 1, dev = "svg"}
+p + scale_fill_continuous_diverging(
+  name = "correlation",
+  limits = c(-.5, .5),
+  breaks = c(-.5, 0, .5),
+  labels = c("–0.5", "0.0", "0.5"),
+  palette = "Blue-Red",
+  rev = TRUE
+)
+```
+]
+
+Palette name: Blue-Red
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+# Uses of color in data visualization
+
+<table style = "border: none; line-height: 2.5;">
+<tr style = "background: white;">
+<td style = "text-align: left; width: 50%;">
+1. Distinguish categories (qualitative)
+</td>
+<td>
+<img src = "color-scales_files/qualitative.png" width = 100% style = "text-align: right; vertical-align: middle;"></img>
+</td>
+</tr>
+
+<tr style = "background: white;">
+<td style = "text-align: left;">
+2. Represent numeric values (sequential)
+</td>
+<td>
+<img src = "color-scales_files/sequential.png" width = 100% style = "text-align: right; vertical-align: middle"></img>
+</td>
+</tr>
+
+<tr style = "background: white;">
+<td style = "text-align: left;">
+3. Represent numeric values (diverging)
+</td>
+<td>
+<img src = "color-scales_files/diverging.png" width = 100% style = "text-align: right; vertical-align: middle"></img>
+</td>
+</tr>
+
+<tr style = "background: white;">
+<td style = "text-align: left;">
+4. Highlight
+</td>
+<td>
+<img src = "color-scales_files/highlight.png" width = 100% style = "text-align: right; vertical-align: middle"></img>
+</td>
+</tr>
+</table>
+
+---
+
+# Highlight example
+
+.center[
+```{r Aus-athletes-track, echo = FALSE, out.width = "60%", fig.width = 6, fig.asp = 0.618, dev = "svg"}
+male_Aus <- ggridges::Aus_athletes %>%
+  filter(sex == "m") %>%
+  filter(
+    sport %in% c("basketball", "field", "swimming", "track (400m)", "track (sprint)", "water polo")
+  ) %>%
+  mutate(
+    sport = 
+      case_when(
+        sport == "track (400m)" ~ "track",
+        sport == "track (sprint)" ~ "track",
+        TRUE ~ sport
+      ),
+    sport = factor(
+      sport,
+      levels = c("track", "field", "water polo", "basketball", "swimming")
+    )
+  )
+
+p <- ggplot(male_Aus, aes(x=height, y=pcBfat, shape=sport, color = sport, fill = sport)) +
+  geom_point(size = 3) +
+  scale_shape_manual(values = 21:25) +
+  xlab("height (cm)") +
+  ylab("% body fat") +
+  theme_minimal_grid(14)
+
+colors <- c("#BD3828", rep("#808080", 4))
+fills <- c(
+  alpha(colors[1], .815),
+  alpha(colors[2:5], .5)
+)
+
+p + 
+  scale_color_manual(values = colors) +
+  scale_fill_manual(values = fills)
+```
+]
+
+Palette name: Grays with accents
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+# Highlight example
+
+.center[
+```{r Aus-athletes-track2, echo = FALSE, out.width = "60%", fig.width = 6, fig.asp = 0.618, dev = "svg"}
+
+accent_OkabeIto <- c("#E69F00", "#56B4E9", "#CC79A7", "#F0E442", "#0072B2", "#009E73", "#D55E00")
+accent_OkabeIto[1:4] <- desaturate(lighten(accent_OkabeIto[1:4], .4), .8)
+accent_OkabeIto[5:7] <- darken(accent_OkabeIto[5:7], .3)
+
+colors <- c(accent_OkabeIto[5], darken(accent_OkabeIto[1:4], .2))
+fills <- c(
+  alpha(accent_OkabeIto[5], .7),
+  alpha(accent_OkabeIto[1:4], .7)
+)
+
+p + 
+  scale_color_manual(values = colors) +
+  scale_fill_manual(values = fills)
+```
+]
+
+Palette name: Okabe-Ito accent
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+# Highlight example
+
+.center[
+```{r Aus-athletes-track3, echo = FALSE, out.width = "60%", fig.width = 6, fig.asp = 0.618, dev = "svg"}
+
+accent_Brewer <- RColorBrewer::brewer.pal(7, name = "Accent")[c(7, 1:4)]
+
+colors <- darken(accent_Brewer, .2)
+fills <- c(accent_Brewer[1], alpha(accent_Brewer[2:5], .7))
+
+p + 
+  scale_color_manual(values = colors) +
+  scale_fill_manual(values = fills)
+```
+]
+
+Palette name: ColorBrewer accent
+
+???
+
+Figure redrawn from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+# Uses of color in data visualization
+
+<table style = "border: none; line-height: 2.5;">
+<tr style = "background: white;">
+<td style = "text-align: left; width: 50%;">
+1. Distinguish categories (qualitative)
+</td>
+<td>
+<img src = "color-scales_files/qualitative.png" width = 100% style = "text-align: right; vertical-align: middle;"></img>
+</td>
+</tr>
+
+<tr style = "background: white;">
+<td style = "text-align: left;">
+2. Represent numeric values (sequential)
+</td>
+<td>
+<img src = "color-scales_files/sequential.png" width = 100% style = "text-align: right; vertical-align: middle"></img>
+</td>
+</tr>
+
+<tr style = "background: white;">
+<td style = "text-align: left;">
+3. Represent numeric values (diverging)
+</td>
+<td>
+<img src = "color-scales_files/diverging.png" width = 100% style = "text-align: right; vertical-align: middle"></img>
+</td>
+</tr>
+
+<tr style = "background: white;">
+<td style = "text-align: left;">
+4. Highlight
+</td>
+<td>
+<img src = "color-scales_files/highlight.png" width = 100% style = "text-align: right; vertical-align: middle"></img>
+</td>
+</tr>
+</table>
+
+---
+
+class: center middle
+
+## How does a computer represent color?
+
+---
+
+## The RGB color space
+
+.pull-left.width-50[
+- red R (0-255): amount of red light
+
+- green G (0-255): amount of green light
+
+- blue B (0-255): amount of blue light
+]
+
+--
+
+.pull-right.move-down-1em[
+
+R | G | B | hex code | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+---| --- | --- | --- | ---
+0  | 0 | 0 | #000000 | <div style = "background-color: #000000;">&nbsp;</div>
+255  | 0 | 0 | #FF0000 | <div style = "background-color: #FF0000;">&nbsp;</div>
+0  | 255 | 255 | #00FFFF | <div style = "background-color: #00FFFF;">&nbsp;</div>
+128  | 128 | 128 | #808080 | <div style = "background-color: #808080;">&nbsp;</div>
+0 | 158 | 115 | #009E73 | <div style = "background-color: #009E73;">&nbsp;</div>
+255 | 255 | 255 | #FFFFFF | <div style = "background-color: #FFFFFF;">&nbsp;</div>
+]
+
+---
+
+## The RGB color space
+
+.center[
+```{r rgb-viz, echo = FALSE, cache = params$cache, out.width = "85%", fig.width = 10, fig.asp = .5, dev = "svg"}
+rgb_by_b <- expand_grid(
+  R = seq(0, 255, by = 2),
+  G = seq(0, 255, by = 2),
+  B = seq(0, 255, by = 35)
+)
+
+rgb_by_b$hex <- hex(sRGB(as.matrix(rgb_by_b)/255))
+
+rgb_by_b %>%
+  ggplot(aes(R, G, fill = hex)) +
+  geom_raster(na.rm = TRUE) +
+  scale_fill_identity() +
+  scale_x_continuous(
+    name = "red R",
+    breaks = (0:5)*50,
+    labels = c("0", "", "100", "", "200", "")
+  ) +
+  scale_y_continuous(
+    name = "green G",
+    breaks = (0:5)*50,
+    labels = c("0", "", "100", "", "200", "")
+  ) +
+  facet_wrap(
+    vars(B),
+    ncol = 4,
+    labeller = as_labeller(function(x) glue::glue("blue B = {x}"))
+  ) +
+  coord_fixed(expand = FALSE) +
+  theme_colorspace() +
+  theme(axis.ticks.length = grid::unit(3, "pt"))
+```
+]
+
+--
+
+.tiny[
+People cannot reason well about the RGB color space
+]
+
+---
+
+## The HSV color space
+
+.pull-left[
+
+- hue H (0-360):  
+  hue of the color
+
+- saturation S (0-1):  
+  colorfulness relative to the brightness of the color
+
+- value V (0-1):  
+  subjective perception of amount of light emitted
+]
+
+.pull-right.move-up-1em[
+```{r hsv-viz-single, echo = FALSE, cache = params$cache, out.width = "100%", fig.width = 5, fig.asp = 1, dev = "svg"}
+hsv_by_h <- expand_grid(
+  H = seq(0, 330, by = 30),
+  S = seq(0, 1, by = .01),
+  V = seq(0, 1, by = .01)
+)
+
+hsv_by_h$hex <- hex(HSV(as.matrix(hsv_by_h)))
+
+hsv_by_h %>%
+  filter(H == 90) %>%
+  ggplot(aes(S, V, fill = hex)) +
+  geom_raster(na.rm = TRUE) +
+  scale_fill_identity() +
+  scale_x_continuous(
+    name = "saturation S",
+    breaks = (0:4)*.25,
+    labels = c("0", "", "0.5", "", "")
+  ) +
+  scale_y_continuous(
+    name = "value V",
+    breaks = (0:4)*.25,
+    labels = c("0", "", "0.5", "", "1.0")
+  ) +
+  facet_wrap(
+    vars(H),
+    ncol = 6,
+    labeller = as_labeller(function(x) glue::glue("hue H = {x}"))
+  ) +
+  coord_fixed(expand = FALSE) +
+  theme_colorspace(16) +
+  theme(axis.ticks.length = grid::unit(3, "pt"))
+```
+]
+
+
+---
+
+## The HSV color space
+
+.center[
+```{r hsv-viz, echo = FALSE, cache = params$cache, out.width = "85%", fig.width = 10, fig.asp = .5, dev = "svg"}
+hsv_by_h %>%
+  ggplot(aes(S, V, fill = hex)) +
+  geom_raster(na.rm = TRUE) +
+  scale_fill_identity() +
+  scale_x_continuous(
+    name = "saturation S",
+    breaks = (0:4)*.25,
+    labels = c("0", "", "0.5", "", "")
+  ) +
+  scale_y_continuous(
+    name = "value V",
+    breaks = (0:4)*.25,
+    labels = c("0", "", "0.5", "", "1.0")
+  ) +
+  facet_wrap(
+    vars(H),
+    ncol = 6,
+    labeller = as_labeller(function(x) glue::glue("hue H = {x}"))
+  ) +
+  coord_fixed(expand = FALSE) +
+  theme_colorspace() +
+  theme(axis.ticks.length = grid::unit(3, "pt"))
+```
+]
+
+---
+
+## The HLS color space
+
+.pull-left[
+- hue H (0-360):  
+  hue of the color
+
+- lightness L (0-1):  
+  brightness relative to the brightness of a similarly illuminated white
+
+- saturation S (0-1):  
+  colorfulness relative to the brightness of the color
+]
+
+.pull-right.move-up-1em[
+```{r hls-viz-single, echo = FALSE, cache = params$cache, out.width = "100%", fig.width = 5, fig.asp = 1, dev = "svg"}
+hls_by_h <- expand_grid(
+  H = seq(0, 330, by = 30),
+  L = seq(0, 1, by = .01),
+  S = seq(0, 1, by = .01)
+)
+
+hls_by_h$hex <- hex(HLS(as.matrix(hls_by_h)))
+
+hls_by_h %>%
+  filter(H == 90) %>%
+  ggplot(aes(S, L, fill = hex)) +
+  geom_raster(na.rm = TRUE) +
+  scale_fill_identity() +
+  scale_x_continuous(
+    name = "saturation S",
+    breaks = (0:4)*.25,
+    labels = c("0", "", "0.5", "", "")
+  ) +
+  scale_y_continuous(
+    name = "lightness L",
+    breaks = (0:4)*.25,
+    labels = c("0", "", "0.5", "", "1.0")
+  ) +
+  facet_wrap(
+    vars(H),
+    ncol = 6,
+    labeller = as_labeller(function(x) glue::glue("hue H = {x}"))
+  ) +
+  coord_fixed(expand = FALSE) +
+  theme_colorspace(16) +
+  theme(axis.ticks.length = grid::unit(3, "pt"))
+```
+
+]
+
+---
+
+## The HLS color space
+
+.center[
+```{r hls-viz, echo = FALSE, cache = params$cache, out.width = "85%", fig.width = 10, fig.asp = .5, dev = "svg"}
+hls_by_h %>%
+  ggplot(aes(S, L, fill = hex)) +
+  geom_raster(na.rm = TRUE) +
+  scale_fill_identity() +
+  scale_x_continuous(
+    name = "saturation S",
+    breaks = (0:4)*.25,
+    labels = c("0", "", "0.5", "", "")
+  ) +
+  scale_y_continuous(
+    name = "lightness L",
+    breaks = (0:4)*.25,
+    labels = c("0", "", "0.5", "", "1.0")
+  ) +
+  facet_wrap(
+    vars(H),
+    ncol = 6,
+    labeller = as_labeller(function(x) glue::glue("hue H = {x}"))
+  ) +
+  coord_fixed(expand = FALSE) +
+  theme_colorspace() +
+  theme(axis.ticks.length = grid::unit(3, "pt"))
+```
+]
+
+
+--
+
+.tiny[
+Reasoning about HSV or HLS can still be difficult
+]
+
+---
+
+## The Luv color space
+
+.pull-left.width-50[
+
+- luminance L (0-100):  
+  amount of light emitted
+
+- green/red axis u (approx. -100 to 100):  
+  amount of green vs. red
+
+- blue/yellow axis v (approx. -100 to 100):  
+  amount of blue vs. yellow
+]
+
+.pull-right.move-up-2em[
+```{r luv-viz-single, echo = FALSE, cache = params$cache, out.width = "100%", fig.width = 5, fig.asp = 1, dev = "svg"}
+luv_by_l <- expand_grid(
+  L = seq(20, 90, by = 10),
+  U = seq(-80, 170, by = 1),
+  V = seq(-145, 110, by = 1),
+)
+
+luv_by_l$hex <- hex(LUV(as.matrix(luv_by_l)))
+
+luv_by_l %>%
+  filter(L == 60) %>%
+  ggplot(aes(U, V, fill = hex)) +
+  geom_raster(na.rm = TRUE) +
+  scale_x_continuous(
+    name = "green/red axis u",
+    breaks = (-3:3)*50,
+    labels = c("", "-100", "", "0", "", "100", "")
+  ) +
+  scale_y_continuous(
+    name = "blue/yellow axis v",
+    breaks = (-3:3)*50,
+    labels = c("", "-100", "", "0", "", "100", "")
+  ) +
+  scale_fill_identity() +
+  facet_wrap(
+    vars(L),
+    ncol = 4,
+    labeller = as_labeller(function(x) glue::glue("luminance L = {x}"))
+  ) +
+  coord_fixed(expand = FALSE) +
+  theme_colorspace(16)
+```
+]
+
+
+---
+
+## The Luv color space
+
+.center[
+```{r luv-viz, echo = FALSE, cache = params$cache, out.width = "85%", fig.width = 10, fig.asp = .5, dev = "svg"}
+luv_by_l %>%
+  ggplot(aes(U, V, fill = hex)) +
+  geom_raster(na.rm = TRUE) +
+  scale_x_continuous(
+    name = "green/red axis u",
+    breaks = (-3:3)*50,
+    labels = c("", "-100", "", "0", "", "100", "")
+  ) +
+  scale_y_continuous(
+    name = "blue/yellow axis v",
+    breaks = (-3:3)*50,
+    labels = c("", "-100", "", "0", "", "100", "")
+  ) +
+  scale_fill_identity() +
+  facet_wrap(
+    vars(L),
+    ncol = 4,
+    labeller = as_labeller(function(x) glue::glue("luminance L = {x}"))
+  ) +
+  coord_fixed(expand = FALSE) +
+  theme_colorspace()
+```
+]
+
+---
+
+## The HCL color space: polar Luv
+
+.center.move-up-1em[
+```{r hcl-viz-single, echo = FALSE, cache = params$cache, out.width = "50%", fig.width = 5.5, fig.asp = 1, dev = "svg"}
+
+rC <- 60
+hue_df <- tibble(
+  t = seq(0, 2*pi, length.out = 100),
+  U = rC*sin(t),
+  V = rC*cos(t)
+)
+
+chroma_df <- tibble(
+  U = 4*rC*sin(pi/3),
+  V = 4*rC*cos(pi/3)
+)
+
+labels_df <- tibble(
+  U = c(1.4*rC*sin(pi/3), 1.01*rC*sin(.8*pi)),
+  V = c(1.4*rC*cos(pi/3), 1.01*rC*cos(.8*pi)),
+  label = c("chroma C", "hue L")
+)
+
+luv_by_l %>%
+  filter(L == 60) %>%
+  ggplot(aes(U, V)) +
+  geom_raster(aes(fill = hex), na.rm = TRUE) +
+  geom_segment(
+    data = chroma_df,
+    aes(x = 0, y = 0, xend = U, yend = V),
+    linewidth = 0.2
+  ) +
+  geom_path(
+    data = hue_df,
+    linewidth = 0.2
+  ) +
+  geom_text(
+    data = labels_df,
+    aes(label = label),
+    size = 16*(12/14)/.pt,
+    hjust = 0, vjust = 1
+  ) +
+  scale_x_continuous(
+    name = "green/red axis u",
+    breaks = (-3:3)*50,
+    labels = c("", "-100", "-50", "0", "50", "100", "")
+  ) +
+  scale_y_continuous(
+    name = "blue/yellow axis v",
+    breaks = (-3:3)*50,
+    labels = c("", "-100", "-50", "0", "50", "100", "")
+  ) +
+  scale_fill_identity() +
+  facet_wrap(
+    vars(L),
+    ncol = 4,
+    labeller = as_labeller(function(x) glue::glue("luminance L = {x}"))
+  ) +
+  coord_fixed(
+    expand = FALSE,
+    xlim = c(-65, 145),
+    ylim = c(-120, 80)
+  ) +
+  theme_colorspace(16)
+```
+]
+
+
+---
+
+## The HCL color space: polar Luv
+
+.move-up-1em.center[
+```{r cl-planes, echo = FALSE, cache = params$cache, out.width = "80%", fig.width = 9, fig.asp = .6, dev = "svg"}
+hcl_by_h <- expand_grid(
+  L = seq(1, 99, by = 0.5),
+  C = seq(0, 155, by = 1),
+  H = seq(0, 330, by = 30)
+)
+
+hcl_by_h$hex <- hex(polarLUV(as.matrix(hcl_by_h)))
+
+hcl_by_h %>%
+  ggplot(aes(C, L, fill = hex)) +
+  geom_raster(na.rm = TRUE) +
+  scale_fill_identity() +
+  scale_x_continuous(
+    name = "chroma C",
+    breaks = (0:3)*50,
+    labels = c("0", "", "100", "")
+  ) +
+  scale_y_continuous(
+    name = "luminance L",
+    limits = c(0, 100),
+    breaks = (0:4)*25,
+    labels = c("0", "", "50", "", "100")
+  ) +
+  facet_wrap(
+    vars(H),
+    ncol = 4,
+    labeller = as_labeller(function(x) glue::glue("hue H = {x}"))
+  ) +
+  coord_fixed(expand = FALSE) +
+  theme_colorspace()
+```
+]
+
+[//]: # "segment ends here"
+
+
+---
+class: center middle
+
+## Explore HCL colors interactively in R
+
+---
+
+## We can explore HCL colors in R
+
+```{r eval = FALSE}
+colorspace::choose_color()
+```
+
+--
+
+<img src = "color-spaces_files/choose_color1.png", width = 35%, style = "position:absolute; top: 20%; left: 52.5%; box-shadow: 3px 5px 3px 1px #00000080;"></img>
+
+--
+
+<img src = "color-spaces_files/choose_color2.png", width = 35%, style = "position:absolute; top: 35%; left: 12.5%; box-shadow: 3px 5px 3px 1px #00000080;"></img>
+
+--
+
+<img src = "color-spaces_files/choose_color3.png", width = 35%, style = "position:absolute; top: 50%; left: 42.5%; box-shadow: 3px 5px 3px 1px #00000080;"></img>
+
+
+[//]: # "segment ends here"
+
+---
+class: center middle
+
+## A few considerations when choosing colors
+
+---
+
+## 1. Avoid high chroma
+
+--
+
+.pull-left.width-45[
+High chroma: Toys
+
+<img src = "color-spaces_files/toys-image.jpg", width = 100%, style = "box-shadow: 3px 5px 3px 1px #00000080;"></img>
+]
+
+???
+
+[Photo by Pixabay from Pexels](https://www.pexels.com/photo/super-mario-and-yoshi-plastic-figure-163077/)
+
+--
+
+.pull-right.width-45[
+Low chroma: Elegance
+
+<img src = "color-spaces_files/home-interior.jpg", width = 95%, style = "box-shadow: 3px 5px 3px 1px #00000080;"></img>
+]
+
+???
+
+[Photo by Saviesa Home from Pexels](https://www.pexels.com/photo/kitchen-island-2089698/)
+
+---
+
+## 2. Be aware of color-vision deficiency
+
+5%–8% of men are color blind!
+
+--
+
+<img src = "dataviz/pitfalls_of_color_use_files/figure-html/red-green-cvd-sim-1.png", width = 100%></img>
+
+Red-green color-vision deficiency is the most common
+
+---
+
+## 2. Be aware of color-vision deficiency
+
+5%–8% of men are color blind!
+
+<img src = "dataviz/pitfalls_of_color_use_files/figure-html/blue-green-cvd-sim-1.png", width = 100%></img>
+
+Blue-green color-vision deficiency is rare but does occur
+
+---
+
+## 2. Be aware of color-vision deficiency
+
+Choose colors that can be distinguished with CVD
+
+<img src = "dataviz/pitfalls_of_color_use_files/figure-html/PiYG-cvd-sim-1.png", width = 100%></img>
+
+---
+
+## Consider using the Okabe-Ito scale for categorical data
+
+.center[
+<img src = "dataviz/pitfalls_of_color_use_files/figure-html/palette-Okabe-Ito-1.png", width = 100%></img>
+]
+
+.tiny-font[
+Name           | Hex code &nbsp;&nbsp; | R, G, B (0-255)
+:----------    | :-------  | :--------
+orange         | #E69F00   | 230, 159, 0
+sky blue	     | #56B4E9   | 86, 180, 233
+bluish green   | #009E73   | 0, 158, 115
+yellow	       | #F0E442   | 240, 228, 66
+blue	         | #0072B2   | 0, 114, 178
+vermilion	     | #D55E00   | 213, 94, 0
+reddish purple | #CC79A7   | 204, 121, 167
+black	         | #000000   | 0, 0, 0
+]
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+
+---
+
+## CVD is worse for thin lines and tiny dots
+
+.move-up-1em.center[
+<img src = "dataviz/pitfalls_of_color_use_files/figure-html/colors-thin-lines-1.png", width = 65%></img>
+]
+
+---
+
+## When in doubt, run CVD simulations
+
+<div class = "move-up-1em" style = "width: 50%; box-shadow: 3px 5px 3px 1px #00000080; padding: 8px;">
+.small-font[Original]<br>
+<img src = "dataviz/redundant_coding_files/figure-html/iris-scatter-three-shapes-1.png", width = 100%></img>
+</div>
+
+???
+
+Figure from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+---
+
+## When in doubt, run CVD simulations
+
+<div class = "move-up-1em" style = "width: 50%; box-shadow: 3px 5px 3px 1px #00000080; padding: 8px;">
+.small-font[Original]<br>
+<img src = "dataviz/redundant_coding_files/figure-html/iris-scatter-three-shapes-1.png", width = 100%></img>
+</div>
+
+<img src = "dataviz/redundant_coding_files/figure-html/iris-scatter-three-shapes-cvd-1.png", width = 60% style = "position: absolute; top: 22%; left: 30%; box-shadow: 3px 5px 3px 1px #00000080; padding: 16px 8px 8px 16px; background: white"></img>
+
+???
+
+Figures from [Claus O. Wilke. Fundamentals of Data Visualization. O'Reilly, 2019.](https://clauswilke.com/dataviz)
+
+[//]: # "segment ends here"
+
+
+---
+
+## Further reading
+
+- Fundamentals of Data Visualization: [Chapter 19: Common pitfalls of color use](https://clauswilke.com/dataviz/color-pitfalls.html)
+- Wikipedia: [HSL and HSV](https://en.wikipedia.org/wiki/HSL_and_HSV)
+- **colorspace** package documentation: [Color Spaces](https://colorspace.r-forge.r-project.org/articles/color_spaces.html)
+- **colorspace** package documentation: [Apps for Choosing Colors and Palettes Interactively](https://colorspace.r-forge.r-project.org/articles/hclwizard.html)
+
