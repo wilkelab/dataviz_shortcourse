@@ -181,7 +181,81 @@ We see that the patterns are also applied to the legend. I would not normally wa
 
 ## 2. Isotype plots
 
-text here
+```{r}
+make_img_pattern <- function(img) {
+  pattern(
+    rasterGrob(
+      png::readPNG(img),
+      width = unit(10, "mm"),
+      height = unit(10, "mm"),
+      interpolate = FALSE,
+      vp = viewport(
+        x = 0,
+        just = "left"
+      )
+    ),
+    width = unit(10, "mm"),
+    height = unit(100, "mm"),
+    x = 0.5,
+    extend = "repeat",
+    group = FALSE
+  )
+}
+
+patterns <- map(
+  c( # order has to be from bottom to top alon y axis
+    "images/bird.png",
+    "images/fish.png",
+    "images/cat.png",
+    "images/dog.png"
+  ),
+  make_img_pattern
+)
+
+# source: 2012 U.S. Pet Ownership & Demographics Sourcebook,
+# American Veterinary Medical Association
+pet_ownership <- read.table(text = "pet  households
+dogs 43346000
+cats 36117000
+fish	7738000
+birds 3671000
+", header = TRUE)
+
+pet_ownership |>
+  mutate(
+    pet = fct_reorder(pet, households)
+  ) |>
+  ggplot() +
+  aes(y = pet, x = households, fill = pet) +
+  geom_col() +
+  geom_label(
+    aes(label = paste0(signif(households*1e-6, 2), "M")),
+    hjust = 0,
+    vjust = 0.5,
+    nudge_x = .1e6,
+    size = 14,
+    size.unit = "pt",
+    label.size = 0, # no label outline
+    label.padding = unit(2, "pt"),
+    fill = "#FFFFFF"
+  ) +
+  scale_x_continuous(
+    limits = 1e6*c(0, 49),
+    breaks = 1e7*(0:4),
+    labels = c("0", paste0(10*(1:4), "M")),
+    name = "households",
+    expand = c(0, 0)
+  ) +
+  scale_y_discrete(
+    name = NULL
+  ) +
+  scale_fill_manual(
+    values = patterns,
+    guide = "none"
+  ) +
+  theme_minimal_vgrid(rel_small = 1)
+
+```
 
 ## Exercises
 
