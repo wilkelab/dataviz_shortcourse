@@ -16,7 +16,7 @@ Install the required packages:
 # You need to do this only once.
 install.packages(
   c(
-    "tidyverse", 
+    "tidyverse", "colorspace", "cowplot"
   )
 )
 ```
@@ -30,6 +30,8 @@ By default, ggplot places legend entries in alphabetical order, and that is rare
 #| warning = FALSE
 
 library(tidyverse)
+library(colorspace)
+library(cowplot)     # for theme functions
 
 tech_stocks <- read_csv("https://wilkelab.org/dataviz_shortcourse/datasets/tech_stocks.csv") |>
   mutate(date = ymd(date)) |>
@@ -105,4 +107,72 @@ ggplot(tech_stocks) +
   guides(color = "none")
 ```
 
+## Exercises
+
+```{r}
+#| message = FALSE
+
+preprints <- read_csv("https://wilkelab.org/dataviz_shortcourse/datasets/preprints.csv") |>
+  filter(archive %in% c("bioRxiv", "arXiv q-bio")) %>%
+  filter(count > 0)
+```
+
+```{r}
+preprints_final <- filter(preprints, date == max(date))
+
+ggplot(preprints) +
+  aes(date, count, color = archive) + 
+  geom_line(linewidth = 0.75) +
+  scale_y_log10(
+    limits = c(29, 1600),
+    breaks = c(30, 100, 300, 1000),
+    expand = c(0, 0),
+    name = "preprints / month",
+    sec.axis = dup_axis(
+      breaks = preprints_final$count,
+      labels = preprints_final$archive,
+      name = NULL
+    )
+  ) + 
+  scale_x_date(name = "year", expand = c(0, 0)) +
+  scale_color_manual(values = c("#D55E00", "#0072B2"), guide = "none") +
+  theme_minimal_grid() +
+  theme(
+    axis.ticks.y.right = element_blank(),
+    axis.text.y.right = element_text(
+      size = 14,
+      margin = margin(0, 0, 0, 0)
+    )
+  )
+```
+
 ## 2. Legend placement
+
+```{r}
+ggplot(mtcars) +
+  aes(disp, mpg, fill = hp, shape = factor(cyl), size = wt) + 
+  geom_point(color = "white") +
+  scale_shape_manual(values = c(23, 24, 21), name = "cylinders") +
+  scale_fill_continuous_sequential(
+    palette = "Emrld", name = "power (hp)",
+    breaks = c(100, 200, 300),
+    rev = FALSE
+  ) +
+  xlab("displacement (cu. in.)") +
+  ylab("fuel efficiency (mpg)") +
+  guides(
+    shape = guide_legend(override.aes = list(size = 4, fill = "#329D84")),
+    size = guide_legend(override.aes = list(shape = 21, fill = "#329D84"),
+    title = "weight (1000 lbs)")
+  ) +
+  theme_half_open() + 
+  background_grid() +
+  theme(
+    #legend.title = element_text(size = 12),
+    legend.box.background = element_rect(fill = "white", color = "white"),
+    legend.position = "inside",
+    legend.direction = "horizontal",
+    legend.justification = "center",
+    legend.box.margin = margin(7, 7, 7, 7)
+  )
+```
