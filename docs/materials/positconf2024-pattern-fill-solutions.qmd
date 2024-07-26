@@ -1,6 +1,6 @@
 ---
 title: "Effective Data Visualization with ggplot2"
-subtitle: "Gradient and pattern fills"
+subtitle: "Gradient and pattern fills, solutions to exercises"
 format: html
 editor: visual
 knitr:
@@ -24,7 +24,127 @@ library(sf)
 
 1.  Make your own gradient for a plot with gradient fill. Try both a linear gradient (made with `grid::linearGradient()`) and a radial gradient (made with `grid::radialGradient()`). Try different colors, gradient directions, and other modifications these functions allow you to make.
 
+```{r}
+# define a linear gradient object
+inferno_gradient <- linearGradient(
+  # colors created with viridisLite::inferno(5)
+  colours = c("#000004FF", "#56106EFF", "#BB3754FF", "#F98C0AFF", "#FCFFA4FF"),
+  # gradient runs diagonally
+  x1 = 0, y1 = 1,  
+  x2 = 1, y2 = 0,
+  group = FALSE 
+)
+
+ggplot(economics, aes(date, unemploy)) +
+  geom_area(fill = inferno_gradient, alpha = 0.5) +
+  geom_line() +
+  scale_x_date(
+    name = NULL,
+    expand = expansion(mult = c(0, 0))
+  ) +
+  scale_y_continuous(
+    name = "unemployed (thousands)",
+    expand = expansion(mult = c(0, 0.05))
+  ) +
+  theme_minimal_hgrid()
+
+# define a radial gradient object
+radial_inferno <- radialGradient(
+  colours = rev(c("#000004FF", "#56106EFF", "#BB3754FF", "#F98C0AFF", "#FCFFA4FF")),
+  cx1 = 0.55, cx2 = 0.55,
+  cy1 = 0.25, cy2 = 0.25,
+  group = FALSE 
+)
+
+ggplot(economics, aes(date, unemploy)) +
+  geom_area(fill = radial_inferno, alpha = 0.5) +
+  geom_line() +
+  scale_x_date(
+    name = NULL,
+    expand = expansion(mult = c(0, 0))
+  ) +
+  scale_y_continuous(
+    name = "unemployed (thousands)",
+    expand = expansion(mult = c(0, 0.05))
+  ) +
+  theme_minimal_hgrid()
+```
+
 2.  Make your own patterns for the bar plot with pattern fill.
+
+```{r}
+crosshatch1 <- pattern(
+  grobTree(
+    rectGrob(gp = gpar(fill = "#FAFEF0C0", col = NA)),
+    segmentsGrob(
+      x0 = c(0, 0.5), y0 = c(0, 0),
+      x1 = c(0.5, 1), y1 = c(1, 1),
+      gp = gpar(col = "#182124", lwd = 1.5)
+    ),
+    vp = viewport(width = unit(5, "mm"), height = unit(5, "mm"))
+  ),
+  width = unit(5, "mm"), height = unit(5, "mm"),
+  extend = "repeat"
+)
+
+crosshatch2 <- pattern(
+  grobTree(
+    rectGrob(gp = gpar(fill = "#F0FAFEC0", col = NA)),
+    segmentsGrob(
+      x0 = c(0, 0), y0 = c(0.25, 0.75),
+      x1 = c(1, 1), y1 = c(0.25, 0.75),
+      gp = gpar(col = "#182124", lwd = 1.5)
+    ),
+    vp = viewport(width = unit(5, "mm"), height = unit(5, "mm"))
+  ),
+  width = unit(5, "mm"), height = unit(5, "mm"),
+  extend = "repeat"
+)
+
+crosshatch3 <- pattern(
+  grobTree(
+    rectGrob(gp = gpar(fill = "#FEF0FAC0", col = NA)),
+    segmentsGrob(
+      x0 = c(0, 0.5), y0 = c(1, 1),
+      x1 = c(0.5, 1), y1 = c(0, 0),
+      gp = gpar(col = "#182124", lwd = 1.5)
+    ),
+    vp = viewport(width = unit(5, "mm"), height = unit(5, "mm"))
+  ),
+  width = unit(5, "mm"), height = unit(5, "mm"),
+  extend = "repeat"
+)
+
+patterns <- list(
+  crosshatch1, crosshatch2, crosshatch3
+)
+
+penguins |>
+  count(species) |>
+  mutate(species = fct_reorder(species, n)) |>
+  ggplot(aes(n, species, fill = species)) + 
+  geom_col(color = "gray30", linewidth = 0.3) +
+  scale_fill_manual(
+    name = NULL,
+    # here we're using patterns instead of colors
+    values = patterns,
+    guide = guide_legend(
+      position = "bottom",
+      reverse = TRUE
+    )
+  ) +
+  scale_x_continuous(
+    name = "count",
+    expand = expansion(mult = c(0, 0.05))
+  ) +
+  scale_y_discrete(
+    name = NULL
+  ) +
+  theme_minimal_vgrid(
+    color = "gray30",
+    line_size = 0.3
+  )
+```
 
 ## Solutions, Section 2
 
@@ -207,4 +327,58 @@ pet_ownership |>
 
 2.  Recreate the pet ownership isotype plot with ggpattern.
 
-## 
+```{r}
+#| warning = FALSE
+library(ggpattern)
+
+pet_images <- c(
+  "https://wilkelab.org/dataviz_shortcourse/images/bird.png",
+  "https://wilkelab.org/dataviz_shortcourse/images/fish.png",
+  "https://wilkelab.org/dataviz_shortcourse/images/cat.png",
+  "https://wilkelab.org/dataviz_shortcourse/images/dog.png"
+)
+
+pet_ownership |>
+  mutate(
+    pet = fct_reorder(pet, households)
+  ) |>
+  ggplot() +
+  aes(y = pet, x = households) +
+  geom_col_pattern(
+    aes(
+      pattern_filename = pet
+    ), 
+    pattern         = 'image',
+    pattern_type    = 'tile',
+    fill            = 'white', 
+    colour          = NA,
+    pattern_filter  = 'box',
+    pattern_scale   = -2
+  ) +
+  geom_label(
+    aes(label = paste0(signif(households*1e-6, 2), "M")),
+    vjust = 0.5,
+    hjust = 0,
+    nudge_x = .1e6,
+    size = 14,
+    size.unit = "pt",
+    label.size = 0, # no label outline
+    label.padding = unit(2, "pt"),
+    fill = "#FFFFFF"
+  ) +
+  scale_x_continuous(
+    limits = 1e6*c(0, 49),
+    breaks = 1e7*(0:4),
+    labels = c("0", paste0(10*(1:4), "M")),
+    name = "households",
+    expand = c(0, 0)
+  ) +
+  scale_y_discrete(
+    name = NULL
+  ) +
+  scale_pattern_filename_discrete(
+    choices = pet_images,
+    guide = "none"
+  ) +
+  theme_minimal_hgrid(rel_small = 1)
+```
