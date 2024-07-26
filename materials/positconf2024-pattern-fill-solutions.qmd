@@ -207,4 +207,58 @@ pet_ownership |>
 
 2.  Recreate the pet ownership isotype plot with ggpattern.
 
-## 
+```{r}
+#| warning = FALSE
+library(ggpattern)
+
+pet_images <- c(
+  "https://wilkelab.org/dataviz_shortcourse/images/bird.png",
+  "https://wilkelab.org/dataviz_shortcourse/images/fish.png",
+  "https://wilkelab.org/dataviz_shortcourse/images/cat.png",
+  "https://wilkelab.org/dataviz_shortcourse/images/dog.png"
+)
+
+pet_ownership |>
+  mutate(
+    pet = fct_reorder(pet, households)
+  ) |>
+  ggplot() +
+  aes(y = pet, x = households) +
+  geom_col_pattern(
+    aes(
+      pattern_filename = pet
+    ), 
+    pattern         = 'image',
+    pattern_type    = 'tile',
+    fill            = 'white', 
+    colour          = NA,
+    pattern_filter  = 'box',
+    pattern_scale   = -2
+  ) +
+  geom_label(
+    aes(label = paste0(signif(households*1e-6, 2), "M")),
+    vjust = 0.5,
+    hjust = 0,
+    nudge_x = .1e6,
+    size = 14,
+    size.unit = "pt",
+    label.size = 0, # no label outline
+    label.padding = unit(2, "pt"),
+    fill = "#FFFFFF"
+  ) +
+  scale_x_continuous(
+    limits = 1e6*c(0, 49),
+    breaks = 1e7*(0:4),
+    labels = c("0", paste0(10*(1:4), "M")),
+    name = "households",
+    expand = c(0, 0)
+  ) +
+  scale_y_discrete(
+    name = NULL
+  ) +
+  scale_pattern_filename_discrete(
+    choices = pet_images,
+    guide = "none"
+  ) +
+  theme_minimal_hgrid(rel_small = 1)
+```
