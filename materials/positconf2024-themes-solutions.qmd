@@ -1,0 +1,63 @@
+---
+title: "Effective Data Visualization with ggplot2"
+subtitle: "Plot design with themes and axes, solutions to exercises"
+format: html
+editor: visual
+---
+
+## Solutions, Section 1
+
+Add appropriate themes and axis expansions to the following plots.
+
+```{r}
+#| message = FALSE
+library(tidyverse)
+library(cowplot)
+
+ggplot(economics) +
+  aes(date, psavert) +
+  geom_line() +
+  scale_x_continuous(
+    expand = c(0, 0)
+  ) +
+  theme_minimal_hgrid()
+```
+
+```{r}
+ggplot(diamonds, aes(price)) +
+  geom_density(fill = "#0072B280") +
+  facet_wrap(~cut) +
+  theme_minimal_grid(12) +
+  scale_x_continuous(
+    expand = c(0, 0)
+  ) +
+  scale_y_continuous(
+    expand = expansion(mult = c(0, 0.05))
+  ) +
+  panel_border("gray40")
+```
+
+```{r}
+library(gapminder)
+
+gapminder |>
+  filter(
+    year == 2007,
+    continent == "Americas"
+  ) |>
+  mutate(
+    country = fct_reorder(country, lifeExp)
+  ) |>
+  ggplot(aes(lifeExp, country)) + 
+  geom_point() +
+  scale_y_discrete(name = NULL) +
+  theme_minimal_grid(12, rel_small = 1)
+```
+
+```{r}
+ggplot(mtcars) +
+  aes(hp, mpg) +
+  geom_point() +
+  theme_half_open() +
+  background_grid()
+```
