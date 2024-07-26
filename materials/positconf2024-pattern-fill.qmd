@@ -303,76 +303,6 @@ counties |>
 
 Use side-by-side bar plots instead of pie charts.
 
-Solution: First we generate the patterns.
-
-```{r}
-make_bar_plot <- function(data) {
-  data |>
-    mutate(
-      party = fct_relevel(party, 'republican', 'democratic', 'other')
-    ) |>
-    ggplot() +
-    aes("", votes, fill = party) +
-    geom_col(color = "black", linewidth = 0.2, position = "dodge") +
-    scale_fill_manual(
-      values = c(democratic = '#4B77D0', republican = '#DB4940', other = "gray70"),
-      guide = "none"
-    ) +
-    theme_void()
-}
-
-make_bar_pattern <- function(data) {
-  p <- make_bar_plot(data)
-  pattern(
-    ggplotGrob(p),
-    extend = "none",
-    group = FALSE
-  )
-}
-
-vote_bars <- votes_long |>
-  filter(state == "WY") |>
-  select(-state) |>
-  nest(data = -fips) |>
-  mutate(
-    bar_pattern = map(data, make_bar_pattern),
-    vote_total = map_dbl(data, ~sum(.x$votes))
-  ) |>
-  select(-data)
-
-
-```
-
-Then we make the plot.
-
-```{r}
-counties |>
-  filter(state == "WY") |>
-  mutate( # calculate reference point for each county
-    points = st_point_on_surface(st_zm(geometry)),
-    county_x = st_coordinates(points)[, "X"],
-    county_y = st_coordinates(points)[, "Y"]
-  ) |>
-  left_join(vote_bars, by = "fips") |>
-  mutate( # calculate plot scale
-    scale = 1.2 * vote_total,
-  ) |>
-  ggplot() +
-  geom_sf(color = "gray40", fill = "gray95", linewidth = 0.2) +
-  geom_rect(
-    aes(
-      geometry = geometry,
-      xmin = county_x - 25000,
-      xmax = county_x + 25000,
-      ymin = county_y - .5 * scale,
-      ymax = county_y + 1.5 * scale,
-      fill = bar_pattern
-    ),
-    stat = "sf_coordinates"
-  ) +
-  theme_void()
-```
-
 ## 3. Isotype plots
 
 Because patterns can consist of any grid graphics ojbects, we can also turn images into patterns. This allows us to make isotype plots, where a data value is represented by an iconic image.
@@ -394,7 +324,6 @@ make_img_pattern <- function(img) {
     ),
     width = unit(10, "mm"),
     height = unit(100, "mm"), # extra height to avoid vertical image replication
-    x = 0.5,
     extend = "repeat",
     group = FALSE
   )

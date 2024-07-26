@@ -32,7 +32,7 @@ Materials for posit::conf(2024) workshop, [Monday, Aug. 12, 9am](https://reg.con
 ### 4. Gradient and pattern fills
 
 - Worksheet: [[html]](positconf2024-pattern-fill.html) [[qmd]](positconf2024-pattern-fill.qmd)
-
+- Solutions: [[html]](positconf2024-pattern-fill-solutions.html) 
 
 ## Reuse {.appendix}
 
