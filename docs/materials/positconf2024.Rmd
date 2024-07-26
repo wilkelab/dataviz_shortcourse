@@ -24,7 +24,12 @@ Materials for posit::conf(2024) workshop, [Monday, Aug. 12, 9am](https://reg.con
 - Worksheet: [[html]](positconf2024-themes.html) [[qmd]](positconf2024-themes.qmd)
 
 
-### 3. Gradient and pattern fills
+### 3. Sprucing up your legends
+
+- Worksheet: [[html]](positconf2024-legends.html) [[qmd]](positconf2024-legends.qmd)
+- Solutions: [[html]](positconf2024-legends-solutions.html) 
+
+### 4. Gradient and pattern fills
 
 - Worksheet: [[html]](positconf2024-pattern-fill.html) [[qmd]](positconf2024-pattern-fill.qmd)
 
