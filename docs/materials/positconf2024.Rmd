@@ -18,7 +18,13 @@ Materials for posit::conf(2024) workshop, [Monday, Aug. 12, 9am](https://reg.con
 - Slides: [[html]](positconf2024-slides-colors.html)
 - Exercises: [[html]](positconf2024-colors.html) [[qmd]](positconf2024-colors.qmd)
 
-### 2. Gradient and pattern fills
+
+### 2. Plot design with themes and axes
+
+- Worksheet: [[html]](positconf2024-themes.html) [[qmd]](positconf2024-themes.qmd)
+
+
+### 3. Gradient and pattern fills
 
 - Worksheet: [[html]](positconf2024-pattern-fill.html) [[qmd]](positconf2024-pattern-fill.qmd)
 

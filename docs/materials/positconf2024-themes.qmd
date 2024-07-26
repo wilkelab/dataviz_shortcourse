@@ -1,0 +1,177 @@
+---
+title: "Effective Data Visualization with ggplot2"
+subtitle: "Plot design with themes and axes"
+format: html
+editor: visual
+---
+
+## Required packages
+
+Install the required packages:
+
+```{r}
+#| eval = FALSE
+
+# Run this command to install the required packages.
+# You need to do this only once.
+install.packages(
+  c(
+    "tidyverse", "cowplot", "palmerpenguins", "gapminder"
+  )
+)
+```
+
+## 1. Plot themes and axis expansions
+
+The cowplot package contains a set of themes that are all consistent with each other and work for different styles of plots. I have found from experience making tens of thousands of plots that there isn't one single theme that works for all plots.
+
+My themes follow a set of uniform design choices:
+
+-   Larger default font sizes
+-   No minor grid lines shown by default
+-   Light-gray grid lines that are unintrusive
+-   Black axis labels that are high contrast and easy to read
+
+You don't have to agree with my design choices or use my themes, but I hope that the issues I'm bringing up here will help you picking the right theme for your plots
+
+Let's make a simple plot and apply the various theme functions.
+
+```{r}
+#| message = FALSE
+
+library(tidyverse)
+library(palmerpenguins)  # for `penguins` dataset
+library(cowplot)         # for theme functions
+
+p <- ggplot(penguins) +
+  aes(body_mass_g, bill_length_mm, color = species) +
+  geom_point(na.rm = TRUE)
+
+p
+```
+
+Classic style with axis lines and no grid:
+
+```{r}
+p + theme_half_open()
+```
+
+Minimal grid:
+
+```{r}
+p + theme_minimal_grid()
+```
+
+Minimal grid, horizontal lines only:
+
+```{r}
+p + theme_minimal_hgrid()
+```
+
+Minimal grid, vertical lines only:
+
+```{r}
+p + theme_minimal_vgrid()
+```
+
+The horizontal and vertical grids are useful for plots that have a primary data direction:
+
+```{r}
+ggplot(penguins) +
+  geom_bar(aes(x = species)) + theme_minimal_hgrid()
+
+ggplot(penguins) +
+  geom_bar(aes(y = species)) + theme_minimal_vgrid()
+```
+
+There are also two convenience functions, `background_grid()` and `panel_border()`, that make it easy to add/remove/customize the background grid or the panel border of a plot. The same effect can be achieved with `theme()` but may require a little more mental effort.
+
+Example 1: Classic style with axis lines but now with grid added.
+
+```{r}
+p + theme_half_open() + background_grid() 
+```
+
+Example 2: Plot with background grid and panel border.
+
+```{r}
+p + theme_minimal_grid() + panel_border() 
+```
+
+Panel borders will in general be necessary in faceted plots, as otherwise the facets are not clearly separated and seem to run into each other.
+
+```{r}
+p <- ggplot(penguins) +
+  aes(body_mass_g, bill_length_mm) +
+  geom_point(na.rm = TRUE) +
+  facet_wrap(~species)
+
+p + theme_minimal_grid(12)
+p + theme_minimal_grid(12) + panel_border('grey40')
+```
+
+Some themes work poorly with the default ggplot2 axis expansion, which adds some extra space on both sides of each axis. In particular for density plots and bar charts, this can lead to an ugly space between the axis line and the plotted data and should be disabled.
+
+```{r}
+p <- ggplot(penguins) +
+  aes(x = bill_length_mm, fill = species) +
+  geom_density(na.rm = TRUE, alpha = 0.7) + 
+  theme_minimal_hgrid()
+
+p
+
+p + 
+  scale_y_continuous(
+    expand = expansion(mult = c(0, 0.05))
+  )
+```
+
+```{r}
+p <- ggplot(penguins) +
+  geom_bar(aes(y = species)) + 
+  theme_minimal_vgrid()
+
+p
+
+p + 
+  scale_x_continuous(
+    expand = expansion(mult = c(0, 0.05))
+  )
+```
+
+## Exercises
+
+Add appropriate themes and axis expansions to the following plots.
+
+```{r}
+ggplot(economics) +
+  aes(date, psavert) +
+  geom_line()
+```
+
+```{r}
+ggplot(diamonds, aes(price)) +
+  geom_density(fill = "#0072B280") +
+  facet_wrap(~cut)
+```
+
+```{r}
+library(gapminder)
+
+gapminder |>
+  filter(
+    year == 2007,
+    continent == "Americas"
+  ) |>
+  mutate(
+    country = fct_reorder(country, lifeExp)
+  ) |>
+  ggplot(aes(lifeExp, country)) + 
+  geom_point()
+```
+
+```{r}
+ggplot(mtcars) +
+  aes(hp, mpg) +
+  geom_point()
+```

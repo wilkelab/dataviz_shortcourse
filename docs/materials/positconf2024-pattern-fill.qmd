@@ -458,10 +458,11 @@ pet_ownership |>
   theme_minimal_vgrid(rel_small = 1)
 ```
 
-Unfortunately this is not quite what we wanted. The images are centered within the bar rather than aligned to one side. There doesn't currently seem to be a way to fix this, so we may have to go back to ggpattern.
+Unfortunately this is not quite what we wanted. The images are centered within the bar rather than aligned to one side. There doesn't currently seem to be a way to fix this, so we may have to go back to ggpattern (see exercises).
 
 ## Exercises
 
 1.  Create a version of the pet ownership isotype plot where bars run vertical instead of horizontal.
+2.  Recreate the pet ownership isotype plot with ggpattern.
 
 ## 
