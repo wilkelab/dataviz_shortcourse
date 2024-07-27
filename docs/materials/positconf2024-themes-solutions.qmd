@@ -97,3 +97,30 @@ ggplot(diamonds, aes(price)) +
   ) +
   panel_border("gray40")
 ```
+
+Adjust the minor grid lines in this plot to match the log ticks.
+
+```{r}
+# made-up data that follows exponential growth
+exp_data <- tibble(x = 0:40) |>
+  mutate(
+    y = exp(0.08 * x + 0.1 * rnorm(length(x)))
+  )
+
+ggplot(exp_data, aes(x, y)) +
+  geom_point() +
+  theme_bw() +
+  scale_y_log10(
+    # sometimes the simplest solution
+    # is a quick manual fix
+    minor_breaks = c(
+      .8, .9, 2, 4, 5, 6, 7, 8, 9, 20
+    ),
+    guide = guide_axis_logticks(
+      # make major and minor ticks all the same length
+      long = 1,
+      mid = 1,
+      short = 1
+    )
+  )
+```
