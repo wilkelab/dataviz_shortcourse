@@ -61,3 +61,37 @@ ggplot(mtcars) +
   theme_half_open() +
   background_grid()
 ```
+
+## Exercises
+
+Convert this plot to base-R style with capped axes.
+
+```{r}
+ggplot(penguins) +
+  aes(body_mass_g, bill_length_mm, color = species) +
+  geom_point(na.rm = TRUE) +
+  theme_half_open() +
+  guides(
+    x = guide_axis(cap = "both"),
+    y = guide_axis(cap = "both")
+  )
+```
+
+In a previous exercise you styled this plot. See if you can improve your design with the new axis options for faceted plots.
+
+```{r}
+ggplot(diamonds, aes(price)) +
+  geom_density(fill = "#0072B280") +
+  facet_wrap(
+    ~cut,
+    axes = "all_x"
+  ) +
+  theme_minimal_grid(12) +
+  scale_x_continuous(
+    expand = c(0, 0)
+  ) +
+  scale_y_continuous(
+    expand = expansion(mult = c(0, 0.05))
+  ) +
+  panel_border("gray40")
+```
