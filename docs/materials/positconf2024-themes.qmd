@@ -175,3 +175,100 @@ ggplot(mtcars) +
   aes(hp, mpg) +
   geom_point()
 ```
+
+## 2. New axis features in ggplot2 3.5.0
+
+In ggplot2 3.5.0, the axis rendering system was refactored, and this has allowed for a broader range of axis styling features.
+
+First, we can now draw truncated axis lines as in base R.
+
+```{r}
+p <- ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  theme_half_open()
+
+# default rendering of full axis lines
+p
+
+# capped axes; try also options "upper" and "lower"
+p + guides(
+  x = guide_axis(cap = "both"),
+  y = guide_axis(cap = "both")
+)
+```
+
+Second, we now have more flexibility over whether or not axis ticks and labels are shown on individual axes in faceted plots.
+
+```{r}
+p <- ggplot(mpg, aes(displ, hwy)) +
+  geom_point()
+
+# default ggplot2 style, no ticks or labels on internal facets
+p + facet_grid(year ~ drv)
+
+# both ticks and labels on all axes on all facets
+p + facet_grid(year ~ drv, axes = "all")
+
+# ticks on all axes on all facets, but labels only on y axes
+p + facet_grid(year ~ drv, axes = "all", axis.labels = "all_y")
+```
+
+For logarithmic axes, there is a new guide `guide_axis_logticks()` that places minor ticks with log spacing.
+
+```{r}
+# made-up data that follows exponential growth
+data <- tibble(x = 0:40) |>
+  mutate(
+    y = exp(0.08 * x + 0.1 * rnorm(length(x)))
+  )
+
+ggplot(data, aes(x, y)) +
+  geom_point() +
+  theme_bw() +
+  scale_y_log10(
+    guide = guide_axis_logticks(
+      # make major and minor ticks all the same length
+      long = 1,
+      mid = 1,
+      short = 1
+    )
+  )
+```
+
+However, as you can see, the axis ticks don't line up with the minor grid lines. Therefore, it is best to just turn off the minor grid lines.
+
+```{r}
+ggplot(data, aes(x, y)) +
+  geom_point() +
+  theme_bw() +
+  scale_y_log10(
+    guide = guide_axis_logticks(
+      # make major and minor ticks all the same length
+      long = 1,
+      mid = 1,
+      short = 1
+    )
+  ) +
+  theme(
+    panel.grid.minor = element_blank()
+  )
+```
+
+## Exercises
+
+Convert this plot to base-R style with capped axes.
+
+```{r}
+ggplot(penguins) +
+  aes(body_mass_g, bill_length_mm, color = species) +
+  geom_point(na.rm = TRUE) +
+  theme_half_open()
+```
+
+In a previous exercise you styled this plot. See if you can improve your design with the new axis options for faceted plots.
+
+```{r}
+ggplot(diamonds, aes(price)) +
+  geom_density(fill = "#0072B280") +
+  facet_wrap(~cut)
+```

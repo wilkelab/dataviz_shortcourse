@@ -213,7 +213,7 @@ p + facet_grid(year ~ drv, axes = "all")
 p + facet_grid(year ~ drv, axes = "all", axis.labels = "all_y")
 ```
 
-log-ticks
+For logarithmic axes, there is a new guide `guide_axis_logticks()` that places minor ticks with log spacing.
 
 ```{r}
 # made-up data that follows exponential growth
@@ -224,9 +224,23 @@ data <- tibble(x = 0:40) |>
 
 ggplot(data, aes(x, y)) +
   geom_point() +
-  scale_x_continuous(
-    guide = guide_axis(minor.ticks = TRUE)
-  ) +
+  theme_bw() +
+  scale_y_log10(
+    guide = guide_axis_logticks(
+      # make major and minor ticks all the same length
+      long = 1,
+      mid = 1,
+      short = 1
+    )
+  )
+```
+
+However, as you can see, the axis ticks don't line up with the minor grid lines. Therefore, it is best to just turn off the minor grid lines.
+
+```{r}
+ggplot(data, aes(x, y)) +
+  geom_point() +
+  theme_bw() +
   scale_y_log10(
     guide = guide_axis_logticks(
       # make major and minor ticks all the same length
@@ -235,24 +249,9 @@ ggplot(data, aes(x, y)) +
       short = 1
     )
   ) +
-  theme_minimal() +
   theme(
-    panel.grid.minor = element_blank(),
-    panel.grid.major = element_line(
-      color = "gray50",
-      linewidth = 0.2
-    ),
-    axis.ticks = element_line(
-      color = "black",
-      linewidth = 0.2
-    ),
-    axis.line = element_line(
-      color = "black",
-      linewidth = 0.2
-    ),
-    axis.minor.ticks.length = rel(1)
+    panel.grid.minor = element_blank()
   )
-
 ```
 
 ## Exercises

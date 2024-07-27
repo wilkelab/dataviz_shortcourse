@@ -62,11 +62,13 @@ ggplot(mtcars) +
   background_grid()
 ```
 
-## Exercises
+## Solutions, Section 2
 
 Convert this plot to base-R style with capped axes.
 
 ```{r}
+library(palmerpenguins)
+
 ggplot(penguins) +
   aes(body_mass_g, bill_length_mm, color = species) +
   geom_point(na.rm = TRUE) +
