@@ -13,6 +13,18 @@ knitr::opts_chunk$set(echo = FALSE)
 
 Materials for posit::conf(2024) workshop, [Monday, Aug. 12, 9am](https://reg.conf.posit.co/flow/posit/positconf24/publiccatalog/page/publiccatalog/session/1707334048207001SOYr)
 
+To run all code examples on your own install of R, make sure you have a recent version of R (at least 4.3), a recent version of ggplot2 (at least 3.5.0), and install the following packages:
+
+```r
+install.packages(
+  "tidyverse", "palmerpenguins", "shiny", "shinyjs", "RCurl",
+  "colorspace", "cowplot", "gapminder", "sf", "ragg",
+  "magick", "ggpattern"
+)
+```
+
+Solutions to the problems in the exercise worksheets are provided, but you should not look at these solutions before the workshop and before you have made an honest attempt at completing an exercise on your own.
+
 ### 1. Color scales and color spaces
 
 - Slides: [[html]](positconf2024-slides-colors.html)
