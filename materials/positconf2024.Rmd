@@ -19,7 +19,7 @@ To run all code examples on your own install of R, make sure you have a recent v
 install.packages(
   "tidyverse", "palmerpenguins", "shiny", "shinyjs", "RCurl",
   "colorspace", "cowplot", "gapminder", "sf", "ragg",
-  "magick", "ggpattern"
+  "magick", "ggpattern", "quarto"
 )
 ```
 
