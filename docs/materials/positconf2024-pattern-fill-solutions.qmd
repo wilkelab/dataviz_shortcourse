@@ -22,7 +22,7 @@ library(sf)
 
 ## Solutions, Section 1
 
-1.  Make your own gradient for a plot with gradient fill. Try both a linear gradient (made with `grid::linearGradient()`) and a radial gradient (made with `grid::radialGradient()`). Try different colors, gradient directions, and other modifications these functions allow you to make.
+**Exercise 1.1:** Make your own gradient for a plot with gradient fill. Try both a linear gradient (made with `grid::linearGradient()`) and a radial gradient (made with `grid::radialGradient()`). Try different colors, gradient directions, and other modifications these functions allow you to make.
 
 ```{r}
 # define a linear gradient object
@@ -70,7 +70,7 @@ ggplot(economics, aes(date, unemploy)) +
   theme_minimal_hgrid()
 ```
 
-2.  Make your own patterns for the bar plot with pattern fill.
+**Exercise 1.2:** Make your own patterns for the bar plot with pattern fill.
 
 ```{r}
 crosshatch1 <- pattern(
@@ -177,7 +177,7 @@ counties <- readRDS(url("https://wilkelab.org/dataviz_shortcourse/datasets/US_co
   )
 ```
 
-Use side-by-side bar plots instead of pie charts.
+**Exercise 2.1:** Use side-by-side bar plots instead of pie charts.
 
 Solution: First we generate the patterns.
 
@@ -249,23 +249,21 @@ counties |>
 
 ## Solutions, Section 3
 
-1.  Create a version of the pet ownership isotype plot where bars run vertical instead of horizontal.
+**Exercise 3.1:** Create a version of the pet ownership isotype plot where bars run vertical instead of horizontal.
 
 ```{r}
 make_img_pattern <- function(img) {
   pattern(
     rasterGrob(
+      y = 0, vjust = 0, # needed to bottom-align the images
       magick::image_read(img),
-      width = unit(10, "mm"),
-      height = unit(10, "mm"),
+      width = unit(20, "mm"),
+      height = unit(20, "mm"),
       interpolate = FALSE,
-      vp = viewport(
-        x = 0,
-        just = "left"
-      )
     ),
+    y = 0, vjust = 0, # needed to bottom-align the images
     width = unit(100, "mm"),
-    height = unit(10, "mm"),
+    height = unit(20, "mm"),
     extend = "repeat",
     group = FALSE
   )

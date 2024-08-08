@@ -16,7 +16,8 @@ Install the required packages:
 # You need to do this only once.
 install.packages(
   c(
-    "tidyverse", "cowplot", "palmerpenguins", "gapminder"
+    "tidyverse", "cowplot", "palmerpenguins", "gapminder",
+    "magick"
   )
 )
 ```
@@ -143,17 +144,23 @@ p +
 
 Add appropriate themes and axis expansions to the following plots.
 
+**Exercise 1.1:**
+
 ```{r}
 ggplot(economics) +
   aes(date, psavert) +
   geom_line()
 ```
 
+**Exercise 1.2:**
+
 ```{r}
 ggplot(diamonds, aes(price)) +
   geom_density(fill = "#0072B280") +
   facet_wrap(~cut)
 ```
+
+**Exercise 1.3:**
 
 ```{r}
 library(gapminder)
@@ -169,6 +176,8 @@ gapminder |>
   ggplot(aes(lifeExp, country)) + 
   geom_point()
 ```
+
+**Exercise 1.4:**
 
 ```{r}
 ggplot(mtcars) +
@@ -247,16 +256,14 @@ ggplot(exp_data, aes(x, y)) +
       long = 1,
       mid = 1,
       short = 1
-    )
-  ) +
-  theme(
-    panel.grid.minor = element_blank()
+    ),
+    minor_breaks = NULL
   )
 ```
 
 ## Exercises
 
-Convert this plot to base-R style with capped axes.
+**Exercise 2.1:** Convert this plot to base-R style with capped axes.
 
 ```{r}
 ggplot(penguins) +
@@ -265,7 +272,7 @@ ggplot(penguins) +
   theme_half_open()
 ```
 
-In a previous exercise you styled this plot. See if you can improve your design with the new axis options for faceted plots.
+**Exercise 2.2:** In a previous exercise you styled this plot. See if you can improve your design with the new axis options for faceted plots.
 
 ```{r}
 ggplot(diamonds, aes(price)) +
@@ -273,7 +280,7 @@ ggplot(diamonds, aes(price)) +
   facet_wrap(~cut)
 ```
 
-Adjust the minor grid lines in this plot to match the log ticks.
+**Exercise 2.3:** Adjust the minor grid lines in this plot to match the log ticks.
 
 ```{r}
 ggplot(exp_data, aes(x, y)) +
@@ -288,3 +295,39 @@ ggplot(exp_data, aes(x, y)) +
     )
   )
 ```
+
+## 3. Exporting plots with ggsave()
+
+It is important to understand how plots are formatted when saved with `ggsave()`. In particular, the interplay between font size choices and output dimensions set in `ggsave()` often lead to confusion.
+
+The R graphics system uses absolute size metrics, which means that fonts will not scale relative to the image size. Therefore, if you set a given font size and make the output image smaller the font will appear larger and vice versa. In general, for fonts around 12pt in size image sizes should be somewhere in the range of 3-6 inches.
+
+```{r}
+p <- ggplot(penguins) +
+  aes(body_mass_g, bill_length_mm, color = species) +
+  geom_point(na.rm = TRUE) + 
+  theme_half_open(12) +  # 12pt text size 
+  background_grid()
+
+ggsave("plot_9x6.png", p, width = 9, height = 6, bg = "white")
+ggsave("plot_6x4.png", p, width = 6, height = 4, bg = "white")
+ggsave("plot_4.5x3.png", p, width = 4.5, height = 3, bg = "white")
+```
+
+Let's read these images back in and assess the sizing and font size.
+
+```{r}
+# image too large/font size too small
+magick::image_read("plot_9x6.png")
+# font size appropriate for image dimensions
+magick::image_read("plot_6x4.png")
+# font size appropriate for image dimensions
+magick::image_read("plot_4.5x3.png")
+
+```
+
+## Exercises
+
+**Exercise 3.1:** Take your styled plot from Exercise 1.3 and save it as an image with `ggsave()`.
+
+**Exercise 3.2:** Take your styled plot from Exercise 2.2 and save it as an image with `ggsave()`.

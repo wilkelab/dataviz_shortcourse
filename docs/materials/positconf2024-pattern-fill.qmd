@@ -175,9 +175,9 @@ We see that the patterns are also applied to the legend. I would not normally wa
 
 ## Exercises
 
-1.  Make your own gradient for a plot with gradient fill. Try both a linear gradient (made with `grid::linearGradient()`) and a radial gradient (made with `grid::radialGradient()`). Try different colors, gradient directions, and other modifications these functions allow you to make.
+**Exercise 1.1:** Make your own gradient for a plot with gradient fill. Try both a linear gradient (made with `grid::linearGradient()`) and a radial gradient (made with `grid::radialGradient()`). Try different colors, gradient directions, and other modifications these functions allow you to make.
 
-2.  Make your own patterns for the bar plot with pattern fill.
+**Exercise 1.2:** Make your own patterns for the bar plot with pattern fill.
 
 ## 2. Plots overlaid on a map
 
@@ -301,7 +301,7 @@ counties |>
 
 ### Exercises
 
-Use side-by-side bar plots instead of pie charts.
+**Exercise 2.1:** Use side-by-side bar plots instead of pie charts.
 
 ## 3. Isotype plots
 
@@ -313,16 +313,14 @@ The approach is the same as before. First we write a function that can turn an i
 make_img_pattern <- function(img) {
   pattern(
     rasterGrob(
+      x = 0, hjust = 0, # needed to left-align the images
       magick::image_read(img),
-      width = unit(10, "mm"),
-      height = unit(10, "mm"),
-      interpolate = FALSE,
-      vp = viewport(
-        x = 0,
-        just = "left"
-      )
+      width = unit(20, "mm"),
+      height = unit(20, "mm"),
+      interpolate = FALSE
     ),
-    width = unit(10, "mm"),
+    x = 0, hjust = 0, # needed to left-align the images
+    width = unit(20, "mm"),
     height = unit(100, "mm"), # extra height to avoid vertical image replication
     extend = "repeat",
     group = FALSE
@@ -387,11 +385,12 @@ pet_ownership |>
   theme_minimal_vgrid(rel_small = 1)
 ```
 
-Unfortunately this is not quite what we wanted. The images are centered within the bar rather than aligned to one side. There doesn't currently seem to be a way to fix this, so we may have to go back to ggpattern (see exercises).
+An alternative way to produce a plot like this is with the ggpattern package (see exercises). I'll leave it to you to decide which method you find easier.
 
 ## Exercises
 
-1.  Create a version of the pet ownership isotype plot where bars run vertical instead of horizontal.
-2.  Recreate the pet ownership isotype plot with ggpattern.
+**Exercise 3.1:** Create a version of the pet ownership isotype plot where bars run vertical instead of horizontal.
+
+**Exercise 3.2:** Recreate the pet ownership isotype plot with ggpattern.
 
 ## 

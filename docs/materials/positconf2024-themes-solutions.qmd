@@ -9,6 +9,8 @@ editor: visual
 
 Add appropriate themes and axis expansions to the following plots.
 
+**Exercise 1.1:**
+
 ```{r}
 #| message = FALSE
 library(tidyverse)
@@ -23,6 +25,8 @@ ggplot(economics) +
   theme_minimal_hgrid()
 ```
 
+**Exercise 1.2:**
+
 ```{r}
 ggplot(diamonds, aes(price)) +
   geom_density(fill = "#0072B280") +
@@ -36,6 +40,8 @@ ggplot(diamonds, aes(price)) +
   ) +
   panel_border("gray40")
 ```
+
+**Exercise 1.3:**
 
 ```{r}
 library(gapminder)
@@ -54,6 +60,8 @@ gapminder |>
   theme_minimal_grid(12, rel_small = 1)
 ```
 
+**Exercise 1.4:**
+
 ```{r}
 ggplot(mtcars) +
   aes(hp, mpg) +
@@ -64,7 +72,7 @@ ggplot(mtcars) +
 
 ## Solutions, Section 2
 
-Convert this plot to base-R style with capped axes.
+**Exercise 2.1:** Convert this plot to base-R style with capped axes.
 
 ```{r}
 library(palmerpenguins)
@@ -79,7 +87,7 @@ ggplot(penguins) +
   )
 ```
 
-In a previous exercise you styled this plot. See if you can improve your design with the new axis options for faceted plots.
+**Exercise 2.2:** In a previous exercise you styled this plot. See if you can improve your design with the new axis options for faceted plots.
 
 ```{r}
 ggplot(diamonds, aes(price)) +
@@ -98,7 +106,7 @@ ggplot(diamonds, aes(price)) +
   panel_border("gray40")
 ```
 
-Adjust the minor grid lines in this plot to match the log ticks.
+**Exercise 2.3:** Adjust the minor grid lines in this plot to match the log ticks.
 
 ```{r}
 # made-up data that follows exponential growth
@@ -123,4 +131,48 @@ ggplot(exp_data, aes(x, y)) +
       short = 1
     )
   )
+```
+
+## Solutions, Section 3
+
+**Exercise 3.1:** Take your styled plot from Exercise 1.3 and save it as an image with `ggsave()`.
+
+```{r}
+p <- gapminder |>
+  filter(
+    year == 2007,
+    continent == "Americas"
+  ) |>
+  mutate(
+    country = fct_reorder(country, lifeExp)
+  ) |>
+  ggplot(aes(lifeExp, country)) + 
+  geom_point(size = 2.5) + # need bigger points for balanced look
+  scale_y_discrete(name = NULL) +
+  theme_minimal_grid(12, rel_small = 1)
+
+ggsave("plot_exercise3.1.png", p, width = 6, height = 6, bg = "white")
+magick::image_read("plot_exercise3.1.png")
+```
+
+**Exercise 3.2:** Take your styled plot from Exercise 2.2 and save it as an image with `ggsave()`.
+
+```{r}
+p <- ggplot(diamonds, aes(price)) +
+  geom_density(fill = "#0072B280") +
+  facet_wrap(
+    ~cut,
+    axes = "all_x"
+  ) +
+  theme_minimal_grid(12) +
+  scale_x_continuous(
+    expand = c(0, 0)
+  ) +
+  scale_y_continuous(
+    expand = expansion(mult = c(0, 0.05))
+  ) +
+  panel_border("gray40")
+
+ggsave("plot_exercise3.2.png", p, width = 6, height = 4.5, bg = "white")
+magick::image_read("plot_exercise3.2.png")
 ```
