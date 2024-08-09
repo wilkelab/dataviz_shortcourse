@@ -11,7 +11,7 @@ knitr:
 ## Load required packages
 
 ```{r}
-#| message = FALSE
+#| message: FALSE
 
 library(tidyverse)
 library(grid)
@@ -151,7 +151,7 @@ penguins |>
 Data preparation:
 
 ```{r}
-#| message = FALSE
+#| message: FALSE
 
 # data taken from: https://github.com/john-guerra/US_Elections_Results/tree/master
 votes_2016 <- read_csv("https://wilkelab.org/dataviz_shortcourse/datasets/2016_US_County_Level_Presidential_Results.csv") |>
@@ -326,7 +326,7 @@ pet_ownership |>
 2.  Recreate the pet ownership isotype plot with ggpattern.
 
 ```{r}
-#| warning = FALSE
+#| warning: FALSE
 library(ggpattern)
 
 pet_images <- c(

@@ -10,7 +10,7 @@ editor: visual
 Install the required packages:
 
 ```{r}
-#| eval = FALSE
+#| eval: FALSE
 
 # Run this command to install the required packages.
 # You need to do this only once.
@@ -38,7 +38,7 @@ You don't have to agree with my design choices or use my themes, but I hope that
 Let's make a simple plot and apply the various theme functions.
 
 ```{r}
-#| message = FALSE
+#| message: FALSE
 
 library(tidyverse)
 library(palmerpenguins)  # for `penguins` dataset

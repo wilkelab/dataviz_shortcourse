@@ -13,7 +13,7 @@ knitr:
 Install the required packages:
 
 ```{r}
-#| eval = FALSE
+#| eval: FALSE
 
 # Run this command to install the required packages.
 # You need to do this only once.
@@ -40,7 +40,7 @@ With the release of ggplot 3.5.0, we now have the ability to fill areas with gra
 Let's start with some basic gradient and pattern fills. First we load the required packages.
 
 ```{r}
-#| message = FALSE
+#| message: FALSE
 
 library(tidyverse)
 library(grid)        # for pattern creation
@@ -184,7 +184,7 @@ We see that the patterns are also applied to the legend. I would not normally wa
 We'll be visualizing state-level election results from the 2016 US presidential election. Let's begin with loading the required packages and main data. The data table provides us with the election results for the democratic, republican, and other candidates for each county in the US. Counties are identified by their fips codes.
 
 ```{r}
-#| message = FALSE
+#| message: FALSE
 
 library(sf)          # for manipulating geospatial data
 

@@ -10,7 +10,7 @@ editor: visual
 Install the required packages:
 
 ```{r}
-#| eval = FALSE
+#| eval: FALSE
 
 # Run this command to install the required packages.
 # You need to do this only once.
@@ -27,8 +27,8 @@ install.packages(
 By default, ggplot places legend entries in alphabetical order, and that is rarely what we want. See this example:
 
 ```{r}
-#| message = FALSE,
-#| warning = FALSE
+#| message: FALSE
+#| warning: FALSE
 
 library(tidyverse)
 library(colorspace)
@@ -161,7 +161,7 @@ ggplot(iris) +
 **Exercise 1.1:** Replace the legend in this plot with a secondary axis. Also style the plot.
 
 ```{r}
-#| message = FALSE
+#| message: FALSE
 
 preprints <- read_csv("https://wilkelab.org/dataviz_shortcourse/datasets/preprints.csv") |>
   filter(archive %in% c("bioRxiv", "arXiv q-bio")) |>
@@ -249,7 +249,7 @@ ggplot(mtcars) +
 **Exercise 2.1:** Take the preprint plot from a prior exercise and move the legend inside the plot.
 
 ```{r}
-#| message = FALSE
+#| message: FALSE
 
 preprints <- read_csv("https://wilkelab.org/dataviz_shortcourse/datasets/preprints.csv") |>
   filter(archive %in% c("bioRxiv", "arXiv q-bio")) |>

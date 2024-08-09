@@ -10,7 +10,7 @@ editor: visual
 Install the required packages:
 
 ```{r}
-#| eval = FALSE
+#| eval: FALSE
 
 # Run this command to install the required packages.
 # You need to do this only once.
@@ -27,8 +27,8 @@ install.packages(
 We will create a simple scatter plot using the default ggplot hue scale, test for suitability for people with color-vision deficiency (CVD), and then create our own color palette as a replacement.
 
 ```{r}
-#| message = FALSE,
-#| warning = FALSE
+#| message: FALSE
+#| warning: FALSE
 
 library(tidyverse)
 library(palmerpenguins) # for `penguins` data
@@ -46,7 +46,7 @@ p
 Now check the plot in the CVD simulator. You need to save it as an image file first.
 
 ```{r}
-#| eval = FALSE
+#| eval: FALSE
 
 # save the plot as png file
 ggsave("penguins.png", p, width = 6, height = 4)
@@ -58,7 +58,7 @@ colorspace::cvd_emulator()
 Now create your own categorical color palette using the color chooser app from the colorspace package.
 
 ```{r}
-#| eval = FALSE
+#| eval: FALSE
 
 # run interactively to choose colors
 colorspace::choose_color()
@@ -85,7 +85,7 @@ colorspace::cvd_emulator()
 Now we will create a sequential color palette. We will use the following plot, which shows mean temperatures in four locales in the US.
 
 ```{r}
-#| message = FALSE
+#| message: FALSE
 
 # load and prepare data
 temps_months <- read_csv("https://wilkelab.org/dataviz_shortcourse/datasets/tempnormals.csv") %>%
@@ -117,7 +117,7 @@ ggplot(temps_months, aes(x = month, y = location, fill = mean)) +
 Now create your own sequential color palette using the color chooser app from the colorspace package.
 
 ```{r}
-#| eval = FALSE
+#| eval: FALSE
 
 # run interactively to choose colors
 colorspace::choose_color()

@@ -12,7 +12,7 @@ Add appropriate themes and axis expansions to the following plots.
 **Exercise 1.1:**
 
 ```{r}
-#| message = FALSE
+#| message: FALSE
 library(tidyverse)
 library(cowplot)
 
