@@ -47,3 +47,7 @@ Solutions to the problems in the exercise worksheets are provided, but you shoul
 
 - Worksheet: [[html]](positconf2024-pattern-fill.html) [[qmd]](positconf2024-pattern-fill.qmd)
 - Solutions: [[html]](positconf2024-pattern-fill-solutions.html) 
+
+## Reuse {.appendix}
+
+Text and figures are licensed under Creative Commons Attribution [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Any computer code (R, HTML, CSS, etc.) in slides and worksheets, including in slide and worksheet sources, is also licensed under [MIT](https://github.com/wilkelab/SDS375/LICENSE.md). Note that figures in slides may be pulled in from external sources and may be licensed under different terms.
